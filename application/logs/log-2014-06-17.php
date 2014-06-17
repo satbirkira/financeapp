@@ -269,3 +269,7 @@ DEBUG - 2014-06-17 21:06:01 --> Controller Class Initialized
 DEBUG - 2014-06-17 21:06:01 --> File loaded: application/views/login.php
 DEBUG - 2014-06-17 21:06:01 --> Final output sent to browser
 DEBUG - 2014-06-17 21:06:01 --> Total execution time: 0.0207
+ERROR - 2014-06-17 21:39:07 --> Severity: Notice  --> Array to string conversion /Users/M/Documents/Honours CS/UW Third Year/Spring 2014/CS 446/financeapp/system/helpers/form_helper.php 450
+ERROR - 2014-06-17 21:40:50 --> Severity: Notice  --> Array to string conversion /Users/M/Documents/Honours CS/UW Third Year/Spring 2014/CS 446/financeapp/system/helpers/form_helper.php 450
+ERROR - 2014-06-17 21:42:45 --> Severity: Notice  --> Array to string conversion /Users/M/Documents/Honours CS/UW Third Year/Spring 2014/CS 446/financeapp/system/helpers/form_helper.php 498
+ERROR - 2014-06-17 21:43:46 --> Severity: Notice  --> Array to string conversion /Users/M/Documents/Honours CS/UW Third Year/Spring 2014/CS 446/financeapp/system/helpers/form_helper.php 498

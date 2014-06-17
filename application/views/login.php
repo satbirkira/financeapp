@@ -13,7 +13,7 @@
 		//setup arrays
 		$form = array(
 			'class' => 'form',
-			'id' => 'signin',
+			'id' => 'signin'
 			);
 		$username = array(
               'name'        => 'username',
@@ -21,7 +21,7 @@
 			  'type'		=> 'text',
               'value'       => '',
               'maxlength'   => '11',
-              'size'        => '50',
+              'size'        => '50'
             );
 		$password = array(
               'name'        => 'password',
@@ -29,22 +29,25 @@
 			  'type'		=> 'password',
               'value'       => '',
               'maxlength'   => '11',
-              'size'        => '50',
+              'size'        => '50'
             );
 		$labels = array(
 				'class' 	=> 'label',
-				'style' 	=> 'color: #000;',
+				'style' 	=> 'color: #000;'
 			);
 		$submit = array(
-				'class' 	=> 'submit',
-				'id'		=> 'submit_signin',
+				'name' => 'submit',
+    			'id' => 'submit_sigin',
+    			'value' => 'Submit',
+    			'type' => 'submit',
+    			'content' => 'Submit'
 			);
 		echo form_open('login/signin', $form);
 		echo form_label('Username: ', 'username', $labels);
 		echo form_input($username);
 		echo form_label('Password: ', 'password', $labels);
 		echo form_input($password);
-		echo form_submit('submit', 'Signin', $submit);
+		echo form_button($submit);
 		echo form_close();
 	?>
 </div>
