@@ -182,3 +182,90 @@ DEBUG - 2014-06-17 20:46:42 --> Controller Class Initialized
 DEBUG - 2014-06-17 20:46:42 --> File loaded: application/views/login.php
 DEBUG - 2014-06-17 20:46:42 --> Final output sent to browser
 DEBUG - 2014-06-17 20:46:42 --> Total execution time: 0.0287
+DEBUG - 2014-06-17 21:05:44 --> Config Class Initialized
+DEBUG - 2014-06-17 21:05:44 --> Hooks Class Initialized
+DEBUG - 2014-06-17 21:05:44 --> Utf8 Class Initialized
+DEBUG - 2014-06-17 21:05:44 --> UTF-8 Support Enabled
+DEBUG - 2014-06-17 21:05:44 --> URI Class Initialized
+DEBUG - 2014-06-17 21:05:44 --> Router Class Initialized
+DEBUG - 2014-06-17 21:05:44 --> No URI present. Default controller set.
+DEBUG - 2014-06-17 21:05:44 --> Output Class Initialized
+DEBUG - 2014-06-17 21:05:44 --> Security Class Initialized
+DEBUG - 2014-06-17 21:05:44 --> Input Class Initialized
+DEBUG - 2014-06-17 21:05:44 --> XSS Filtering completed
+DEBUG - 2014-06-17 21:05:44 --> XSS Filtering completed
+DEBUG - 2014-06-17 21:05:44 --> XSS Filtering completed
+DEBUG - 2014-06-17 21:05:44 --> CRSF cookie Set
+DEBUG - 2014-06-17 21:05:44 --> Global POST and COOKIE data sanitized
+DEBUG - 2014-06-17 21:05:44 --> Language Class Initialized
+DEBUG - 2014-06-17 21:05:44 --> Loader Class Initialized
+DEBUG - 2014-06-17 21:05:44 --> Helper loaded: form_helper
+DEBUG - 2014-06-17 21:05:45 --> Database Driver Class Initialized
+DEBUG - 2014-06-17 21:05:45 --> Session Class Initialized
+DEBUG - 2014-06-17 21:05:45 --> Helper loaded: string_helper
+DEBUG - 2014-06-17 21:05:45 --> Encrypt Class Initialized
+DEBUG - 2014-06-17 21:05:45 --> Session routines successfully run
+DEBUG - 2014-06-17 21:05:45 --> Model Class Initialized
+DEBUG - 2014-06-17 21:05:45 --> Model Class Initialized
+DEBUG - 2014-06-17 21:05:45 --> Controller Class Initialized
+DEBUG - 2014-06-17 21:05:45 --> File loaded: application/views/login.php
+DEBUG - 2014-06-17 21:05:45 --> Final output sent to browser
+DEBUG - 2014-06-17 21:05:45 --> Total execution time: 0.0357
+DEBUG - 2014-06-17 21:05:50 --> Config Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> Hooks Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> Utf8 Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> UTF-8 Support Enabled
+DEBUG - 2014-06-17 21:05:50 --> URI Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> Router Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> No URI present. Default controller set.
+DEBUG - 2014-06-17 21:05:50 --> Output Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> Security Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> Input Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> XSS Filtering completed
+DEBUG - 2014-06-17 21:05:50 --> XSS Filtering completed
+DEBUG - 2014-06-17 21:05:50 --> XSS Filtering completed
+DEBUG - 2014-06-17 21:05:50 --> CRSF cookie Set
+DEBUG - 2014-06-17 21:05:50 --> Global POST and COOKIE data sanitized
+DEBUG - 2014-06-17 21:05:50 --> Language Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> Loader Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> Helper loaded: form_helper
+DEBUG - 2014-06-17 21:05:50 --> Database Driver Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> Session Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> Helper loaded: string_helper
+DEBUG - 2014-06-17 21:05:50 --> Encrypt Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> Session routines successfully run
+DEBUG - 2014-06-17 21:05:50 --> Model Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> Model Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> Controller Class Initialized
+DEBUG - 2014-06-17 21:05:50 --> File loaded: application/views/login.php
+DEBUG - 2014-06-17 21:05:50 --> Final output sent to browser
+DEBUG - 2014-06-17 21:05:50 --> Total execution time: 0.0552
+DEBUG - 2014-06-17 21:06:01 --> Config Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> Hooks Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> Utf8 Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> UTF-8 Support Enabled
+DEBUG - 2014-06-17 21:06:01 --> URI Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> Router Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> No URI present. Default controller set.
+DEBUG - 2014-06-17 21:06:01 --> Output Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> Security Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> Input Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> XSS Filtering completed
+DEBUG - 2014-06-17 21:06:01 --> XSS Filtering completed
+DEBUG - 2014-06-17 21:06:01 --> XSS Filtering completed
+DEBUG - 2014-06-17 21:06:01 --> CRSF cookie Set
+DEBUG - 2014-06-17 21:06:01 --> Global POST and COOKIE data sanitized
+DEBUG - 2014-06-17 21:06:01 --> Language Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> Loader Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> Helper loaded: form_helper
+DEBUG - 2014-06-17 21:06:01 --> Database Driver Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> Session Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> Helper loaded: string_helper
+DEBUG - 2014-06-17 21:06:01 --> Encrypt Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> Session routines successfully run
+DEBUG - 2014-06-17 21:06:01 --> Model Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> Model Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> Controller Class Initialized
+DEBUG - 2014-06-17 21:06:01 --> File loaded: application/views/login.php
+DEBUG - 2014-06-17 21:06:01 --> Final output sent to browser
+DEBUG - 2014-06-17 21:06:01 --> Total execution time: 0.0207
