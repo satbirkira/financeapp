@@ -81,7 +81,14 @@
 	$i = 0;
 	while ($record = mysqli_fetch_assoc ($result))
     {
-		echo "Person Number $i:   ID = ". $record['userID'] .", Name = ". $record['userName']. ", Email = ". $record['userEmail'] ."</br>";
-    }
+		echo "==</br>";
+		echo "Person Number $i: ". $record['userName']. "</br>";
+		foreach ($record as $column => $data)
+		{
+			echo "$column : $data</br>";
+			//echo "Person Number $i:   ID = ". $record['userID'] .", Name = ". $record['userName']. ", Email = ". $record['userEmail'] ."</br>";
+		}
+	}
+	
 
 ?>
