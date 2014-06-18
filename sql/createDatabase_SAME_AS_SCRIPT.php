@@ -5,7 +5,7 @@
 	//This adds a example user to the users table
 	//This shows how a selection works on the database
 	
-	//How I ran this using my browser: http://localhost/CodeIgniter_2.2.0/createDatabase.php
+	//How I ran this using my browser: http://localhost/CodeIgniter_2.2.0/sql/createDatabase.php
 
 	//Add to this visual comment so we know if additions to the tables have been made
 	/* Database: finance_app
