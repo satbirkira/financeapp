@@ -51,6 +51,9 @@
 		echo form_close();
 	?>
 </div>
-
+<div>
+<a href="index.php/registration/register">Sign Up</a>
+<a href="#">Forget Password</a>
+</div>
 </body>
 </html>
