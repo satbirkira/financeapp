@@ -134,12 +134,16 @@
 
 	/*
 	
-		Display all users and their data
+		Display table datas
 	
 	*/
+	echo "Displaying Tables..</br>";
 	
 	
-	echo "Selecting Users..</br>";
+	echo "-------------------------------</br>";
+	echo "Displaying Users Table</br>";
+	echo "-------------------------------</br>";
+	
 	$query = "select * from user";
 	$result = mysqli_query($link, $query);
 	if(!$result) die("Could not select users: " . mysqli_error($link));
@@ -147,14 +151,52 @@
 	$i = 0;
 	while ($record = mysqli_fetch_assoc ($result))
     {
-		echo "==</br>";
 		echo "Person Number $i: ". $record['userName']. "</br>";
 		foreach ($record as $column => $data)
 		{
 			echo "$column : $data</br>";
-			//echo "Person Number $i:   ID = ". $record['userID'] .", Name = ". $record['userName']. ", Email = ". $record['userEmail'] ."</br>";
 		}
+		echo "==</br>";
 	}
 	
+	
+	echo "-------------------------------</br>";
+	echo "Displaying Goal Table</br>";
+	echo "-------------------------------</br>";
+	
+	$query = "select * from goal";
+	$result = mysqli_query($link, $query);
+	if(!$result) die("Could not select goals: " . mysqli_error($link));
+
+	$i = 0;
+	while ($record = mysqli_fetch_assoc ($result))
+    {
+		echo "Goal Number $i by : ". $record['userID']. "</br>";
+		foreach ($record as $column => $data)
+		{
+			echo "$column : $data</br>";
+		}
+		echo "==</br>";
+	}
+	
+	
+	echo "-------------------------------</br>";
+	echo "Displaying Account Table</br>";
+	echo "-------------------------------</br>";
+	
+	$query = "select * from account";
+	$result = mysqli_query($link, $query);
+	if(!$result) die("Could not select accounts: " . mysqli_error($link));
+
+	$i = 0;
+	while ($record = mysqli_fetch_assoc ($result))
+    {
+		echo "Account Number $i by : ". $record['userID']. "</br>";
+		foreach ($record as $column => $data)
+		{
+			echo "$column : $data</br>";
+		}
+		echo "==</br>";
+	}
 
 ?>
