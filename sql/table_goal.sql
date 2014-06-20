@@ -5,6 +5,7 @@ CREATE TABLE  `financeapp`.`goal` (
   `goalName` varchar(45) NOT NULL,
   `startDate` DATE NOT NULL,
   `targetDate` DATE NOT NULL,
+  `totalCost` int(10) NOT NULL DEFAULT 0,
   `currentlySaved` int(10) NOT NULL DEFAULT 0,
   `goalDeleted` BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (`goalID`),
