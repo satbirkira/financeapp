@@ -59,11 +59,12 @@
 				<?php echo form_button($submit); ?>
 			</div>
 			<?php echo form_close(); ?>
+		<a href="index.php/registration/register">Sign Up</a>
+		<a href="#">Forget Password</a>
 	</div>
 </div>
 <div>
-<a href="index.php/registration/register">Sign Up</a>
-<a href="#">Forget Password</a>
+
 </div>
 </body>
 </html>
