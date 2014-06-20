@@ -44,7 +44,6 @@
 	*/
 	
 	
-	//drop table users if it exists, create it using table_user.sql
 	echo "Creating Table..</br>";
 	$query = file_get_contents("table_user.sql");
 	
@@ -60,12 +59,16 @@
 	if (!$link) die("Could not connect: ". mysqli_error($link));
 	if (!mysqli_select_db($link, $database_name)) die("Could not access database: ". mysqli_error($link));
 	
+	
+	
+	
 	/*
 	
 		Create account table
 	
 	*/
-	//drop table users if it exists, create it using table_user.sql
+	
+	
 	echo "Creating Account..</br>";
 	$query = file_get_contents("table_account.sql");
 	
@@ -86,7 +89,9 @@
 		Create goal table
 	
 	*/
-	//drop table users if it exists, create it using table_user.sql
+	
+	
+
 	echo "Creating Goal..</br>";
 	$query = file_get_contents("table_goal.sql");
 	
@@ -108,6 +113,7 @@
 		Insert example user
 	
 	*/
+	
 	
 	echo "Inserting Example User..</br>";
 	$query = "
@@ -137,6 +143,8 @@
 		Display table datas
 	
 	*/
+	
+	
 	echo "Displaying Tables..</br>";
 	
 	
