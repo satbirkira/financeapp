@@ -8,9 +8,9 @@
 <body>
 
 <div id="container">
+	<div id="login">
 	<?php
 		//login is the controller, signin is the function
-		//setup arrays
 		$form = array(
 			'class' => 'form',
 			'id' => 'signin'
@@ -21,7 +21,7 @@
 			  'type'		=> 'text',
               'value'       => '',
               'maxlength'   => '11',
-              'size'        => '50'
+              'size'        => '25'
             );
 		$password = array(
               'name'        => 'password',
@@ -29,12 +29,8 @@
 			  'type'		=> 'password',
               'value'       => '',
               'maxlength'   => '11',
-              'size'        => '50'
+              'size'        => '25'
             );
-		$labels = array(
-				'class' 	=> 'label',
-				'style' 	=> 'color: #000;'
-			);
 		$submit = array(
 				'name' => 'submit',
     			'id' => 'submit_sigin',
@@ -42,14 +38,28 @@
     			'type' => 'submit',
     			'content' => 'Submit'
 			);
+		
 		echo form_open('login/signin', $form);
-		echo form_label('Username: ', 'username', $labels);
-		echo form_input($username);
-		echo form_label('Password: ', 'password', $labels);
-		echo form_input($password);
-		echo form_button($submit);
-		echo form_close();
-	?>
+		
+		if (validation_errors()):
+			?>
+			<div class="errors">
+				<?php echo validation_errors('<p>');?>
+			</div>
+			<?php endif;?>
+			<div class="signupinput">
+				<label for="firstname">Username:</label>
+				<?php echo form_input($username); ?>
+			</div>
+			<div class="signupinput">
+				<label for="password">Password:</label>
+				<?php echo form_input($password); ?>
+			</div>
+			<div class="signupinput">
+				<?php echo form_button($submit); ?>
+			</div>
+			<?php echo form_close(); ?>
+	</div>
 </div>
 <div>
 <a href="index.php/registration/register">Sign Up</a>
