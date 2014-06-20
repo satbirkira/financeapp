@@ -22,7 +22,13 @@
 		
 	if (!$link) die("Could not connect: ". mysqli_error($link));
 
-	//create database
+	/*
+	
+		Create database
+	
+	*/
+	
+	
 	echo "Creating Database..</br>";
 	$query = "create database if not exists $database_name";
 	if(!mysqli_query($link, $query)) die("Could not create database: " . mysqli_error($link));
@@ -36,6 +42,8 @@
 		Create users table
 	
 	*/
+	
+	
 	//drop table users if it exists, create it using table_user.sql
 	echo "Creating Table..</br>";
 	$query = file_get_contents("table_user.sql");
@@ -72,9 +80,35 @@
 		);
 	if (!$link) die("Could not connect: ". mysqli_error($link));
 	if (!mysqli_select_db($link, $database_name)) die("Could not access database: ". mysqli_error($link));
+	
+	/*
+	
+		Create goal table
+	
+	*/
+	//drop table users if it exists, create it using table_user.sql
+	echo "Creating Goal..</br>";
+	$query = file_get_contents("table_goal.sql");
+	
+	if(!mysqli_multi_query($link, $query)) die("Could not create table: " . mysqli_error($link));
+	
+	//need to close connection and restart after mysqli_multi_query is required
+	mysqli_close($link);
+	$link = mysqli_connect(
+			$location, 
+			$username,
+			$pass
+		);
+	if (!$link) die("Could not connect: ". mysqli_error($link));
+	if (!mysqli_select_db($link, $database_name)) die("Could not access database: ". mysqli_error($link));
 
 	
-	//add example user
+	/*
+	
+		Insert example user
+	
+	*/
+	
 	echo "Inserting Example User..</br>";
 	$query = "
 		insert into user (
@@ -98,7 +132,13 @@
 		)";
 	if(!mysqli_query($link, $query)) die("Could not insert example: " . mysqli_error($link));
 
-	//display all users
+	/*
+	
+		Display all users and their data
+	
+	*/
+	
+	
 	echo "Selecting Users..</br>";
 	$query = "select * from user";
 	$result = mysqli_query($link, $query);
