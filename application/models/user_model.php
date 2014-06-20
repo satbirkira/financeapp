@@ -5,17 +5,8 @@ class User_model extends CI_Model {
 	var $userFirstName = "";
 	var $userLastName = "";
 	var $userEmail = "";
-	var $userPassword = "";
-	var $userSecurityQuestionId = "";
-	var $userSecurityAnswer = "";
-	var $userCurrentCityId = "";
-	var $userCurrentCountryId = "";
-	var $userCitizenship = "";
-	var $userGender = "";
-	var $userDateOfBirth = "";
-	var $userProfileImage = "";
-	var $userBiography = "";
-	var $userInterests = "";
+	var $userPassword = "";	
+	var $userProfileImage = "";	
 	var $userCreatedOn = "";
 
     function __construct()
@@ -65,6 +56,16 @@ class User_model extends CI_Model {
 		$this->db->select('userId');
 		$this->db->from('user');
 		$this->db->where('userEmail',$email);
+		$query = $this->db->get();
+		return $query->num_rows();
+
+	}
+	
+	function check_username_availablitiy($username)
+	{
+		$this->db->select('userId');
+		$this->db->from('user');
+		$this->db->where('userName',$username);
 		$query = $this->db->get();
 		return $query->num_rows();
 
