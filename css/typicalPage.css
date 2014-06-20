@@ -1,0 +1,30 @@
+#container{
+	width:100%;
+}
+
+#topbar{
+	top: 0px;
+	right: 0px;
+	width: 100%;
+	height: 20%;
+	position: absolute;
+	background-color: rgb(255, 230, 210);
+}
+#sidebar{
+	bottom: 0px;
+	left: 0px;
+	width: 20%;
+	height: 80%;
+	position: absolute;
+	background-color: rgb(255, 200, 250);
+}
+#dashContent{
+	
+	bottom: 0px;
+	right: 0px;
+	width: 80%;
+	height: 80%;
+	position: absolute;
+	background-color: rgb(255, 250, 220);
+	
+}
