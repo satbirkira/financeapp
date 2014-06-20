@@ -3,6 +3,16 @@
 	<meta charset="utf-8">
 	<title>Register-Finish</title>
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+     <script src="../../js/jquery-ui-1.10.4.custom/jquery-1.10.2.js" type="text/javascript"></script>
+    <script src="../../js/jquery-ui-1.10.4.custom/jquery-ui-1.10.4.custom.js" type="text/javascript"></script>
+    <link href="../../css/ui-lightness/jquery-ui-1.10.4.custom.css" type="text/css" rel="stylesheet"/>
+    <link href="../../css/style_shu.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript">
+	$(document).ready(function(e) {
+        $('.submit-button').button();
+    });
+	
+	</script> 
 </head>
 <body>
          <!-- Start the container Div -->
@@ -25,47 +35,43 @@
 				$firstname = $this->session->userdata('suis_first_name');
 				$lastname = $this->session->userdata('suis_last_name');
                       
-					       echo form_open_multipart('index.php/registration/register2');
-                            
-							    if (validation_errors()):?>
-                                
-                                    <div class="errors">
-                                        <?php echo validation_errors('<p>');?>
-                                    </div>
-                                <?php endif;?>
-	                             
-                                   <div class="personalinfo">
-                                        <label for="userName">User Name:</label>
-                                        <?php echo $username; ?>
-                                   </div>
-                				   <div class="personalinfo">
-                                        <label for="firstName">First Name:</label>
-                                        <?php echo $firstname; ?>
-                                   </div>
-                                   
-                                    <div class="personalinfo">
-                                        <label for="lastName">Last Name:</label>
-                                        <?php echo $lastname; ?>
-                                     </div>
-                                     
-                                    <div class="personalinfo">
-                                        <label for="profilePic">Profile Pic:</label>
-                                        <?php echo form_upload($profilePic,set_value('profilePic')); ?>
-                                     </div>                   
-                                   
-
-                                   
-
-                                    <div class="personalinfo">
-                                        <input type="submit" name="btnRegister2" value="Save" class="submit-button" />
-                                    </div>
-                            <?php
-                                echo form_close();
-                            ?>
-        				</div>
-		         <!-- Form Div ends here -->       
-                      </div> 
-             <!-- Registration Div ends here --> 
-         <!-- End of the container Div -->
+				echo form_open_multipart('index.php/registration/register2');
+                           
+				?>
+                             
+                   <div class="personalinfo">
+                        <label for="userName">User Name:</label>
+                        <div class="info"><?php echo $username; ?></div>
+                   </div>
+                   <div class="personalinfo">
+                        <label for="firstName">First Name:</label>
+                        <div class="info"><?php echo $firstname; ?></div>
+                   </div>
+                   
+                   <div class="personalinfo">
+                        <label for="lastName">Last Name:</label>
+                        <div class="info"><?php echo $lastname; ?></div>
+                   </div>
+                  
+                   <div class="personalinfo">
+                        <label for="profilePic">Profile Pic:</label>
+                        <div class="info"><?php echo form_upload($profilePic,set_value('profilePic')); ?></div>
+                        <div class="errordesp"><?php echo form_error('profilePic'); ?></div>                         
+                   </div>                    
+                  
+                   <div class="personalinfo">
+                      <div style="float:left; margin-left: 100px;">
+                      <input type="submit" name="btnRegister2" value="Submit" class="submit-button" /></div>
+                      <div style="float:left; margin-left: 100px;">
+                      <input type="submit" name="btnSkip" value="Skip" class="submit-button" /></div>
+                   </div>
+				<?php
+                    echo form_close();
+                ?>
+          </div>
+         <!-- Form Div ends here -->       
+      </div> 
+     <!-- Registration Div ends here --> 
+ <!-- End of the container Div -->
 </body>
 </html>
