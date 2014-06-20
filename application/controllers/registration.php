@@ -83,7 +83,7 @@ class Registration extends CI_Controller{
 			{
 				//should redirect to the dashboard				
 				//currently link to itself because there is no dashboard
-				redirect('index.php/registration/register2');
+				redirect('index.php/dashboard/dashboard');
 			}
 		
 		}			
