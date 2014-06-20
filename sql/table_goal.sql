@@ -6,6 +6,7 @@ CREATE TABLE  `financeapp`.`goal` (
   `startDate` DATE NOT NULL,
   `targetDate` DATE NOT NULL,
   `currentlySaved` int(10) NOT NULL DEFAULT 0,
+  `goalDeleted` BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (`goalID`),
   FOREIGN KEY (`userID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=gb2312 ROW_FORMAT=DYNAMIC;

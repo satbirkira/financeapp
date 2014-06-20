@@ -8,5 +8,6 @@ CREATE TABLE  `financeapp`.`user` (
   `userFirstName` varchar(45) DEFAULT NULL,
   `userLastName` varchar(45) DEFAULT NULL,
   `userProfileImage` varchar(45) DEFAULT NULL,
+  `userDeleted` BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=gb2312 ROW_FORMAT=DYNAMIC;
