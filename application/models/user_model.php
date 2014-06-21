@@ -51,7 +51,7 @@ class User_model extends CI_Model {
 		return $query->result();
 	}
 	
-	function check_user_availablitiy($email)
+	function check_email_availablitiy($email)
 	{
 		$this->db->select('userId');
 		$this->db->from('user');

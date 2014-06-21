@@ -2,8 +2,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Register-Finish</title>
-	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
-     <script src="../../js/jquery-ui-1.10.4.custom/jquery-1.10.2.js" type="text/javascript"></script>
+    <script src="../../js/jquery-ui-1.10.4.custom/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="../../js/jquery-ui-1.10.4.custom/jquery-ui-1.10.4.custom.js" type="text/javascript"></script>
     <link href="../../css/ui-lightness/jquery-ui-1.10.4.custom.css" type="text/css" rel="stylesheet"/>
     <link href="../../css/style_shu.css" type="text/css" rel="stylesheet"/>
@@ -11,6 +10,8 @@
 	$(document).ready(function(e) {
         $('.submit-button').button();
     });
+	
+
 	
 	</script> 
 </head>
@@ -59,11 +60,8 @@
                         <div class="errordesp"><?php echo form_error('profilePic'); ?></div>                         
                    </div>                    
                   
-                   <div class="personalinfo">
-                      <div style="float:left; margin-left: 100px;">
-                      <input type="submit" name="btnRegister2" value="Submit" class="submit-button" /></div>
-                      <div style="float:left; margin-left: 100px;">
-                      <input type="submit" name="btnSkip" value="Skip" class="submit-button" /></div>
+                   <div style="width:80%;margin-left:0px;margin-right:0px;">
+                      <input type="submit" name="btnRegister2" value="Done" class="submit-button" />               
                    </div>
 				<?php
                     echo form_close();

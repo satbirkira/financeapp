@@ -101,6 +101,17 @@ body {
 		padding-left: 3px;
 	}
 	
+	#registration .errormsg {
+		font-size:12px;
+		color:#900;		
+		float:left;
+		width:180px;				
+		height: 30px;
+		text-align:left;
+		padding-left: 3px;
+	}
+	
+	
 	.info{
 		float:left;
 		text-align: left;
@@ -111,5 +122,5 @@ body {
 		margin-right: 5px;
 		color:#666;			
 	}
-		
+
 /* end of registration page */

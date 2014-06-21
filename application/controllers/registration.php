@@ -6,9 +6,9 @@ class Registration extends CI_Controller{
         parent::__construct();
 		$this->load->model('user_model');		
 		$this->load->helper(array('form', 'url'));
-		$this->load->library('form_validation');
+		$this->load->library('form_validation');		
     }
-	
+/*------------------------------------------------*/	
 	function register()
 	{	
 		// If registration button is clicked.
@@ -23,7 +23,7 @@ class Registration extends CI_Controller{
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[45]');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required|max_length[15]|min_length[6]');
 			$this->form_validation->set_rules('confirmpassword', 'Confirm Password', 'trim|required|matches[password]');
-						
+			
 			$name =  $this->input->post('screenname');
 			$firstname =  $this->input->post('firstname');
 			$lastname =  $this->input->post('lastname');
@@ -57,7 +57,7 @@ class Registration extends CI_Controller{
 		//$this->load->view('includes/template',$data);
 		
 	}
-
+/*------------------------------------------------*/
 	function register2()
 	{
 		// If registration button is clicked.
@@ -65,7 +65,7 @@ class Registration extends CI_Controller{
 		{
 			$profilePic = "";			
 			$config['upload_path'] = $_SERVER["DOCUMENT_ROOT"].'/financeapp/uploads/profile/';
-			$config['allowed_types'] = 'gif|jpg|png';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$config['max_size']	= '100';
 			$config['max_width']  = '1024';
 			$config['max_height']  = '768';
@@ -91,5 +91,75 @@ class Registration extends CI_Controller{
 		//$this->load->view('includes/template',$data);
 		$this->load->view('register2',$data);
 	}
+	
+	
+/*------------------------------------------------*/
+	function check_username(){	
+		$username = $_REQUEST['username'];
+		//$username = "11";
+		$username = trim($username);
+		$username = preg_replace("/[\s]+/", "", $username);					
+	
+		$response = array();
+		
+		if($username == ''){
+			$response = array(
+				'ok' => false,
+				'msg' => "Please specify a username."
+				);
+		}else if(!preg_match('/^[A-Za-z0-9]+$/',$username)){
+			$response = array(
+				'ok' => false,
+				'msg' => "The username can only contain alphanumerics."
+				);
+			
+		}else if($this->user_model->check_username_availablitiy($username)){ 
+			$response = array(
+				'ok' => false,
+				'msg' => "The usernmae is not available."
+				);
+		}else{
+			$response = array(
+				'ok' => true,
+				'msg' => "The username is available."
+				);
+			
+		}
+		
+		echo json_encode($response);
+		
+	}
+/*------------------------------------------------*/
+	function check_email(){	
+		
+		$email = trim($_REQUEST['email']);
+		$email = preg_replace("/[\s]+/", "", $email);					
+	
+		$response = array();
+		
+		if($email == ''){
+			$response = array(
+				'ok' => false,
+				'msg' => "Please specify an email address."
+				);
+		}else if($this->user_model->check_email_availablitiy($email)){ 
+			$response = array(
+				'ok' => false,
+				'msg' => "The email has been registered."
+				);
+		}else{
+			$response = array(
+				'ok' => true,
+				'msg' => "The email hasn't been registered."
+				);
+			
+		}
+		
+		echo json_encode($response);
+	}
+
+
+/*------------------------------------------------*/
 }
+
 ?>
