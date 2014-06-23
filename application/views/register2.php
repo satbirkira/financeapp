@@ -11,8 +11,6 @@
         $('.submit-button').button();
     });
 	
-
-	
 	</script> 
 </head>
 <body>
@@ -22,9 +20,10 @@
             <div id="registration">
                         									
                 <div class="regititle">
-                    Your account information
+                    Your account information  
+                    <div style="width:150px; float:right;position:relative; right:0px; font-size:16px; color:#666"><a href="<?php echo site_url('index.php/goalmanagement'); ?>/addGoal">Add A Saving Goal</a>       </div>          
                 </div>	  
-                
+                 
                  <!-- Form Div starts here -->
                  <?php                
                 $profilePic = array(
@@ -68,7 +67,7 @@
                 ?>
           </div>
          <!-- Form Div ends here -->       
-      </div> 
+      </div>      
      <!-- Registration Div ends here --> 
  <!-- End of the container Div -->
 </body>
