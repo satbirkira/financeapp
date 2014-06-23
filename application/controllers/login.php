@@ -2,26 +2,53 @@
 
 class Login extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+	function __construct()
+    {
+        parent::__construct();
+		$this->load->model('user_model');		
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');		
+    }
+	
 	public function index()
 	{
-		$this->load->view('login');
+		$this->login();
 	}
+	
+	public function login()
+	{
+		$data = Array();
+		if(isset($_POST["submit_login"]))
+		{
+			
+			$this->form_validation->set_rules('username', 'Username', 'trim|required|max_length[45]|min_length[3]');
+			$this->form_validation->set_rules('password', 'Password', 'trim|required|max_length[15]|min_length[6]');
+			
+			$username =  $this->input->post('username');
+			$password =  $this->input->post('password');
+			
+			if ($this->form_validation->run() == true)
+			{
+				if($this->user_model->attempt_login($username, $this->user_model->hash_password($password)))
+				{
+					//redirect to dash
+					redirect('index.php/dashboard/dashboard');
+				}
+				else
+				{
+					$data['authentication_error'] = "Incorrect Username or Password";
+				}
+			}
+		}
+		
+		//default
+		$this->load->view('login', $data);
+	}
+	
+	
+	
 }
+
 
 /* End of file login.php */
 /* Location: ./application/controllers/login.php */

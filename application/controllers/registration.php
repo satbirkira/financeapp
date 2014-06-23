@@ -24,37 +24,43 @@ class Registration extends CI_Controller{
 			$this->form_validation->set_rules('password', 'Password', 'trim|required|max_length[15]|min_length[6]');
 			$this->form_validation->set_rules('confirmpassword', 'Confirm Password', 'trim|required|matches[password]');
 			
-			$name =  $this->input->post('screenname');
+			$username =  $this->input->post('screenname');
 			$firstname =  $this->input->post('firstname');
 			$lastname =  $this->input->post('lastname');
-			$company = $this->input->post('email');
-			$position = $this->input->post('password');
-			$email = $this->input->post('confirmpassword');								
+			$email = $this->input->post('email');
+			$password = $this->input->post('password');
+			$confirmpassword = $this->input->post('confirmpassword');						
 																
 			$todayDate = date("Ymd");							
 										
 			$registration = array(
-									'userName'=> $this->input->post('screenname'),																	
-									'userFirstName'=> $this->input->post('firstname'),											
-									'userLastName'=> $this->input->post('lastname'),
-									'userEmail'=>$this->input->post('email'),
-									'userPassword'=>$this->user_model->hash_password($this->input->post('password')),		
+									'userName'=> $username,																	
+									'userFirstName'=> $firstname,											
+									'userLastName'=> $lastname,
+									'userEmail'=> $email,
+									'userPassword'=>$this->user_model->hash_password($password),		
 									'userCreatedOn'=>$todayDate
 			);
 
-			$result = $this->user_model->create_new_user($registration);
-			if ($this->form_validation->run() == true && $result)
-				{									
+			
+			if ($this->form_validation->run() == true)
+			{
+				$result = $this->user_model->create_new_user($registration);
+				if($result)
+				{
 					redirect('index.php/registration/register2');
-					
 				}
+				else
+				{
+					//it will continue and load the view again, but with errors displaying
+				}
+			}
 		}
 		
+		//if there was no post, or it failed to validate and hence
+		//no redirection occurs and this displays again with errors
 		$data['main_content'] = 'register1';
-		
 		$this->load->view('register1',$data);
-		
-		//$this->load->view('includes/template',$data);
 		
 	}
 /*------------------------------------------------*/
@@ -78,12 +84,19 @@ class Registration extends CI_Controller{
 			$uid = $this->session->userdata('suis_user_id');							
 			$userDetails = array('userProfileImage'=> $profilePic);
 
-			$result = $this->user_model->update_user_details($userDetails,$uid);
-			if ($this->form_validation->run() == true && $result)
+			
+			if ($this->form_validation->run() == true)
 			{
-				//should redirect to the dashboard				
-				//currently link to itself because there is no dashboard
-				redirect('index.php/dashboard/dashboard');
+				$result = $this->user_model->update_user_details($userDetails,$uid);
+				if($result)
+				{
+					//should redirect to the dashboard
+					redirect('index.php/dashboard/dashboard');
+				}
+				else
+				{
+					//it will continue and load the view again, but with errors displaying
+				}
 			}
 		
 		}			
@@ -116,7 +129,7 @@ class Registration extends CI_Controller{
 		}else if($this->user_model->check_username_availablitiy($username)){ 
 			$response = array(
 				'ok' => false,
-				'msg' => "The usernmae is not available."
+				'msg' => "The username is not available."
 				);
 		}else{
 			$response = array(

@@ -32,21 +32,21 @@
               'size'        => '25'
             );
 		$submit = array(
-				'name' => 'submit',
+				'name' => 'submit_login',
     			'id' => 'submit_sigin',
     			'value' => 'Submit',
     			'type' => 'submit',
     			'content' => 'Submit'
 			);
 		
-		echo form_open('login/signin', $form);
-		
-		if (validation_errors()):
+			echo form_open('index.php/login/login', $form);
 			?>
 			<div class="errors">
-				<?php echo validation_errors('<p>');?>
+				<?php 
+				if (isset($authentication_error)) echo ($authentication_error);
+				echo validation_errors('<p>');
+				?>
 			</div>
-			<?php endif;?>
 			<div class="signupinput">
 				<label for="firstname">Username:</label>
 				<?php echo form_input($username); ?>
@@ -59,7 +59,7 @@
 				<?php echo form_button($submit); ?>
 			</div>
 			<?php echo form_close(); ?>
-		<a href="index.php/registration/register">Sign Up</a>
+		<a href="../registration/register">Sign Up</a>
 		<a href="#">Forget Password</a>
 	</div>
 </div>

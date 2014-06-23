@@ -15,40 +15,81 @@ class User_model extends CI_Model {
         parent::__construct();
     }
 
-	function hash_password ($password)
+	function hash_password($password)
 	{
-		$salt = md5 (time ());
-		$hash = hash ('sha256', $salt . $password);
-		return $salt . $hash;
+		return md5($password);
+		//$salt = md5 (time ());
+		//$hash = hash ('sha256', $salt . $password);
+		//return $salt . $hash;
 	}
     
 	function create_new_user($arrUser)
     {
-		$result = $this->db->insert('user',$arrUser);
+		$result = $this->db->insert('user', $arrUser);
 		$userId = $this->db->insert_id();
+		$this->set_session_info($userId, $arrUser);
+		
+		return $result;
+    }
+	
+	function attempt_login($userName, $password)
+	{
+		//this call returns false or a row with the users data
+		//returned array contains: userId, userName, userEmail, userLastName, userFirstName
+		$rows = $this->check_login($userName ,$password);
+		if($rows == false)
+		{
+			return false;
+		}
+		else
+		{
+			//this loop will only run once, just extracts the row
+			foreach($rows as $user_detail)
+			{
+				$userId = $row->userId;
+				$arrUser['userName'] = $row->userName;
+				$arrUser['userEmail'] =  $row->userEmail;
+				$arrUser['userLastName'] = $row->userLastName;
+				$arrUser['userFirstName'] = $row->userFirstName;
+				$this->set_session_info($userId, $arrUser);
+				return true;
+			}
+		}
+	}
+	
+	 function update_user_details($arrUserDetails,$uid)
+    {
+		$this->db->from('user');
+		$this->db->where('userId',$uid);
+        $this->db->update('user',$arrUserDetails);
+    }
+	
+	function check_login($userName ,$password)
+	{
+		$this->db->select('userId, userName, userEmail, userLastName, userFirstName');
+		$this->db->from('user');
+		$this->db->where('userName', $userName);
+		$this->db->where('userPassword', $password);
+		$this->db->limit(1);
+		$query = $this->db->get();
+		
+		if($query -> num_rows() == 1)
+		{
+			return $query->result();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	function set_session_info($userId, $arrUser)
+	{
 		$this->session->set_userdata('suis_user_id',$userId);
 		$this->session->set_userdata('suis_user_name',$arrUser['userName']);
 		$this->session->set_userdata('suis_user_email',$arrUser['userEmail']);
 		$this->session->set_userdata('suis_last_name',$arrUser['userLastName']);
 		$this->session->set_userdata('suis_first_name',$arrUser['userFirstName']);
-		return $result;
-
-    }
-	
-	 function update_user_details($arrUserDetails,$uid)
-    {
-		$this->db->where('userId',$uid);
-        $this->db->update('user',$arrUserDetails);
-    }
-	
-	function check_login($email,$password)
-	{
-		$arrUser = array('userEmail' => $email, 'userPassword' => $password);
-		$this->db->select('userId,userName');
-		$this->db->from('user');
-		$this->db->where($arrUser);
-		$query = $this->db->get();
-		return $query->result();
 	}
 	
 	function check_email_availablitiy($email)

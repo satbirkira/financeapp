@@ -17,9 +17,10 @@ class Login_model extends CI_Model {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	 
+	// validation done using login_model by login controller.
 	function validate()
 	{
-		// do verification from database entry
 		return true;
 	}
 }
