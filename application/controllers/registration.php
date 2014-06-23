@@ -1,4 +1,5 @@
 <?php 
+
 class Registration extends CI_Controller{
 	
 	function __construct()
@@ -91,7 +92,7 @@ class Registration extends CI_Controller{
 				if($result)
 				{
 					//should redirect to the dashboard
-					redirect('index.php/dashboard/dashboard');
+					redirect('index.php/page/dashboard');
 				}
 				else
 				{

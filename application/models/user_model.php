@@ -35,7 +35,7 @@ class User_model extends CI_Model {
 	function attempt_login($userName, $password)
 	{
 		//this call returns false or a row with the users data
-		//returned array contains: userId, userName, userEmail, userLastName, userFirstName
+		//returned array contains: userId, userPassword, userName, userEmail, userLastName, userFirstName
 		$rows = $this->check_login($userName ,$password);
 		if($rows == false)
 		{
@@ -48,6 +48,7 @@ class User_model extends CI_Model {
 			{
 				$userId = $row->userId;
 				$arrUser['userName'] = $row->userName;
+				$arrUser['userPassword'] = $row->userPassword;
 				$arrUser['userEmail'] =  $row->userEmail;
 				$arrUser['userLastName'] = $row->userLastName;
 				$arrUser['userFirstName'] = $row->userFirstName;
@@ -66,10 +67,11 @@ class User_model extends CI_Model {
 	
 	function check_login($userName ,$password)
 	{
-		$this->db->select('userId, userName, userEmail, userLastName, userFirstName');
+		$this->db->select('userId, userPassword, userName, userEmail, userLastName, userFirstName');
 		$this->db->from('user');
 		$this->db->where('userName', $userName);
 		$this->db->where('userPassword', $password);
+		$this->db->where('userDeleted != true');
 		$this->db->limit(1);
 		$query = $this->db->get();
 		
@@ -86,10 +88,16 @@ class User_model extends CI_Model {
 	function set_session_info($userId, $arrUser)
 	{
 		$this->session->set_userdata('suis_user_id',$userId);
+		$this->session->set_userdata('suis_user_pass',$arrUser['userPassword']);
 		$this->session->set_userdata('suis_user_name',$arrUser['userName']);
 		$this->session->set_userdata('suis_user_email',$arrUser['userEmail']);
 		$this->session->set_userdata('suis_last_name',$arrUser['userLastName']);
 		$this->session->set_userdata('suis_first_name',$arrUser['userFirstName']);
+	}
+	
+	function logout()
+	{
+		session_destroy();
 	}
 	
 	function check_email_availablitiy($email)

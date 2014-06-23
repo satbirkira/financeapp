@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+session_start();
 class Login extends CI_Controller {
 
 	function __construct()
@@ -15,10 +15,28 @@ class Login extends CI_Controller {
 		$this->login();
 	}
 	
+	public function logout()
+	{
+		$this->user_model->logout();
+		redirect('index.php/login');
+	}
+	
 	public function login()
 	{
 		$data = Array();
-		if(isset($_POST["submit_login"]))
+		var_dump($_SESSION);
+		//if already logged in, make sure user is still allowed and redirect
+		$usernameInSession = $this->session->userdata('suis_user_name');
+		if(!empty($usernameInSession))
+		{
+			$alreadyHashedPass = $this->session->userdata('suis_user_pass');
+			if($this->user_model->attempt_login($usernameInSession, $alreadyHashedPass))
+			{
+				//redirect to dash
+				redirect('index.php/page/dashboard');
+			}
+		}
+		else if(isset($_POST["submit_login"]))
 		{
 			
 			$this->form_validation->set_rules('username', 'Username', 'trim|required|max_length[45]|min_length[3]');
@@ -32,7 +50,7 @@ class Login extends CI_Controller {
 				if($this->user_model->attempt_login($username, $this->user_model->hash_password($password)))
 				{
 					//redirect to dash
-					redirect('index.php/dashboard/dashboard');
+					redirect('index.php/page/dashboard');
 				}
 				else
 				{
