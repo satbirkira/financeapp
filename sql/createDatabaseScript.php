@@ -29,7 +29,9 @@
 	*/
 	
 	
-	echo "Creating Database..</br>";
+	echo "Deleting Old Database..</br>";
+	$query = "drop database if exists $database_name";
+	if(!mysqli_query($link, $query)) die("Could not delete database: " . mysqli_error($link));
 	$query = "create database if not exists $database_name";
 	if(!mysqli_query($link, $query)) die("Could not create database: " . mysqli_error($link));
 	
@@ -44,7 +46,7 @@
 	*/
 	
 	
-	echo "Creating Table..</br>";
+	echo "Creating User Table..</br>";
 	$query = file_get_contents("table_user.sql");
 	
 	if(!mysqli_multi_query($link, $query)) die("Could not create table: " . mysqli_error($link));
