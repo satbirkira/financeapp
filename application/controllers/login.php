@@ -24,7 +24,6 @@ class Login extends CI_Controller {
 	public function login()
 	{
 		$data = Array();
-		var_dump($_SESSION);
 		//if already logged in, make sure user is still allowed and redirect
 		$usernameInSession = $this->session->userdata('suis_user_name');
 		if(!empty($usernameInSession))
