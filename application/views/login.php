@@ -57,7 +57,7 @@
 			<?php echo form_input($password); ?>
 		</div>
 		<div class="errors">
-			<? if (isset($authentication_error)) {
+			<?php if (isset($authentication_error)) {
 				echo $authentication_error;
 			   }
 			   echo validation_errors('<p>');
@@ -70,7 +70,7 @@
 	</div>
 	<?php echo form_close(); ?>
 	<div id="login_links_container">
-		<a id="login_links" style="float:left" href="../registration/register">Sign Up</a>
+		<a id="login_links" style="float:left" href="index.php/registration/register">Sign Up</a>
 		<a id="login_links" style="float:right" href="#">Forget Password</a>
 	</div>
 </div>
