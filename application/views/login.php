@@ -14,7 +14,7 @@
 	</div>
 	<div id="login_form_container">
 		<div id="login_welcome_text">
-			<center><span>Welcome to FinaceBuddy!</span></center>
+			<center><span>Welcome to FinanceBuddy!</span></center>
 		</div>
 		<?php
 			//login is the controller, signin is the function
