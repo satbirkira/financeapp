@@ -9,22 +9,46 @@
 </head>
 <body>
 
-<div id="login_container">
-	<div id="login_logo_container">
+<div id="reg_container">
+	<div id="reg_logo_container">
 	</div>
-	<div id="login_form_container">
-		<div id="login_welcome_text">
-			<center><span>Welcome to FinanceBuddy!</span></center>
+	<div id="reg_form_container">
+		<div id="reg_welcome_text">
+			<center><span>FinanceBuddy Register</span></center>
 		</div>
 		<?php
 			//login is the controller, signin is the function
 			$form = array(
 				'class' => 'form',
-				'id' => 'signin'
+				'id' => 'signup'
 				);
+			$firstname = array(
+	              'name'        => 'firstname',
+	              'id'          => 'firstname',
+				  'type'		=> 'text',
+	              'value'       => '',
+	              'maxlength'   => '11',
+	              'size'        => '75'
+	            );
+			$lastname = array(
+	              'name'        => 'lastname',
+	              'id'          => 'lastname',
+				  'type'		=> 'text',
+	              'value'       => '',
+	              'maxlength'   => '11',
+	              'size'        => '75'
+	            );
 			$username = array(
 	              'name'        => 'username',
 	              'id'          => 'username',
+				  'type'		=> 'text',
+	              'value'       => '',
+	              'maxlength'   => '11',
+	              'size'        => '75'
+	            );
+			$email = array(
+	              'name'        => 'email',
+	              'id'          => 'email',
 				  'type'		=> 'text',
 	              'value'       => '',
 	              'maxlength'   => '11',
@@ -39,20 +63,32 @@
 	              'size'        => '75'
 	            );
 			$submit = array(
-					'name' => 'submit_login',
-	    			'id' => 'submit_sigin',
+					'name' => 'submit_reg',
+	    			'id' => 'submit_sigup',
 	    			'value' => 'Submit',
 	    			'type' => 'submit',
 	    			'content' => 'Submit'
 				);
 			
-				echo form_open(base_url().'login/login', $form);
+				echo form_open(base_url().'registration/register', $form);
 		?>
-		<div class="signupinput">
-			<label for="firstname">Username:</label>
+		<div class="reginput">
+			<label for="firstname">First Name:</label>
+			<?php echo form_input($firstname); ?>
+		</div>
+		<div class="reginput">
+			<label for="lastname">Last Name:</label>
+			<?php echo form_input($lastname); ?>
+		</div>
+		<div class="reginput">
+			<label for="username">Username:</label>
 			<?php echo form_input($username); ?>
 		</div>
-		<div class="signupinput">
+		<div class="reginput">
+			<label for="email">Email:</label>
+			<?php echo form_input($email); ?>
+		</div>
+		<div class="reginput">
 			<label for="password">Password:</label>
 			<?php echo form_input($password); ?>
 		</div>
@@ -65,14 +101,10 @@
 		</div>
 	</div>
 
-	<div class="login_submit">
+	<div class="reg_submit">
 		<?php echo form_button($submit); ?>
 	</div>
 	<?php echo form_close(); ?>
-	<div id="login_links_container">
-		<a id="login_links" style="float:left" href="<?=base_url()?>registration">Sign Up</a>
-		<a id="login_links" style="float:right" href="#">Forget Password</a>
-	</div>
 </div>
 </body>
 </html>
