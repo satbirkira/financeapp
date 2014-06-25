@@ -86,8 +86,8 @@ class Registration extends CI_Controller{
 			$userDetails = array('userProfileImage'=> $profilePic);
 
 			
-			if ($this->form_validation->run() == true)
-			{
+			/*if ($this->form_validation->run() == true)
+			{*/
 				$result = $this->user_model->update_user_details($userDetails,$uid);
 				if($result)
 				{
@@ -98,7 +98,7 @@ class Registration extends CI_Controller{
 				{
 					//it will continue and load the view again, but with errors displaying
 				}
-			}
+			/*}*/
 		
 		}			
 		$data['main_content'] = 'register2';		

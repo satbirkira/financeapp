@@ -62,7 +62,7 @@ class User_model extends CI_Model {
     {
 		$this->db->from('user');
 		$this->db->where('userId',$uid);
-        $this->db->update('user',$arrUserDetails);
+		return $this->db->update('user',$arrUserDetails);
     }
 	
 	function check_login($userName ,$password)
