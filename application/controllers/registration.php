@@ -49,7 +49,7 @@ class Registration extends CI_Controller{
 				$result = $this->user_model->create_new_user($registration);
 				if($result)
 				{
-					redirect('index.php/registration/register2');
+					redirect('/registration/register2');
 				}
 				else
 				{

@@ -46,7 +46,7 @@
 	    			'content' => 'Submit'
 				);
 			
-				echo form_open('index.php/login/login', $form);
+				echo form_open(base_url().'login/login', $form);
 		?>
 		<div class="signupinput">
 			<label for="firstname">Username:</label>
@@ -70,7 +70,7 @@
 	</div>
 	<?php echo form_close(); ?>
 	<div id="login_links_container">
-		<a id="login_links" style="float:left" href="index.php/registration/register">Sign Up</a>
+		<a id="login_links" style="float:left" href="<?=base_url()?>registration/register">Sign Up</a>
 		<a id="login_links" style="float:right" href="#">Forget Password</a>
 	</div>
 </div>

@@ -1,5 +1,7 @@
+<div id="sidebar">
 <?php
 
-	echo "Welcome: ". $userFirstName . " ". $userLastName . "[<a href='../login/logout'>Logout</a>]" ;
+	echo "Welcome: ". $this->session->userdata('userFirstName') . " ". $this->session->userdata('userLastName') . "[<a href='../login/logout'>Logout</a>]" ;
 	
 ?>
+</div>
