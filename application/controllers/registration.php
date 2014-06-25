@@ -26,6 +26,8 @@ class Registration extends CI_Controller {
 			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[45]');
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[45]');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required|max_length[100]|min_length[6]');
+			$this->form_validation->set_rules('conf_password', 'Confirm Password', 'trim|required|matches[password]');
+			
 						
 			$arrUserDetails['userFirstName'] = $this->input->post('firstname');
 			$arrUserDetails['userLastName'] = $this->input->post('lastname');
