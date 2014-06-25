@@ -13,6 +13,10 @@ class Page extends CI_Controller{
 	{
 		//nothing, load a specific page like the goal page using /page/goal
 	}
+
+	public function demo_inprog() {
+		$this->load->view('demo_inprog');
+	}
 	
 	public function dashboard()
 	{

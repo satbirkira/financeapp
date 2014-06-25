@@ -32,7 +32,8 @@ class Login extends CI_Controller {
 			if($this->user_model->attempt_login($usernameInSession, $alreadyHashedPass))
 			{
 				//redirect to dash
-				redirect('/page/dashboard');
+				//redirect('/page/dashboard');
+				redirect('/page/demo_inprog');
 			}
 		}
 		else if(isset($_POST["submit_login"]))
@@ -49,7 +50,8 @@ class Login extends CI_Controller {
 				if($this->user_model->attempt_login($username, $this->user_model->hash_password($password)))
 				{
 					//redirect to dash
-					redirect('/page/dashboard');
+					//redirect('/page/dashboard');
+					redirect('/page/demo_inprog');
 				}
 				else
 				{
