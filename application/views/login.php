@@ -70,11 +70,7 @@
 	</div>
 	<?php echo form_close(); ?>
 	<div id="login_links_container">
-<<<<<<< HEAD
 		<a id="login_links" style="float:left" href="<?=base_url()?>registration/register">Sign Up</a>
-=======
-		<a id="login_links" style="float:left" href="registration/register">Sign Up</a>
->>>>>>> FETCH_HEAD
 		<a id="login_links" style="float:right" href="#">Forget Password</a>
 	</div>
 </div>
