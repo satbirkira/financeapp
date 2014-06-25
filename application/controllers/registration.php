@@ -53,7 +53,7 @@ class Registration extends CI_Controller {
 					if($result == true)
 					{
 						//redirect to dash
-						redirect('/page/dashboard');
+						redirect('login');
 					}
 					else
 					{

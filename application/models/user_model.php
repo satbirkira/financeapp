@@ -29,7 +29,7 @@ class User_model extends CI_Model {
 		$arrUserDetails['userPassword'] = $this->hash_password( $arrUserDetails['userPassword'] );
 		$result = $this->db->insert('user', $arrUserDetails);
 		$userId = $this->db->insert_id();
-		$this->set_session_info($userId, $arrUserDetails);
+		//$this->set_session_info($userId, $arrUserDetails); uncomment since we don't login right away
 		return $result;
 	}
     
