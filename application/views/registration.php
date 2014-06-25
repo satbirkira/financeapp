@@ -65,9 +65,9 @@
 			$submit = array(
 					'name' => 'submit_reg',
 	    			'id' => 'submit_sigup',
-	    			'value' => 'Submit',
+	    			'value' => 'Register',
 	    			'type' => 'submit',
-	    			'content' => 'Submit'
+	    			'content' => 'Register'
 				);
 			
 				echo form_open(base_url().'registration/register', $form);
