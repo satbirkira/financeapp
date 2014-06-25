@@ -101,7 +101,7 @@
 		<div class="reginput_hint">
 			
 		</div>
-		<br><br>
+		<br>
 		<div class="reginput">
 			<?php echo form_input($email); ?>
 		</div>
