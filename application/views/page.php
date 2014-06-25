@@ -38,6 +38,7 @@
 	UNDER CONSTRUCTION...
 </div>
 <div id="link">
+	Welcome, <strong><?=$this->session->userdata('suis_first_name') . " ". $this->session->userdata('suis_last_name')?></strong><br><br>
 	<a href='<?=base_url()?>login/logout'>SIGN OUT!</a>
 </div>
 <!--
