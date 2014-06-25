@@ -44,7 +44,7 @@ class User_model extends CI_Model {
 		else
 		{
 			//this loop will only run once, just extracts the row
-			foreach($rows as $user_detail)
+			foreach($rows as $row)
 			{
 				$userId = $row->userId;
 				$arrUser['userName'] = $row->userName;

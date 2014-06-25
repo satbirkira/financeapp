@@ -18,7 +18,7 @@ class Login extends CI_Controller {
 	public function logout()
 	{
 		$this->user_model->logout();
-		redirect('index.php/login');
+		redirect('/login');
 	}
 	
 	public function login()
@@ -32,7 +32,7 @@ class Login extends CI_Controller {
 			if($this->user_model->attempt_login($usernameInSession, $alreadyHashedPass))
 			{
 				//redirect to dash
-				redirect('index.php/page/dashboard');
+				redirect('/page/dashboard');
 			}
 		}
 		else if(isset($_POST["submit_login"]))
@@ -49,7 +49,7 @@ class Login extends CI_Controller {
 				if($this->user_model->attempt_login($username, $this->user_model->hash_password($password)))
 				{
 					//redirect to dash
-					redirect('index.php/page/dashboard');
+					redirect('/page/dashboard');
 				}
 				else
 				{

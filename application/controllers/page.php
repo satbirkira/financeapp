@@ -17,10 +17,9 @@ class Page extends CI_Controller{
 	public function dashboard()
 	{
 		$page_data = Array();
-		$page_data['sidebar'] = $this->load->view('sidebar', '', true);
-		$page_data['topbar'] = $this->load->view('topbar', '', true);
-		$page_data['content'] = $this->load->view('dashboard', '', true);
-		$this->load->view('page', $page_data, false);
+		$page_data['content'] = 'dashboard';
+		$page_data['content_data'] = array("VARIABLES" => "THIS ARE VARIABLES YOU WANT TO PASS TO THE dashboard VIEW");
+		$this->load->view('page', $page_data);
 	}
 	
 	public function goal()

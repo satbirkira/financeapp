@@ -35,7 +35,7 @@
 				$firstname = $this->session->userdata('suis_first_name');
 				$lastname = $this->session->userdata('suis_last_name');
                       
-				echo form_open_multipart('index.php/registration/register2');
+				echo form_open_multipart('/registration/register2');
                            
 				?>
                              

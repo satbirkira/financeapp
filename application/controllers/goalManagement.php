@@ -42,7 +42,7 @@ class GoalManagement extends CI_Controller{
 			$result = $this->goal_model->create_new_goal($goal);
 			if ($this->form_validation->run() == true && $result)
 				{									
-					redirect('index.php/goalManagement/viewGoal');
+					redirect('/goalManagement/viewGoal');
 					
 				}
 		}

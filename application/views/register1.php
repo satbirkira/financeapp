@@ -7,7 +7,7 @@
     <script src="../../js/jquery-ui-1.10.4.custom/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="../../js/jquery-ui-1.10.4.custom/jquery-ui-1.10.4.custom.js" type="text/javascript"></script>
     <link href="../../css/ui-lightness/jquery-ui-1.10.4.custom.css" type="text/css" rel="stylesheet"/>
-    <link href="../../css/style_shu.css" type="text/css" rel="stylesheet"/>
+    <link href="../../css/style.css" type="text/css" rel="stylesheet"/>
     <script type="text/javascript">
 		var is_valid = new Array(2);
 		checkform('init',false);	
@@ -17,7 +17,7 @@
 		}
 		
 		function getSiteUrl(){
-			var siteurl = '<?php echo site_url('index.php/Registration'); ?>';
+			var siteurl = '<?php echo site_url('/registration'); ?>';
 			return siteurl;	
 		}
 		
@@ -176,7 +176,7 @@
                                 );
                  
                                 
-					echo form_open('index.php/registration/register');
+					echo form_open('/registration/register');
 				   
 					   ?>
                       <div class="personalinfo">                                                       
