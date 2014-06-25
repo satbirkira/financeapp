@@ -22,15 +22,17 @@ class User_model extends CI_Model {
 		//$hash = hash ('sha256', $salt . $password);
 		//return $salt . $hash;
 	}
-    
-	function create_new_user($arrUser)
-    {
-		$result = $this->db->insert('user', $arrUser);
+	
+	function registerUser($arrUserDetails)
+	{
+		//hash the password
+		$arrUserDetails['userPassword'] = $this->hash_password( $arrUserDetails['userPassword'] );
+		$result = $this->db->insert('user', $arrUserDetails);
 		$userId = $this->db->insert_id();
-		$this->set_session_info($userId, $arrUser);
-		
+		$this->set_session_info($userId, $arrUserDetails);
 		return $result;
-    }
+	}
+    
 	
 	function attempt_login($userName, $password)
 	{
@@ -58,12 +60,6 @@ class User_model extends CI_Model {
 		}
 	}
 	
-	 function update_user_details($arrUserDetails,$uid)
-    {
-		$this->db->from('user');
-		$this->db->where('userId',$uid);
-		return $this->db->update('user',$arrUserDetails);
-    }
 	
 	function check_login($userName ,$password)
 	{
@@ -106,7 +102,15 @@ class User_model extends CI_Model {
 		$this->db->from('user');
 		$this->db->where('userEmail',$email);
 		$query = $this->db->get();
-		return $query->num_rows();
+		//if there already exists this email
+		if ($query->num_rows() > 0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 
 	}
 	
@@ -116,9 +120,34 @@ class User_model extends CI_Model {
 		$this->db->from('user');
 		$this->db->where('userName',$username);
 		$query = $this->db->get();
-		return $query->num_rows();
+		//if there already exists this username
+		if ($query->num_rows() > 0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 
 	}
+	
+	/*function create_new_user($arrUser)
+    {
+		$result = $this->db->insert('user', $arrUser);
+		$userId = $this->db->insert_id();
+		$this->set_session_info($userId, $arrUser);
+		
+		return $result;
+    }
+	
+	 function update_user_details($arrUserDetails,$uid)
+    {
+		$this->db->from('user');
+		$this->db->where('userId',$uid);
+		return $this->db->update('user',$arrUserDetails);
+    }
+	*/
 	
 	function get_user_details($uid)
 	{

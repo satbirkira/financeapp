@@ -13,29 +13,54 @@ class Registration extends CI_Controller {
 	public function index()
 	{
 		$data = Array();
-		/*if(isset($_POST["submit_login"]))
+		
+		$this->load->library('email');			
+		$this->email->set_newline("\r\n");
+			
+			
+		if(isset($_POST["submit_reg"]))
 		{
-			
+						
 			$this->form_validation->set_rules('username', 'Username', 'trim|required|max_length[45]|min_length[3]');
-			$this->form_validation->set_rules('password', 'Password', 'trim|required|max_length[15]|min_length[6]');
-			
-			$username =  $this->input->post('username');
-			$password =  $this->input->post('password');
+			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|max_length[45]');
+			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[45]');
+			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[45]');
+			$this->form_validation->set_rules('password', 'Password', 'trim|required|max_length[100]|min_length[6]');
+						
+			$arrUserDetails['userFirstName'] = $this->input->post('firstname');
+			$arrUserDetails['userLastName'] = $this->input->post('lastname');
+			$arrUserDetails['userName'] = $this->input->post('username');
+			$arrUserDetails['userEmail'] = $this->input->post('email');
+			$arrUserDetails['userPassword'] = $this->input->post('password');
+			$arrUserDetails['userCreatedOn'] = date("Ymd");
 			
 			if ($this->form_validation->run() == true)
 			{
-				if($this->user_model->attempt_login($username, $this->user_model->hash_password($password)))
+				if ($this->user_model->check_email_availablitiy($arrUserDetails['userEmail']) == false)
 				{
-					//redirect to dash
-					redirect('/page/dashboard');
+					$data['authentication_error'] = "This email is already registered to a FinanceBuddy account.";
+				}
+				else if ($this->user_model->check_username_availablitiy($arrUserDetails['userName']) == false)
+				{
+					$data['authentication_error'] = "This username is unavaliable. Please use another.";
 				}
 				else
 				{
-					$data['authentication_error'] = "Incorrect Username or Password";
+					//register and login user(also sets session data)
+					$result = $this->user_model->registerUser($arrUserDetails);
+					if($result == true)
+					{
+						//redirect to dash
+						redirect('/page/dashboard');
+					}
+					else
+					{
+						$data['authentication_error'] = "Could not add to database for unknown reason";
+					}
 				}
 			}
 		}
-		*/
+		
 		//default
 		$this->load->view('registration', $data);
 		
