@@ -17,6 +17,7 @@ class Page extends CI_Controller{
 	public function dashboard()
 	{
 		$page_data = Array();
+		$page_data = $this->addUserSessionData($page_data);
 		$page_data['content'] = 'dashboard';
 		$page_data['content_data'] = array("VARIABLES" => "THIS ARE VARIABLES YOU WANT TO PASS TO THE dashboard VIEW");
 		$this->load->view('page', $page_data);
@@ -47,6 +48,17 @@ class Page extends CI_Controller{
 		$page_data['topbar'] = $this->load->view('topbar', '', true);
 		$page_data['content'] = $this->load->view('setting', '', true);
 		$this->load->view('page', $page_data, false);
+	}
+	
+	public function addUserSessionData($array)
+	{
+		$array['suis_user_id'] = $this->session->userdata('suis_user_id');
+		$array['suis_user_pass'] = $this->session->userdata('suis_user_pass');
+		$array['suis_user_name'] = $this->session->userdata('suis_user_name');
+		$array['suis_user_email'] = $this->session->userdata('suis_user_email');
+		$array['suis_last_name'] = $this->session->userdata('suis_last_name');
+		$array['suis_first_name'] = $this->session->userdata('suis_first_name');
+		return $array;
 	}
 
 	
