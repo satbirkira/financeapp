@@ -97,7 +97,7 @@ class User_model extends CI_Model {
 	
 	function logout()
 	{
-		session_destroy();
+		$this->session->sess_destroy();
 	}
 	
 	function check_email_availablitiy($email)

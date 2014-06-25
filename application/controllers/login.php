@@ -18,7 +18,7 @@ class Login extends CI_Controller {
 	public function logout()
 	{
 		$this->user_model->logout();
-		redirect('/login');
+		redirect('login');
 	}
 	
 	public function login()
