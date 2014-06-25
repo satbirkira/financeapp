@@ -17,6 +17,7 @@ class Page extends CI_Controller{
 	public function dashboard()
 	{
 		$page_data = Array();
+		$this->confirmLogin();
 		$page_data = $this->addUserSessionData($page_data);
 		$page_data['content'] = 'dashboard';
 		$page_data['content_data'] = array("VARIABLES" => "THIS ARE VARIABLES YOU WANT TO PASS TO THE dashboard VIEW");
@@ -26,6 +27,7 @@ class Page extends CI_Controller{
 	public function goal()
 	{
 		$page_data = Array();
+		$this->confirmLogin();
 		$page_data['sidebar'] = $this->load->view('sidebar', '', true);
 		$page_data['topbar'] = $this->load->view('topbar', '', true);
 		$page_data['content'] = $this->load->view('goal', '', true);
@@ -35,6 +37,7 @@ class Page extends CI_Controller{
 	public function social()
 	{
 		$page_data = Array();
+		$this->confirmLogin();
 		$page_data['sidebar'] = $this->load->view('sidebar', '', true);
 		$page_data['topbar'] = $this->load->view('topbar', '', true);
 		$page_data['content'] = $this->load->view('social', '', true);
@@ -44,6 +47,7 @@ class Page extends CI_Controller{
 	public function setting()
 	{
 		$page_data = Array();
+		$this->confirmLogin();
 		$page_data['sidebar'] = $this->load->view('sidebar', '', true);
 		$page_data['topbar'] = $this->load->view('topbar', '', true);
 		$page_data['content'] = $this->load->view('setting', '', true);
@@ -59,6 +63,25 @@ class Page extends CI_Controller{
 		$array['suis_last_name'] = $this->session->userdata('suis_last_name');
 		$array['suis_first_name'] = $this->session->userdata('suis_first_name');
 		return $array;
+	}
+	
+	public function confirmLogin()
+	{
+		//user not logged in
+		if ((!$this->session->userdata('suis_user_name')) || (!$this->session->userdata('suis_user_pass')))
+		{
+			redirect('login');
+		}
+		
+		$username = $this->session->userdata('suis_user_name');
+		$password = $this->session->userdata('suis_user_pass');
+		//user no longer allowed to login
+		if ($this->user_model->check_login($username, $password) == false)
+		{
+			$this->user_model->logout();
+			redirect('login');
+		}
+	
 	}
 
 	
