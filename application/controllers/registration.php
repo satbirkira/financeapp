@@ -40,11 +40,11 @@ class Registration extends CI_Controller {
 			{
 				if ($this->user_model->check_email_availablitiy($arrUserDetails['userEmail']) == false)
 				{
-					$data['authentication_error'] = "This email is already registered to a FinanceBuddy account.";
+					$data['registration_error'] = "This email is already registered to a FinanceBuddy account.";
 				}
 				else if ($this->user_model->check_username_availablitiy($arrUserDetails['userName']) == false)
 				{
-					$data['authentication_error'] = "This username is unavaliable. Please use another.";
+					$data['registration_error'] = "This username is unavaliable. Please use another.";
 				}
 				else
 				{
@@ -57,7 +57,7 @@ class Registration extends CI_Controller {
 					}
 					else
 					{
-						$data['authentication_error'] = "Could not add to database for unknown reason";
+						$data['registration_error'] = "Could not add to database for unknown reason";
 					}
 				}
 			}

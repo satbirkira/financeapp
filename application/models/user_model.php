@@ -140,14 +140,33 @@ class User_model extends CI_Model {
 		
 		return $result;
     }
+	*/
 	
-	 function update_user_details($arrUserDetails,$uid)
+	function updateUserAccount($uid, $arrUserAccDetails)
     {
 		$this->db->from('user');
 		$this->db->where('userId',$uid);
-		return $this->db->update('user',$arrUserDetails);
+		return $this->db->update('user',$arrUserAccDetails);
     }
-	*/
+	
+	function userAccountUpdated($uid)
+    {
+		$this->db->select('userID');
+		$this->db->from('user');
+		$this->db->where('userID',$uid);
+		$this->db->where('userAccountUpdated', true);
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+    }
+	
 	
 	function get_user_details($uid)
 	{

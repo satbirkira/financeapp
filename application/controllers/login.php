@@ -31,9 +31,17 @@ class Login extends CI_Controller {
 			$alreadyHashedPass = $this->session->userdata('suis_user_pass');
 			if($this->user_model->attempt_login($usernameInSession, $alreadyHashedPass))
 			{
-				//redirect to dash
-				//redirect('/page/dashboard');
-				redirect('/page/demo_inprog');
+				if($this->user_model->userAccountUpdated($this->session->userdata('suis_user_id')) == false)
+				{
+					redirect('updateAccount');
+				}
+				//else redirect dash
+				else
+				{
+					//redirect to dash
+					//redirect('/page/dashboard');
+					redirect('/page/demo_inprog');
+				}
 			}
 		}
 		else if(isset($_POST["submit_login"]))
@@ -49,9 +57,18 @@ class Login extends CI_Controller {
 			{
 				if($this->user_model->attempt_login($username, $this->user_model->hash_password($password)))
 				{
-					//redirect to dash
-					//redirect('/page/dashboard');
-					redirect('/page/demo_inprog');
+					//if user has not updated account, redirect to that page
+					if($this->user_model->userAccountUpdated($this->session->userdata('suis_user_id')) == false)
+					{
+						redirect('updateAccount');
+					}
+					//else redirect dash
+					else
+					{
+						//redirect to dash
+						//redirect('/page/dashboard');
+						redirect('/page/demo_inprog');
+					}
 				}
 				else
 				{

@@ -113,8 +113,8 @@
 		</div>
 		<div style="clear: both"></div>
 		<div class="errors">
-			<?php if (isset($authentication_error)) {
-				echo $authentication_error;
+			<?php if (isset($registration_error)) {
+				echo $registration_error;
 			   }
 			   echo validation_errors('<p>');
 			?>
