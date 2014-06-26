@@ -67,10 +67,10 @@
 	/*
 	
 		Create account table
-	
+	    [NO LONGER NEEDED, INFORMATION MOVED TO USER TABLE]
 	*/
 	
-	
+	/*
 	echo "Creating Account..</br>";
 	$query = file_get_contents("table_account.sql");
 	
@@ -86,12 +86,15 @@
 	if (!$link) die("Could not connect: ". mysqli_error($link));
 	if (!mysqli_select_db($link, $database_name)) die("Could not access database: ". mysqli_error($link));
 	
+	*/
+	
+	
 	/*
 	
 		Create goal table
 	
 	*/
-	
+
 	
 
 	echo "Creating Goal..</br>";
@@ -214,7 +217,7 @@
 		echo "==</br>";
 	}
 	
-	
+	/*
 	echo "-------------------------------</br>";
 	echo "Displaying Account Table</br>";
 	echo "-------------------------------</br>";
@@ -233,7 +236,7 @@
 		}
 		echo "==</br>";
 	}
-	
+	*/
 	
 	
 	echo "-------------------------------</br>";

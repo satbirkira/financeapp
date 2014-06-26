@@ -12,11 +12,11 @@
 <body>
 
 <div id="container">
-	<?php $this->load->view('topbar'); ?>
+	<?php $this->load->view('topbar', $content_data); ?>
 
 	<?php $this->load->view($content, $content_data); ?>
 
-	<?php $this->load->view('sidebar'); ?>
+	<?php $this->load->view('sidebar', $content_data); ?>
 
 </div>
 <div>

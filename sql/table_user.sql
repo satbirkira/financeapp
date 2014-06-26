@@ -7,6 +7,10 @@ CREATE TABLE  `financeapp`.`user` (
   `userEmail` varchar(45) DEFAULT NULL,
   `userFirstName` varchar(45) DEFAULT NULL,
   `userLastName` varchar(45) DEFAULT NULL,
+  `userCurrentlySaved` int(10) NOT NULL DEFAULT '0',
+  `userInterestOnSavings` int(11) NOT NULL DEFAULT '0',
+  `userMonthlyIncome` int(10) NOT NULL DEFAULT '0',
+  `userAccountUpdated` BOOLEAN DEFAULT FALSE,
   `userProfileImage` varchar(45) DEFAULT NULL,
   `userDeleted` BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (`userID`)

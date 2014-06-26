@@ -20,11 +20,16 @@ class Page extends CI_Controller{
 	
 	public function dashboard()
 	{
+		//initial view setup
 		$page_data = Array();
 		$this->confirmLogin();
-		$page_data = $this->addUserSessionData($page_data);
 		$page_data['content'] = 'dashboard';
-		$page_data['content_data'] = array("VARIABLES" => "THIS ARE VARIABLES YOU WANT TO PASS TO THE dashboard VIEW");
+		$page_data['content_data'] = array();
+		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
+
+		
+		//dynamically create view
+		$page_data['content_data']["variable1"] = "THIS ARE VARIABLES YOU WANT TO PASS TO THE dashboard VIEW";
 		$this->load->view('page', $page_data);
 	}
 	

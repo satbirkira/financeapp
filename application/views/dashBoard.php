@@ -1,3 +1,3 @@
 <div id="content">
-<?=$VARIABLES?>
+<?=$variable1?>
 </div>
