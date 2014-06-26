@@ -30,13 +30,34 @@ class Goal_Model extends CI_Model {
 		return $query->result();
 	}
 	
-	function get_all_goal($uid)
+	function get_all_goals($uid)
 	{
-		$this->db->select('*');
-		$this->db->from('goal');
-		$this->db->where('userId',$uid);
-		$query = $this->db->get();
-		return $query->result();
+		$data = "";
+		$sql = "SELECT *
+				FROM goal
+				WHERE userID = ?
+				ORDER BY goalID desc ";
+									
+		$query = $this->db->query($sql,$uid);
+		
+		$i = 0;
+		foreach($query->result_array() as $row){
+			
+			 $data[$i]['goalId'] = $row['goalID'];
+     	     $data[$i]['goalName'] = $row['goalName'];
+			 $data[$i]['startDate'] = $row['startDate'];
+			 $data[$i]['targetDate'] = $row['targetDate'];
+			 $data[$i]['totalCost'] = $row['totalCost'];
+			 $data[$i]['monthlyDepot'] = $row['monthlyDepot'];
+			 $data[$i]['interestRate'] = $row['interestRate'];
+			 $data[$i]['currentlySaved'] = $row['currentlySaved'];			
+ 			 $data[$i]['goalStatus'] = $row['goalStatus'];			
+			 
+			 $i++;
+		}
+		
+		
+		return $data;	
 	}
 
 	function remove_goal()
