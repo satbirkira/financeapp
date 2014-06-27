@@ -14,7 +14,6 @@ class Deposit_Model extends CI_Model {
 	function add_deposit($arrHis)
     {
 		$result = $this->db->insert('history',$arrHis);
-		//$goalId = $this->db->insert_id();		
 		return $result;
     }
 		

@@ -14,11 +14,6 @@
 			return baseurl;
 		}
 		
-		function getSiteUrl(){
-			var siteurl = '<?php echo site_url('index.php/GoalManagement'); ?>';
-			return siteurl;	
-		}
-		
 		$(document).ready(function(e) {
 			$('#accordion').wrap('<div style="height: 300px"></div>');
 			$('#accordion').accordion({
@@ -26,25 +21,84 @@
 				autoHeight: true
 			});
 			
+			setProgressVal();
 			
-			$('#progressDiv_1').progressbar({
-				value: 75,
-				create: function(e){
-					$('#progVal').text($('#progressDiv_1').progressbar("value"));
-				},
-				complete: function(e){
-					$('#incr').button("disable")
-				},
-				change: function(e){
-					if ($(this).progressbar("value") < 100){
-						$('#incr').button("enable")
-					}
-					$('#progVal').text($('#progressDiv_1').progressbar("value"));
-				}
+			$('.dialog').dialog({
+				autoOpen: false,
+				resizable: false,
+				modal: true,
+				width: 400, 
+				height: 150
 			});
+			
         });
 			
-			
+	
+	function setProgressVal(){
+		var c = $('.progressDiv').length;		
+		for (var i = 1; i<=c; i++){
+			var id = '#progressDiv_';
+			var pv = '#progVal_';
+			id = id+i;
+			pv = pv+i;
+			var val = $(pv).text();
+			val = val * 1;
+			$(id).progressbar({
+				value: val
+			});
+		}
+	}
+	
+	function openDialog(o){
+		var rep = /[A-Za-z_]/g;
+		var id = o.id.replace(rep,'');
+		$('#result_'+id).html('');
+		document.getElementById('save_'+id).value = '';
+		$('#dialog_'+id).dialog("open");
+
+	}
+	
+	function deposit(o){
+		var rep = /[A-Za-z_]/g;
+		var id = o.id.replace(rep,'');
+		var amount = $('#save_'+id).val();
+		var gid = $('#goalId_'+id).val();
+		var siteurl = '<?php echo site_url('index.php/depositManagement'); ?>';
+		siteurl = siteurl+'/addDeposit';
+		var d = new Date();
+		var today = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+		
+		$.getJSON(siteurl+'?gid='+gid+'&amount='+amount, function(data) {
+			var result = $('#result_'+id);
+			result.html(data.msg);
+			if(data.ok == true){
+				result.css('color','#3C3');
+				//update Goal Info
+				$('#progVal_'+id).html(data.precent);
+				$('#progressDiv_'+id).progressbar({
+					value: data.precent
+				});
+				//update goal progress table
+				if ($('#progress_'+id +' tr').length == 1){
+					$('#progress_'+id).empty();
+					$('#progress_'+id).append("<tr><th></th><th>"+today+"</th></tr><tr><td>Deposit</td><td>"+amount+"</td></tr>");
+					
+				}else{
+					var lastele = $('#progress_'+id+ ' tr:nth-child(1)');
+					lastele.append("<th>"+today+"</th>");
+					
+					lastele = $('#progress_'+id+ ' tr:nth-child(2)');
+					lastele.append("<td>"+amount+"</td>");
+
+				}
+				
+			}else{
+				result.css('color','#900');
+			}	
+					
+		});
+	}
+	
 	
 	</script>    
     <style type="text/css">
@@ -81,26 +135,34 @@
 <body>
              <!-- Start the container Div -->
              <div id="container"> 
-                <!-- Registration Div starts here -->
+                <!-- goallist div starts here -->
                 <div id="goallist">
                 
                 	<div class="pagetitle">
                     Your saving goals
                 	</div>                   
                     <div id="accordion">
-                    <?php for($i = 0;$i<count($goals);$i++){
+                    <?php 
+					  $k = 0;
+					  for($i = 0;$i<count($goals);$i++){
+						  $k = $i +1;
 					?>
                       <div class="goaltitle">
                         <div><a href="#">Goal:  <?php echo $goals[$i]['goalName']; ?></a>                                                 
-                             <div style="width: 25px; float:right; font-size:12px;"><img src="../../images/add2.jpg" title="Add Deposit"/></div>
+                             <div id="addD_<?php echo $k ;?>" style="width: 25px; float:right; font-size:12px;" class="addD" onClick="openDialog(this);"><img src="../../images/add2.jpg" title="Add Deposit"/></div>
                              <span style="width: 20px; float:right; font-size:16px;">%</span>  
-                             <span id="progVal" style="width: 30px; float:right; font-size:16px;"></span>                             
-                             <div id="progressDiv_1" style="width: 300px; float:right; margin-right: 5px;">                       	    
+                             <span id="progVal_<?php echo $k; ?>" style="width: 30px; float:right; font-size:16px;">
+                             <?php 
+							 $percent = round($goals[$i]['currentlySaved']/$goals[$i]['totalCost'],2)*100;
+							 echo $percent; ?>
+                             </span>                             
+                             <div id="progressDiv_<?php echo $k; ?>" class="progressDiv" style="width: 300px; float:right; margin-right: 5px;">                       	    
                              </div>
                         </div>                                         
                       </div>
                       
-                      <div class="dcell">                                             
+                      <div class="dcell">        
+                        <input type="hidden" id="goalId_<?php echo $i+1; ?>" value="<?php echo $goals[$i]['goalId']; ?>" />                                    
                         <div class="goalinfo">
                             <label for="goalTotal">Goal total:</label>
                             <div class="info">$<?php echo $goals[$i]['totalCost']; ?></div>
@@ -121,13 +183,13 @@
                            <?php 
 								if ($deposits[$i] != ''){
 									?>
-                            <table>
+                            <table id="progress_<?php echo $i+1; ?>">
                               <tr>
                                 <th></th>
                                 <?php 
 									  for($j = 0;$j<count($deposits[$i]);$j++){
 								?>
-                                <th><?php echo $deposits[$i][$j]['depositDate']; ?></th>
+                                <th class="thDate"><?php echo $deposits[$i][$j]['depositDate']; ?></th>
                                 <?php } ?>
                               </tr>
                               <tr>
@@ -135,15 +197,14 @@
                                  <?php
 									  for($j = 0;$j<count($deposits[$i]);$j++){
 								?>
-                                <td><?php echo $deposits[$i][$j]['amount']; ?></td>
+                                <td class="tdAmount"><?php echo $deposits[$i][$j]['amount']; ?></td>
                                 <?php } ?>
-                                
                               </tr>                              
                             </table>
                                 <?php 
 									}else{ 
 									?>
-                              <table>
+                              <table id="progress_<?php echo $i+1; ?>">
                                 <tr>
                                 <th>Haven't started yet.</th>
                                 </tr>
@@ -165,7 +226,17 @@
                     
                    
              </div> 
-             <!-- Goal View Div ends here -->     
+             <!-- Goal View Div ends here -->   
+             <?php   
+  			 for($i = 1 ; $i <= count($goals);$i++){ ?>
+             <div id="dialog_<?php echo $i; ?>" class="dialog" title="Add deposit" style="400px;">
+                 <div style="float:left;"><label for="total" >Saved($):</label></div>
+                 <div style="float:left; margin-left:5px;"><input type="text" id="save_<?php echo $i; ?>" /></div>
+                   <input id="btn_dg_<?php echo $i; ?>" type="button" onClick="deposit(this);" value="Submit" class="btn" />
+                  <span id="result_<?php echo $i; ?>"></span>
+             </div>
+			 <?php } ?>
+			 
             </div>
      <!-- End of the container Div -->
 </body>

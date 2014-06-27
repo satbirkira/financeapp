@@ -67,7 +67,6 @@ class GoalManagement extends CI_Controller{
 		//$uid = 11;
 		$goals = $this->goal_model->get_all_goals($uid);
 		for ($i = 0; $i < count($goals); $i++){
-			//echo 'id '.$goals[$i]['goalId'];
 			$deposits[$i] = $this->deposit_model->get_deposit_history($goals[$i]['goalId']);
 		}
 
