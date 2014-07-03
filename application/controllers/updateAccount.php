@@ -23,9 +23,9 @@ class UpdateAccount extends CI_Controller {
 		
 		if(isset($_POST["submit_updateacc"]))
 		{		
-			$this->form_validation->set_rules('currentlySaved', 'Currently Saved', 'trim|required|max_length[10]');
-			$this->form_validation->set_rules('interestOnSavings', 'Interest on Savings', 'trim|required|max_length[10]');
-			$this->form_validation->set_rules('monthlyIncome', 'Monthly Income', 'trim|required|max_length[10]');
+			$this->form_validation->set_rules('currentlySaved', 'Currently Saved', 'trim|required|max_length[10]|numeric|greater_than[-1]');
+			$this->form_validation->set_rules('interestOnSavings', 'Interest on Savings', 'trim|required|max_length[10]|numeric|greater_than[-1]|less_than[101]');
+			$this->form_validation->set_rules('monthlyIncome', 'Monthly Income', 'trim|required|max_length[10]|numeric|greater_than[-1]');
 			
 			$user_id = $this->session->userdata('suis_user_id');
 			$arrUserAccDetails['userAccountUpdated'] = true;	

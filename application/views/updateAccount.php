@@ -35,7 +35,7 @@
 	              'value'       => set_value('interestOnSavings', ''),
 	              'maxlength'   => '10',
 	              'size'        => '75',
-	              'placeholder'	=> 'Interest on Savings'
+	              'placeholder'	=> '% Interest on Savings'
 	            );
 			$monthlyIncome = array(
 	              'name'        => 'monthlyIncome',
