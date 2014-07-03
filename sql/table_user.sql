@@ -12,6 +12,8 @@ CREATE TABLE  `financeapp`.`user` (
   `userMonthlyIncome` int(10) NOT NULL DEFAULT '0',
   `userAccountUpdated` BOOLEAN DEFAULT FALSE,
   `userProfileImage` varchar(45) DEFAULT NULL,
+  `userBeSearchable` varchar(45) DEFAULT TRUE,
+  `userDisplayGoalsOnDash` varchar(45) DEFAULT TRUE,
   `userDeleted` BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=gb2312 ROW_FORMAT=DYNAMIC;

@@ -64,7 +64,7 @@ class Page extends CI_Controller{
 	{
 		$page_data = Array();
 		$this->confirmLogin();
-		$page_data['content'] = 'settings';
+		$page_data['content'] = 'setting';
 		$page_data['content_data'] = array();
 		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
 		
@@ -126,6 +126,7 @@ class Page extends CI_Controller{
 		//form validation
 		
 		//display view with update notification
+		$this->setting();
 	
 	}
 	

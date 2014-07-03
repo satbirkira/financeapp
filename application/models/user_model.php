@@ -1,13 +1,25 @@
 <?php
 class User_model extends CI_Model {
 	
-	var $userScreenName = "";
-	var $userFirstName = "";
-	var $userLastName = "";
-	var $userEmail = "";
-	var $userPassword = "";	
-	var $userProfileImage = "";	
-	var $userCreatedOn = "";
+/* User table as refrence
+  `userID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userName` varchar(45) NOT NULL,
+  `userPassword` varchar(100) NOT NULL, 
+  `userCreatedOn` DATE NOT NULL,
+  `userEmail` varchar(45) DEFAULT NULL,
+  `userFirstName` varchar(45) DEFAULT NULL,
+  `userLastName` varchar(45) DEFAULT NULL,
+  `userCurrentlySaved` int(10) NOT NULL DEFAULT '0',
+  `userInterestOnSavings` int(11) NOT NULL DEFAULT '0',
+  `userMonthlyIncome` int(10) NOT NULL DEFAULT '0',
+  `userAccountUpdated` BOOLEAN DEFAULT FALSE,
+  `userProfileImage` varchar(45) DEFAULT NULL,
+  `userBeSearchable` varchar(45) DEFAULT TRUE,
+  `userDisplayGoalsOnDash` varchar(45) DEFAULT TRUE,
+  `userDeleted` BOOLEAN DEFAULT FALSE,
+  PRIMARY KEY (`userID`)
+*/
+
 
     function __construct()
     {
