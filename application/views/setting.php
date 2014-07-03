@@ -23,10 +23,73 @@
 	              'id'          => 'username',
 				  'type'		=> 'text',
 	              'value'       => $user_settings['userName'],
-	              'maxlength'   => '11',
+	              'maxlength'   => '45',
 	              'size'        => '75'
 	            );
-			
+			$firstname = array(
+	              'name'        => 'firstname',
+	              'id'          => 'firstname',
+				  'type'		=> 'text',
+	              'value'       => $user_settings['userFirstName'],
+	              'maxlength'   => '45',
+	              'size'        => '75'
+	            );
+			$lastname = array(
+	              'name'        => 'lastname',
+	              'id'          => 'lastname',
+				  'type'		=> 'text',
+	              'value'       => $user_settings['userLastName'],
+	              'maxlength'   => '45',
+	              'size'        => '75'
+	            );
+			$email = array(
+	              'name'        => 'email',
+	              'id'          => 'email',
+				  'type'		=> 'text',
+	              'value'       => $user_settings['userEmail'],
+	              'maxlength'   => '45',
+	              'size'        => '75'
+	            );
+			$old_password = array(
+	              'name'        => 'password',
+	              'id'          => 'password',
+				  'type'		=> 'password',
+	              'value'       => '',
+	              'maxlength'   => '100',
+	              'size'        => '75'
+	            );
+			$new_password = array(
+	              'name'        => 'confirm_password',
+	              'id'          => 'confirm_password',
+				  'type'		=> 'password',
+	              'value'       => '',
+	              'maxlength'   => '100',
+	              'size'        => '75'
+	            );	
+			$currentlySaved = array(
+	              'name'        => 'currentlySaved',
+	              'id'          => 'currentlySaved',
+				  'type'		=> 'text',
+	              'value'       => $user_settings['userCurrentlySaved'],
+	              'maxlength'   => '10',
+	              'size'        => '75'
+	            );	
+			$interestOnSavings = array(
+	              'name'        => 'interestOnSavings',
+	              'id'          => 'interestOnSavings',
+				  'type'		=> 'text',
+	              'value'       => $user_settings['userInterestOnSavings'],
+	              'maxlength'   => '10',
+	              'size'        => '75'
+	            );	
+			$monthlyIncome = array(
+	              'name'        => 'monthlyIncome',
+	              'id'          => 'monthlyIncome',
+				  'type'		=> 'text',
+	              'value'       => $user_settings['userMonthlyIncome'],
+	              'maxlength'   => '10',
+	              'size'        => '75'
+	            );	
 			$beSearchable = array(
 	              'name'        => 'beSearchable',
 	              'id'          => 'beSearchable',
@@ -67,12 +130,38 @@
 		?>
 		
 		<div id="setting_title">
-			<span>Change A Setting</span>
+			<span>Update Prefrences And Account Details</span>
+		</div>
+		<div class="settinginput">
+			<label for="change_firstname">First Name</label>
+			<?php echo form_input($firstname); ?>
+		</div>
+		<div class="settinginput">
+			<label for="change_lastname">Last Name</label>
+			<?php echo form_input($lastname); ?>
 		</div>
 		<div class="settinginput">
 			<label for="change_username">Username</label>
 			<?php echo form_input($username); ?>
 		</div>
+		<div class="settinginput">
+			<label for="change_email">Email</label>
+			<?php echo form_input($email); ?>
+		</div>
+		
+		<div class="settinginput">
+			<label for="change_currentlySaved">Currently Saved</label>
+			<?php echo form_input($currentlySaved); ?>
+		</div>
+		<div class="settinginput">
+			<label for="change_interestOnSavings">Interest On Savings</label>
+			<?php echo form_input($interestOnSavings); ?>
+		</div>
+		<div class="settinginput">
+			<label for="change_monthlyIncome">Monthly Income</label>
+			<?php echo form_input($monthlyIncome); ?>
+		</div>
+
 		<div class="settinginput">
 			<?php echo form_input($beSearchable); ?>
 			<label for="beSearchable">Allow People To Find You</label>
@@ -86,27 +175,31 @@
 			<?php echo form_button($submit); ?>
 		</div>
 		
+		<div class="delete_account_submit">
+			<?php echo form_button($delete_account_submit); ?>
+		</div>
+		
 		</br>
 		</br>
 		<div id="setting_title">
-			<span>Change Password Or Remove Account</span>
+			<span>Change Password</span>
 		</div>
 		
 		
 		<div class="settinginput">
-			<label for="beSearchable">Old Password</label>
+			<label for="old_pass">Old Password</label>
+			<?php echo form_input($old_password); ?>
 		</div>
 		<div class="settinginput">
-			<label for="beSearchable">New Password</label>
+			<label for="new_pass">New Password</label>
+			<?php echo form_input($new_password); ?>
 		</div>
 		
 		<div class="update_pass_submit">
 			<?php echo form_button($update_pass_submit); ?>
 		</div>
 		
-		<div class="delete_account_submit">
-			<?php echo form_button($delete_account_submit); ?>
-		</div>
+		
 		
 		<div class="errors">
 			<?php if (isset($general_error)) {
