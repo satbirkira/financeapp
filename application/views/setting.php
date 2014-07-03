@@ -129,6 +129,20 @@
 				echo form_open(base_url().'changeSetting', $form);
 		?>
 		
+		<div class="errors">
+			<?php if (isset($general_error)) {
+				echo $general_error;
+			   }
+		   echo validation_errors('<p>');
+		?>
+		</div>
+		<div class="success">
+			<?php if (isset($success_msg)) {
+				echo $success_msg;
+			   }
+			?>
+		</div>
+		
 		<div id="setting_title">
 			<span>Update Prefrences And Account Details</span>
 		</div>
@@ -199,21 +213,6 @@
 			<?php echo form_button($update_pass_submit); ?>
 		</div>
 		
-		
-		
-		<div class="errors">
-			<?php if (isset($general_error)) {
-				echo $general_error;
-			   }
-			   echo validation_errors('<p>');
-			?>
-		</div>
-		<div class="success">
-			<?php if (isset($success_msg)) {
-				echo $success_msg;
-			   }
-			?>
-		</div>
 		
 	</div>
 	
