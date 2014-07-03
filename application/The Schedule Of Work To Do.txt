@@ -1,0 +1,15 @@
+Today:
+Settings
+-Complete
+
+Friday:
+Dashboard
+-Excluding social elements
+
+Saturday:
+Social
+-Add social elements to dashboard
+
+Sunday:
+Goal
+-Intergrate into template

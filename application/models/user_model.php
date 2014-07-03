@@ -200,13 +200,44 @@ class User_model extends CI_Model {
 	
 	/* Get Settings */
 	
-	
+	function getUserSettingsArray($uid)
+    {
+		$this->db->select('*');
+		$this->db->from('user');
+		$this->db->where('userID',$uid);
+		$query = $this->db->get();
+		$rows = $query->result();
+		
+			//this loop will only run once, just extracts the row
+			foreach($rows as $row)
+			{
+				$settings_array['userName'] = $row->userName;
+				$settings_array['userPassword'] = $row->userPassword;
+				$settings_array['userEmail'] =  $row->userEmail;
+				$settings_array['userLastName'] = $row->userLastName;
+				$settings_array['userFirstName'] = $row->userFirstName;
+				
+				$settings_array['userCurrentlySaved'] = $row->userCurrentlySaved;
+				$settings_array['userInterestOnSavings'] = $row->userInterestOnSavings;
+				
+				$settings_array['userMonthlyIncome'] = $row->userMonthlyIncome;
+				$settings_array['userAccountUpdated'] = $row->userAccountUpdated;
+				$settings_array['userBeSearchable'] = $row->userBeSearchable;
+				$settings_array['userDisplayGoalsOnDash'] = $row->userDisplayGoalsOnDash;
+				return $settings_array;
+			}
+    }
+
 	/* Update Settings */
 	
+	function updateUserSettingsArray($uid, $settings_array)
+    {
+		$this->db->from('user');
+		$this->db->where('userId',$uid);
+		return $this->db->update('user',$settings_array);
+    }
 	
-	
-	
-	
+
 	
 
 }

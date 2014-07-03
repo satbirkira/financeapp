@@ -68,7 +68,7 @@ class Page extends CI_Controller{
 		$page_data['content_data'] = array();
 		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
 		
-
+		$page_data['content_data']["user_settings"] = $this->user_model->getUserSettingsArray($this->session->userdata('suis_user_id'));
 		$page_data['content_data']["variable1"] = "A variable you want to use in the setting view";
 		$this->load->view('page', $page_data);
 	}
