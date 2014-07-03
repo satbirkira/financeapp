@@ -121,8 +121,13 @@ class Page extends CI_Controller{
 	*/
 	
 	
+	public function changeSetting()
+	{
+		//form validation
+		
+		//display view with update notification
 	
-	
+	}
 	
 	
 	/*
