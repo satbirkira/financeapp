@@ -35,16 +35,8 @@ class User_model extends CI_Model {
 		//return $salt . $hash;
 	}
 	
-	function registerUser($arrUserDetails)
-	{
-		//hash the password
-		$arrUserDetails['userPassword'] = $this->hash_password( $arrUserDetails['userPassword'] );
-		$result = $this->db->insert('user', $arrUserDetails);
-		$userId = $this->db->insert_id();
-		//$this->set_session_info($userId, $arrUserDetails); uncomment since we don't login right away
-		return $result;
-	}
     
+	/* Login Functions */
 	
 	function attempt_login($userName, $password)
 	{
@@ -108,6 +100,19 @@ class User_model extends CI_Model {
 		$this->session->sess_destroy();
 	}
 	
+	
+	/* Registration Functions */
+	
+	function registerUser($arrUserDetails)
+	{
+		//hash the password
+		$arrUserDetails['userPassword'] = $this->hash_password( $arrUserDetails['userPassword'] );
+		$result = $this->db->insert('user', $arrUserDetails);
+		$userId = $this->db->insert_id();
+		//$this->set_session_info($userId, $arrUserDetails); uncomment since we don't login right away
+		return $result;
+	}
+	
 	function check_email_availablitiy($email)
 	{
 		$this->db->select('userId');
@@ -144,15 +149,27 @@ class User_model extends CI_Model {
 
 	}
 	
-	/*function create_new_user($arrUser)
-    {
-		$result = $this->db->insert('user', $arrUser);
-		$userId = $this->db->insert_id();
-		$this->set_session_info($userId, $arrUser);
-		
-		return $result;
-    }
-	*/
+	/* Get User info */
+	
+	function get_user_details($uid)
+	{
+		$this->db->select('*');
+		$this->db->from('user');
+		$this->db->where('userId',$uid);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
+	function get_user_screenName($uid)
+	{
+		$this->db->select('userScreenName');
+		$this->db->from('user');
+		$this->db->where('userId',$uid);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
+	/* Updating User Info */
 	
 	function updateUserAccount($uid, $arrUserAccDetails)
     {
@@ -180,23 +197,17 @@ class User_model extends CI_Model {
     }
 	
 	
-	function get_user_details($uid)
-	{
-		$this->db->select('*');
-		$this->db->from('user');
-		$this->db->where('userId',$uid);
-		$query = $this->db->get();
-		return $query->result();
-	}
 	
-	function get_user_screenName($uid)
-	{
-		$this->db->select('userScreenName');
-		$this->db->from('user');
-		$this->db->where('userId',$uid);
-		$query = $this->db->get();
-		return $query->result();
-	}
+	/* Get Settings */
+	
+	
+	/* Update Settings */
+	
+	
+	
+	
+	
+	
 
 }
 ?>
