@@ -37,6 +37,7 @@ class Page extends CI_Controller{
 	{
 		$page_data = Array();
 		$this->confirmLogin();
+		$page_data['content'] = 'goal';
 		$page_data['sidebar'] = $this->load->view('sidebar', '', true);
 		$page_data['topbar'] = $this->load->view('topbar', '', true);
 		$page_data['content'] = $this->load->view('goal', '', true);
@@ -47,6 +48,7 @@ class Page extends CI_Controller{
 	{
 		$page_data = Array();
 		$this->confirmLogin();
+		$page_data['content'] = 'social';
 		$page_data['sidebar'] = $this->load->view('sidebar', '', true);
 		$page_data['topbar'] = $this->load->view('topbar', '', true);
 		$page_data['content'] = $this->load->view('social', '', true);
@@ -57,6 +59,7 @@ class Page extends CI_Controller{
 	{
 		$page_data = Array();
 		$this->confirmLogin();
+		$page_data['content'] = 'setting';
 		$page_data['sidebar'] = $this->load->view('sidebar', '', true);
 		$page_data['topbar'] = $this->load->view('topbar', '', true);
 		$page_data['content'] = $this->load->view('setting', '', true);
