@@ -7,11 +7,12 @@
 	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>css/style.css">
 </head>
-<body>
-
-<div id="updateacc_container">
-	<div id="updateacc_form_container">
-		<div id="updateacc_form_title"></div>
+<body id="updateacc_container">
+<div id="updateacc_form_container">
+	<div id="updateacc_form_title">
+		<span>Let's Update Your Account!</span>
+	</div>
+	<div id="updateacc_form">
 		<?php
 			//login is the controller, signin is the function
 			$form = array(
@@ -22,7 +23,7 @@
 	              'name'        => 'currentlySaved',
 	              'id'          => 'currentlySaved',
 				  'type'		=> 'text',
-	              'value'       => '',
+	              'value'       => set_value('currentlySaved', ''),
 	              'maxlength'   => '10',
 	              'size'        => '75',
 	              'placeholder'	=> 'Currently Saved'
@@ -31,7 +32,7 @@
 	              'name'        => 'interestOnSavings',
 	              'id'          => 'interestOnSavings',
 				  'type'		=> 'text',
-	              'value'       => '',
+	              'value'       => set_value('interestOnSavings', ''),
 	              'maxlength'   => '10',
 	              'size'        => '75',
 	              'placeholder'	=> 'Interest on Savings'
@@ -40,7 +41,7 @@
 	              'name'        => 'monthlyIncome',
 	              'id'          => 'monthlyIncome',
 				  'type'		=> 'text',
-	              'value'       => '',
+	              'value'       => set_value('monthlyIncome', ''),
 	              'maxlength'   => '10',
 	              'size'        => '75',
 	              'placeholder'	=> 'Current Monthly Income'
@@ -48,16 +49,16 @@
 			$submit = array(
 					'name' => 'submit_updateacc',
 	    			'id' => 'submit_updateacc',
-	    			'value' => 'Update Account',
+	    			'value' => 'Update',
 	    			'type' => 'submit',
-	    			'content' => 'Update Account'
+	    			'content' => 'Update'
 				);
 			$skip = array(
 					'name' => 'submit_skip_updateacc',
 	    			'id' => 'submit_skip_updateacc',
-	    			'value' => 'Skip To Dashboard',
+	    			'value' => 'Skip',
 	    			'type' => 'submit',
-	    			'content' => 'Skip To Dashboard'
+	    			'content' => 'Skip'
 				);
 			
 				echo form_open(base_url().'updateaccount', $form);
@@ -79,10 +80,12 @@
 			?>
 		</div>
 		<br>
-		<div class="updateacc_submit">
+	</div>
+	<div id="updateacc_footer">
+		<div class="updateacc_button update_button">
 			<?php echo form_button($submit); ?>
 		</div>
-		<div class="skip_updateacc_submit">
+		<div class="updateacc_button skip_button">
 			<?php echo form_button($skip); ?>
 		</div>
 		<?php echo form_close(); ?>

@@ -27,7 +27,7 @@
 	              'id'          => 'firstname',
 	              'class'		=> 'half',
 				  'type'		=> 'text',
-	              'value'       => '',
+	              'value'       => set_value('firstname', ''),
 	              'maxlength'   => '45',
 	              'size'        => '75',
 	              'placeholder'	=> 'First'
@@ -37,7 +37,7 @@
 	              'id'          => 'lastname',
 	              'class'		=> 'half',
 				  'type'		=> 'text',
-	              'value'       => '',
+	              'value'       => set_value('lastname', ''),
 	              'maxlength'   => '45',
 	              'size'        => '75',
 	              'placeholder'	=> 'Last'
@@ -46,7 +46,7 @@
 	              'name'        => 'username',
 	              'id'          => 'username',
 				  'type'		=> 'text',
-	              'value'       => '',
+	              'value'       => set_value('username', ''),
 	              'maxlength'   => '45',
 	              'size'        => '75',
 	              'placeholder'	=> 'Username'
@@ -55,7 +55,7 @@
 	              'name'        => 'email',
 	              'id'          => 'email',
 				  'type'		=> 'text',
-	              'value'       => '',
+	              'value'       => set_value('email', ''),
 	              'maxlength'   => '45',
 	              'size'        => '75',
 	              'placeholder'	=> 'Email'

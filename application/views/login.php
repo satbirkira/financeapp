@@ -26,7 +26,7 @@
 	              'name'        => 'username',
 	              'id'          => 'username',
 				  'type'		=> 'text',
-	              'value'       => '',
+	              'value'       => set_value('username', ''),
 	              'maxlength'   => '11',
 	              'size'        => '75'
 	            );
