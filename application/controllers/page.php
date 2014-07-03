@@ -29,7 +29,7 @@ class Page extends CI_Controller{
 
 		
 		//dynamically create view
-		$page_data['content_data']["variable1"] = "THIS ARE VARIABLES YOU WANT TO PASS TO THE dashboard VIEW";
+		$page_data['content_data']["variable1"] = "A variable you want to use in the dash view";
 		$this->load->view('page', $page_data);
 	}
 	
@@ -43,7 +43,7 @@ class Page extends CI_Controller{
 		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
 		
 
-		$page_data['content_data']["variable1"] = "THIS ARE VARIABLES YOU WANT TO PASS TO THE goal VIEW";
+		$page_data['content_data']["variable1"] = "A variable you want to use in the goal view";
 		$this->load->view('page', $page_data);
 	}
 	
@@ -56,7 +56,7 @@ class Page extends CI_Controller{
 		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
 		
 
-		$page_data['content_data']["variable1"] = "THIS ARE VARIABLES YOU WANT TO PASS TO THE social VIEW";
+		$page_data['content_data']["variable1"] = "A variable you want to use in the social view";
 		$this->load->view('page', $page_data);
 	}
 	
@@ -69,7 +69,7 @@ class Page extends CI_Controller{
 		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
 		
 
-		$page_data['content_data']["variable1"] = "THIS ARE VARIABLES YOU WANT TO PASS TO THE setting VIEW";
+		$page_data['content_data']["variable1"] = "A variable you want to use in the setting view";
 		$this->load->view('page', $page_data);
 	}
 	
