@@ -35,13 +35,16 @@ class Page extends CI_Controller{
 	
 	public function goal()
 	{
+		//initial view setup
 		$page_data = Array();
 		$this->confirmLogin();
 		$page_data['content'] = 'goal';
-		$page_data['sidebar'] = $this->load->view('sidebar', '', true);
-		$page_data['topbar'] = $this->load->view('topbar', '', true);
-		$page_data['content'] = $this->load->view('goal', '', true);
-		$this->load->view('page', $page_data, false);
+		$page_data['content_data'] = array();
+		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
+		
+
+		$page_data['content_data']["variable1"] = "THIS ARE VARIABLES YOU WANT TO PASS TO THE goal VIEW";
+		$this->load->view('page', $page_data);
 	}
 	
 	public function social()
@@ -49,21 +52,25 @@ class Page extends CI_Controller{
 		$page_data = Array();
 		$this->confirmLogin();
 		$page_data['content'] = 'social';
-		$page_data['sidebar'] = $this->load->view('sidebar', '', true);
-		$page_data['topbar'] = $this->load->view('topbar', '', true);
-		$page_data['content'] = $this->load->view('social', '', true);
-		$this->load->view('page', $page_data, false);
+		$page_data['content_data'] = array();
+		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
+		
+
+		$page_data['content_data']["variable1"] = "THIS ARE VARIABLES YOU WANT TO PASS TO THE social VIEW";
+		$this->load->view('page', $page_data);
 	}
 	
 	public function setting()
 	{
 		$page_data = Array();
 		$this->confirmLogin();
-		$page_data['content'] = 'setting';
-		$page_data['sidebar'] = $this->load->view('sidebar', '', true);
-		$page_data['topbar'] = $this->load->view('topbar', '', true);
-		$page_data['content'] = $this->load->view('setting', '', true);
-		$this->load->view('page', $page_data, false);
+		$page_data['content'] = 'settings';
+		$page_data['content_data'] = array();
+		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
+		
+
+		$page_data['content_data']["variable1"] = "THIS ARE VARIABLES YOU WANT TO PASS TO THE setting VIEW";
+		$this->load->view('page', $page_data);
 	}
 	
 	public function addUserSessionData($array)
