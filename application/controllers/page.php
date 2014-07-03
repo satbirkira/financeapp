@@ -102,6 +102,34 @@ class Page extends CI_Controller{
 		}
 	
 	}
+	
+	
+	/*
+	
+		Goal Functions
+	
+	*/
+	
+	
+	
+	
+	
+	/*
+	
+		Setting Functions
+	
+	*/
+	
+	
+	
+	
+	
+	
+	/*
+	
+		Social Functions
+	
+	*/
 
 	
 }
