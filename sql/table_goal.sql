@@ -5,11 +5,12 @@ CREATE TABLE `financeapp`.`goal` (
   `goalName` VARCHAR(45) NOT NULL,
   `startDate` DATE NOT NULL,
   `targetDate` DATE NOT NULL,
-  `totalCost` DECIMAL NOT NULL DEFAULT 0.00,
-  `monthlyDepot` DECIMAL DEFAULT 0.00,
+  `totalCost` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  `monthlyDepot` DECIMAL(10,2) DEFAULT 0.00,
   `interestRate` DECIMAL DEFAULT 0.00,
-  `currentlySaved` DECIMAL DEFAULT 0.00,
+  `currentlySaved` DECIMAL(10,2) DEFAULT 0.00,
   `goalStatus` BOOLEAN DEFAULT false,
+  `goalType` BOOLEAN DEFAULT false,
   PRIMARY KEY (`goalID`)
 )
 ENGINE = InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=gb2312 ROW_FORMAT=DYNAMIC;
