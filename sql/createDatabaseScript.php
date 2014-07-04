@@ -170,6 +170,39 @@
 
 	/*
 	
+		Insert example goal
+	
+	*/
+
+	echo "Inserting Example Goal..</br>";
+	$query = "
+		insert into goal (
+			userID, 
+			goalName, 
+			startDate, 
+			targetDate, 
+			totalCost, 
+			monthlyDepot,
+			interestRate, 
+			currentlySaved, 
+			goalStatus
+		) 
+		
+		values (
+			'". mysqli_insert_id($link) ."',
+			'Buying A Toyota Tercel',
+			'2012-11-23',
+			'2015-11-23',
+			'5000',
+			'5',
+			'0',
+			'0',
+			false
+		)";
+	if(!mysqli_query($link, $query)) die("Could not insert example: " . mysqli_error($link));
+	
+	/*
+	
 		Display table datas
 	
 	*/

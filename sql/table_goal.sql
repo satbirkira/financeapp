@@ -10,10 +10,6 @@ CREATE TABLE `financeapp`.`goal` (
   `interestRate` DECIMAL DEFAULT 0.00,
   `currentlySaved` DECIMAL DEFAULT 0.00,
   `goalStatus` BOOLEAN DEFAULT false,
-  PRIMARY KEY (`goalID`),
-  CONSTRAINT `FK_goal_1` FOREIGN KEY `FK_goal_1` (`userID`)
-    REFERENCES `user` (`userID`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT
+  PRIMARY KEY (`goalID`)
 )
 ENGINE = InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=gb2312 ROW_FORMAT=DYNAMIC;
