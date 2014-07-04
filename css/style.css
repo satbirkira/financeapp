@@ -508,12 +508,11 @@ div#template_content_title {
 	text-align: center;
 	font-size: 20px;
 	font-weight: 300;
-	font-color: #999999;
+	color: #999999;
 }
 
 div#template_content_container {
 	width: 80%;
-	height: 75%;
 	postion: relative;
 	padding: 3%;
 	margin: 30px auto;
@@ -524,5 +523,81 @@ div#template_content_container {
 	-webkit-border-radius: 3px;
 	-o-border-radius: 3px;
 }
+
+div#setting_form_container {
+	clear: both;
+	height: auto;
+}
+
+div.setting_check {
+	margin-top: 5px;
+	float: left;
+	width: 49%;
+}
+
+div.settinginput label {
+	display: inline-block;
+	height: 14px;
+	font-size: 14px;
+	font-weight: 300;
+	color: #999999;
+	margin-bottom: 5px;
+}
+
+div.settinginput input {
+	outline: none;
+	border: none;
+	padding: 5px 7px;
+	height: 20px;
+	font-size: 16px;
+	font-weight: 300;
+	line-height: 16px;
+	background-color: white;
+	border: 1px solid #cccccc;
+	width: 97%;
+	margin-bottom: 15px;
+}
+
+div.settinginput input:focus {
+	border: 1px solid #3366cc;
+}
+
+div.settinginput.left {
+	float: left;
+	margin-right: 1%;
+	width: 48%;
+}
+
+div.settinginput.right {
+	float: right;
+	margin-left: 1%; 
+	width: 48%;
+}
+
+div#setting_buttons {
+	margin: 0px auto;
+	width: 300px;
+	text-align: center;
+}
+
+div.updateacc_button.red {
+	background-color: #dd767e;
+}
+
+@media all and (max-width: 640px) {
+	div.settinginput.left, div.settinginput.right {
+		float: left;
+		margin-right: 0%;
+		margin-left: 0%;	
+		width: 98%;
+	}
+
+	div.setting_check {
+		margin-top: 5px;
+		float: left;
+		width: 100%;
+	}
+}
+
 
 /* end of template content*/
