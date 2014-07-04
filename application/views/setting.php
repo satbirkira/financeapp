@@ -2,6 +2,22 @@
 	Your account settings.
 </div>
 <div id="template_content_container">
+	<div id="setting_form_container">
+		<div class="errors">
+			<?php if (isset($general_error)) {
+				echo $general_error;
+			   }
+		   echo validation_errors('<p>');
+		?>
+		</div>
+		<div class="success">
+			<?php if (isset($success_msg)) {
+				echo $success_msg;
+			   }
+			?>
+		</div>
+	</div>
+
 	<?php
 	
 		//use short conditions to fill what the user already has
@@ -18,7 +34,7 @@
               'name'        => 'username',
               'id'          => 'username',
 			  'type'		=> 'text',
-              'value'       => $user_settings['userName'],
+              'value'       => set_value('username',$user_settings['userName']),
               'maxlength'   => '45',
               'size'        => '75'
             );
@@ -26,7 +42,7 @@
               'name'        => 'firstname',
               'id'          => 'firstname',
 			  'type'		=> 'text',
-              'value'       => $user_settings['userFirstName'],
+              'value'       => set_value('firstname',$user_settings['userFirstName']),
               'maxlength'   => '45',
               'size'        => '75'
             );
@@ -34,7 +50,7 @@
               'name'        => 'lastname',
               'id'          => 'lastname',
 			  'type'		=> 'text',
-              'value'       => $user_settings['userLastName'],
+              'value'       => set_value('lastname',$user_settings['userLastName']),
               'maxlength'   => '45',
               'size'        => '75'
             );
@@ -42,7 +58,7 @@
               'name'        => 'email',
               'id'          => 'email',
 			  'type'		=> 'text',
-              'value'       => $user_settings['userEmail'],
+              'value'       => set_value('email',$user_settings['userEmail']),
               'maxlength'   => '45',
               'size'        => '75'
             );
@@ -66,7 +82,7 @@
               'name'        => 'currentlySaved',
               'id'          => 'currentlySaved',
 			  'type'		=> 'text',
-              'value'       => $user_settings['userCurrentlySaved'],
+              'value'       => set_value('currentlySaved',$user_settings['userCurrentlySaved']),
               'maxlength'   => '10',
               'size'        => '75'
             );	
@@ -74,7 +90,7 @@
               'name'        => 'interestOnSavings',
               'id'          => 'interestOnSavings',
 			  'type'		=> 'text',
-              'value'       => $user_settings['userInterestOnSavings'],
+              'value'       => set_value('interestOnSavings',$user_settings['userInterestOnSavings']),
               'maxlength'   => '10',
               'size'        => '75'
             );	
@@ -82,7 +98,7 @@
               'name'        => 'monthlyIncome',
               'id'          => 'monthlyIncome',
 			  'type'		=> 'text',
-              'value'       => $user_settings['userMonthlyIncome'],
+              'value'       => set_value('monthlyIncome',$user_settings['userMonthlyIncome']),
               'maxlength'   => '10',
               'size'        => '75'
             );	
@@ -124,7 +140,7 @@
 		
 			echo form_open(base_url().'page/changeSetting', $form);
 	?>
-	<div id="setting_title" style="margin: 0px 0px 15px 0px;">
+	<div id="setting_title" style="margin: 25px 0px 15px 0px;">
 		<span style="font-size: 20px; font-weight: 300;">Account Settings</span>
 	</div>
 	<div id="setting_form_container">
@@ -199,22 +215,6 @@
 			<?php echo form_button($update_pass_submit); ?>
 		</div>
 		<div style="clear:both"></div>
-	</div>
-	<br><br>
-	<div id="setting_form_container">
-		<div class="errors">
-			<?php if (isset($general_error)) {
-				echo $general_error;
-			   }
-		   echo validation_errors('<p>');
-		?>
-		</div>
-		<div class="success">
-			<?php if (isset($success_msg)) {
-				echo $success_msg;
-			   }
-			?>
-		</div>
 	</div>
 	<?php echo form_close(); ?>
 	<div style="clear:both"></div>

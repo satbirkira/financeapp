@@ -71,7 +71,7 @@
 	<?php echo form_close(); ?>
 	<div id="login_links_container">
 		<a id="login_links" style="float:left" href="<?=base_url()?>registration">Sign Up</a>
-		<a id="login_links" style="float:right" href="#">Forget Password</a>
+		<!--a id="login_links" style="float:right" href="#">Forget Password</a-->
 	</div>
 </div>
 </body>

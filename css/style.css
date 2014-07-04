@@ -562,6 +562,11 @@ div.settinginput input:focus {
 	border: 1px solid #3366cc;
 }
 
+div.settinginput input:disabled {
+	color: #999999;
+	background-color: #f7f7f7;
+}
+
 div.settinginput.left {
 	float: left;
 	margin-right: 1%;
