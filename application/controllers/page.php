@@ -7,6 +7,7 @@ class Page extends CI_Controller{
         parent::__construct();
 		$this->load->model('user_model');		
 		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');		
 	}
 	
 	public function index()
@@ -60,7 +61,7 @@ class Page extends CI_Controller{
 		$this->load->view('page', $page_data);
 	}
 	
-	public function setting()
+	public function setting($general_error = '', $success_msg = '')
 	{
 		$page_data = Array();
 		$this->confirmLogin();
@@ -70,6 +71,8 @@ class Page extends CI_Controller{
 		
 		$page_data['content_data']["user_settings"] = $this->user_model->getUserSettingsArray($this->session->userdata('suis_user_id'));
 		$page_data['content_data']["variable1"] = "A variable you want to use in the setting view";
+		$page_data['content_data']["general_error"] = $general_error;
+		$page_data['content_data']["success_msg"] = $success_msg;
 		$this->load->view('page', $page_data);
 	}
 	
@@ -124,9 +127,79 @@ class Page extends CI_Controller{
 	public function changeSetting()
 	{
 		//form validation
+		$this->load->library('email');			
+		$this->email->set_newline("\r\n");
+		
+		$general_error = '';
+		$success_msg = '';
+		
+		if(isset($_POST["submit_setting"]))
+		{
+			$this->form_validation->set_rules('username', 'Username', 'trim|required|max_length[45]|min_length[3]');
+			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|max_length[45]');
+			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[45]');
+			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[45]');
+			
+			$this->form_validation->set_rules('currentlySaved', 'Currently Saved', 'trim|required|max_length[10]|numeric|greater_than[-1]');
+			$this->form_validation->set_rules('interestOnSavings', 'Interest on Savings', 'trim|required|max_length[10]|numeric|greater_than[-1]|less_than[101]');
+			$this->form_validation->set_rules('monthlyIncome', 'Monthly Income', 'trim|required|max_length[10]|numeric|greater_than[-1]');
+			
+			$accountDetails['userName'] = $this->input->post('username');
+			$accountDetails['userFirstName'] = $this->input->post('firstname');
+			$accountDetails['userLastName'] = $this->input->post('lastname');
+			$accountDetails['userEmail'] = $this->input->post('email');
+			
+			$accountDetails['userCurrentlySaved'] = $this->input->post('currentlySaved');
+			$accountDetails['userInterestOnSavings'] = $this->input->post('interestOnSavings');
+			$accountDetails['userMonthlyIncome'] = $this->input->post('monthlyIncome');
+			
+			$beSearchable = $this->input->post('beSearchable');
+			$seeGoalsOnDash = $this->input->post('seeGoalsOnDash');
+			
+			$accountDetails['userBeSearchable'] = (int)($beSearchable) == 1 ? true : false;
+			$accountDetails['userDisplayGoalsOnDash'] = (int)($seeGoalsOnDash) == 1 ? true : false;
+			
+			
+			if ($this->form_validation->run() == true)
+			{
+				$accountDetails['userAccountUpdated'] = true;
+				$this->user_model->updateUserAccount($this->session->userdata('suis_user_id'), $accountDetails);
+				$success_msg = "Account has been updated.";
+			}
+		}
+		else if (isset($_POST["update_pass_submit"]))
+		{
+
+			$this->form_validation->set_rules('password', 'Old Password', 'trim|required|max_length[100]|min_length[6]');
+			$this->form_validation->set_rules('new_password', 'New Password', 'trim|required|max_length[100]|min_length[6]');
+			
+			$password = $this->input->post('password');
+			$new_password = $this->input->post('new_password');
+			
+			if ($this->form_validation->run() == true)
+			{
+			
+				if($this->session->userdata('suis_user_pass') == $this->user_model->hash_password($password))
+				{
+					$accountDetails['userPassword'] = $this->user_model->hash_password($new_password);
+					$this->user_model->updateUserAccount($this->session->userdata('suis_user_id'), $accountDetails);
+					//user will auto be logged out now
+				}
+				else
+				{
+					$general_error = "Password does not match database.";
+				}
+			}
+			
+		}
+		else if(isset($_POST["delete_account_submit"]))
+		{
+			$accountDetails['userDeleted'] = true;
+			$this->user_model->updateUserAccount($this->session->userdata('suis_user_id'), $accountDetails);
+		}
 		
 		//display view with update notification
-		$this->setting();
+		$this->setting($general_error, $success_msg);
 	
 	}
 	

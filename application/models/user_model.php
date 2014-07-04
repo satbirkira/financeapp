@@ -227,17 +227,7 @@ class User_model extends CI_Model {
 				return $settings_array;
 			}
     }
-
-	/* Update Settings */
 	
-	function updateUserSettingsArray($uid, $settings_array)
-    {
-		$this->db->from('user');
-		$this->db->where('userId',$uid);
-		return $this->db->update('user',$settings_array);
-    }
-	
-
 	
 
 }

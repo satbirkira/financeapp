@@ -57,8 +57,8 @@
 		              'size'        => '75'
 		            );
 				$new_password = array(
-		              'name'        => 'confirm_password',
-		              'id'          => 'confirm_password',
+		              'name'        => 'new_password',
+		              'id'          => 'new_password',
 					  'type'		=> 'password',
 		              'value'       => '',
 		              'maxlength'   => '100',
@@ -124,7 +124,7 @@
 		    			'content' => 'Update Password'
 					);
 				
-					echo form_open(base_url().'changeSetting', $form);
+					echo form_open(base_url().'page/changeSetting', $form);
 			?>
 			<div class="settinginput">
 				<label for="change_firstname">First Name</label>
