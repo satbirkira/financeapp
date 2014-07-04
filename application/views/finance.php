@@ -55,7 +55,17 @@
 			'income' => 'Add Money To A Goal');
 			
 		$transactionGoal = 'transactionGoal';
-		$transactionGoal_options = Array('goal1_id' => 'Goal 1 Title');
+		if(empty($goals_array))
+		{
+			$transactionGoal_options = Array('empty' => 'No Goals');
+		}
+		else
+		{
+			foreach ($goals_array as $goal)
+			{
+				$transactionGoal_options[$goal['goalID']] = $goal['goalName'];
+			}
+		}
 		$transactionAmount = array(
               'name'        => 'transactionAmount',
               'id'          => 'transactionAmount',
@@ -77,7 +87,6 @@
     			'type' => 'submit',
     			'content' => 'Add'
 			);
-
 			echo form_open(base_url().'page/changefinance', $form);
 	?>
 	<div id="finance_title" style="margin: 25px 0px 15px 0px;">
