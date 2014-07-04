@@ -49,12 +49,33 @@
               'maxlength'   => '10',
               'size'        => '75'
             );	
-		$submit = array(
+		$transactionType = 'transactionType';
+		$transactionType_options = Array(
+			'expenses' => 'Add/Remove Money From The Savings Account',
+			'income' => 'Add Money To A Goal');
+			
+		$transactionGoal = 'transactionGoal';
+		$transactionGoal_options = Array('goal1_id' => 'Goal 1 Title');
+		$transactionAmount = array(
+              'name'        => 'transactionAmount',
+              'id'          => 'transactionAmount',
+			  'type'		=> 'text',
+              'maxlength'   => '10',
+              'size'        => '20'
+            );	
+		$submit_finance = array(
 				'name' => 'submit_finance',
     			'id' => 'submit_finance',
     			'value' => 'Submit',
     			'type' => 'submit',
     			'content' => 'Submit'
+			);
+		$submit_add_finance = array(
+				'name' => 'submit_add_finance',
+    			'id' => 'submit_add_finance',
+    			'value' => 'Submit',
+    			'type' => 'submit',
+    			'content' => 'Add'
 			);
 
 			echo form_open(base_url().'page/changefinance', $form);
@@ -76,12 +97,33 @@
 			<label for="change_monthlyIncome">Monthly Income</label><br>
 			<?php echo form_input($monthlyIncome); ?>
 		</div>
+		</div>
+		<div id="finance_form_container">
+			<div class="updateacc_button">
+				<?php echo form_button($submit_finance); ?>
+			</div>
+		</div>
+		<div class="financeinput left">
+			<label for="change_transactiontype">Transaction Type</label><br>
+			<?php echo form_dropdown($transactionType, $transactionType_options); ?>
+		</div>
+
+		<div class="financeinput left">
+			<label for="change_transactiongoal">Transaction Goal</label><br>
+			<?php echo form_dropdown($transactionGoal,  $transactionGoal_options); ?>
+		</div>
+		<div class="financeinput left">
+			<label for="change_monthlyIncome">Monthly Income</label><br>
+			<?php echo form_input($transactionAmount); ?>
+		</div>
+		<div id="finance_form_container">
+			<div class="updateacc_button">
+				<?php echo form_button($submit_add_finance); ?>
+			</div>
+		</div>
+		
 		<div style="clear:both"></div>
 	</div>
-	<div id="finance_form_container">
-		<div class="updateacc_button">
-			<?php echo form_button($submit); ?>
-		</div>
-	</div>
+
 	<?php echo form_close(); ?>
 </div>
