@@ -19,11 +19,6 @@
 	</div>
 
 	<?php
-	
-		//use short conditions to fill what the user already has
-		//example of short conditions in php
-		//$score > 10 ? ($age > 10 ? 'Average' : 'Exceptional'
-		//var_dump($user_settings);
 
 		// page/setting is the controller, changeSetting is the function
 		$form = array(
@@ -78,7 +73,7 @@
               'maxlength'   => '100',
               'size'        => '75'
             );	
-		$currentlySaved = array(
+		/*$currentlySaved = array(
               'name'        => 'currentlySaved',
               'id'          => 'currentlySaved',
 			  'type'		=> 'text',
@@ -102,20 +97,27 @@
               'maxlength'   => '10',
               'size'        => '75'
             );	
+		*/
 		$beSearchable = array(
               'name'        => 'beSearchable',
               'id'          => 'beSearchable',
 			  'type'		=> 'checkbox',
-              'checked'       => $user_settings['userBeSearchable'],
               'size'        => '75'
             );
+		if((bool)$user_settings['userBeSearchable'] == true)
+		{
+			$beSearchable['checked'] = "1";
+		}
 		$seeGoalsOnDash = array(
               'name'        => 'seeGoalsOnDash',
               'id'          => 'seeGoalsOnDash',
 			  'type'		=> 'checkbox',
-              'checked'       => $user_settings['userDisplayGoalsOnDash'],
               'size'        => '75'
             );
+		if((bool)$user_settings['userDisplayGoalsOnDash'] == true)
+		{
+			$seeGoalsOnDash['checked'] = "1";
+		}
 		$submit = array(
 				'name' => 'submit_setting',
     			'id' => 'submit_setting',
@@ -160,7 +162,7 @@
 			<label for="change_email">Email</label><br>
 			<?php echo form_input($email); ?>
 		</div>
-		
+		<!--
 		<div class="settinginput left">
 			<label for="change_currentlySaved">Currently Saved</label><br>
 			<?php echo form_input($currentlySaved); ?>
@@ -173,7 +175,8 @@
 			<label for="change_monthlyIncome">Monthly Income</label><br>
 			<?php echo form_input($monthlyIncome); ?>
 		</div>
-		<div class="settinginput right">
+		-->
+		<div class="settinginput left">
 			<div class="setting_check left">
 				<label for="beSearchable">Allow People To Find You</label>
 				<?php echo form_input($beSearchable); ?>

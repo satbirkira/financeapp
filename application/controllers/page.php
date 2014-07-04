@@ -76,6 +76,20 @@ class Page extends CI_Controller{
 		$this->load->view('page', $page_data);
 	}
 	
+	public function finance($general_error = '', $success_msg = '')
+	{
+		$page_data = Array();
+		$this->confirmLogin();
+		$page_data['content'] = 'finance';
+		$page_data['content_data'] = array();
+		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
+		
+		$page_data['content_data']["user_settings"] = $this->user_model->getUserSettingsArray($this->session->userdata('suis_user_id'));
+		$page_data['content_data']["general_error"] = $general_error;
+		$page_data['content_data']["success_msg"] = $success_msg;
+		$this->load->view('page', $page_data);
+	}
+	
 	public function addUserSessionData($array)
 	{
 		$array['suis_user_id'] = $this->session->userdata('suis_user_id');
@@ -114,14 +128,54 @@ class Page extends CI_Controller{
 	*/
 	
 	
+	/*
 	
+		Finance Functions
 	
+	*/
+	
+	public function changeFinance()
+	{
+		//form validation
+		$this->load->library('email');			
+		$this->email->set_newline("\r\n");
+		
+		$general_error = '';
+		$success_msg = '';
+		
+		if(isset($_POST["submit_finance"]))
+		{
+		
+			$this->form_validation->set_rules('currentlySaved', 'Currently Saved', 'trim|required|max_length[10]|numeric|greater_than[-1]');
+			$this->form_validation->set_rules('interestOnSavings', 'Interest on Savings', 'trim|required|max_length[10]|numeric|greater_than[-1]|less_than[101]');
+			$this->form_validation->set_rules('monthlyIncome', 'Monthly Income', 'trim|required|max_length[10]|numeric|greater_than[-1]');
+			
+			
+			$accountDetails['userCurrentlySaved'] = $this->input->post('currentlySaved');
+			$accountDetails['userInterestOnSavings'] = $this->input->post('interestOnSavings');
+			$accountDetails['userMonthlyIncome'] = $this->input->post('monthlyIncome');
+			
+			if ($this->form_validation->run() == true)
+			{
+			
+				$accountDetails['userAccountUpdated'] = true;
+				$this->user_model->updateUserAccount($this->session->userdata('suis_user_id'), $accountDetails);
+				$success_msg = "Account has been updated.";
+				
+			}
+			
+			
+		}
+		
+		$this->finance($general_error, $success_msg);
+	}
 	
 	/*
 	
 		Setting Functions
 	
 	*/
+	
 	
 	
 	public function changeSetting()
@@ -140,24 +194,15 @@ class Page extends CI_Controller{
 			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[45]');
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[45]');
 			
-			$this->form_validation->set_rules('currentlySaved', 'Currently Saved', 'trim|required|max_length[10]|numeric|greater_than[-1]');
-			$this->form_validation->set_rules('interestOnSavings', 'Interest on Savings', 'trim|required|max_length[10]|numeric|greater_than[-1]|less_than[101]');
-			$this->form_validation->set_rules('monthlyIncome', 'Monthly Income', 'trim|required|max_length[10]|numeric|greater_than[-1]');
 			
 			$accountDetails['userName'] = $this->input->post('username');
 			$accountDetails['userFirstName'] = $this->input->post('firstname');
 			$accountDetails['userLastName'] = $this->input->post('lastname');
 			$accountDetails['userEmail'] = $this->input->post('email');
 			
-			$accountDetails['userCurrentlySaved'] = $this->input->post('currentlySaved');
-			$accountDetails['userInterestOnSavings'] = $this->input->post('interestOnSavings');
-			$accountDetails['userMonthlyIncome'] = $this->input->post('monthlyIncome');
 			
-			$beSearchable = $this->input->post('beSearchable');
-			$seeGoalsOnDash = $this->input->post('seeGoalsOnDash');
-			
-			$accountDetails['userBeSearchable'] = (int)($beSearchable) == 1 ? true : false;
-			$accountDetails['userDisplayGoalsOnDash'] = (int)($seeGoalsOnDash) == 1 ? true : false;
+			$accountDetails['userBeSearchable'] = is_string($this->input->post('beSearchable'));
+			$accountDetails['userDisplayGoalsOnDash'] = is_string($this->input->post('seeGoalsOnDash'));
 			
 			
 			if ($this->form_validation->run() == true)
