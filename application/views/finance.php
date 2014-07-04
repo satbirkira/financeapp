@@ -49,15 +49,11 @@
               'maxlength'   => '10',
               'size'        => '75'
             );	
-		$transactionType = 'transactionType';
-		$transactionType_options = Array(
-			'expenses' => 'Add/Remove Money From The Savings Account',
-			'income' => 'Add Money To A Goal');
 			
 		$transactionGoal = 'transactionGoal';
 		if(empty($goals_array))
 		{
-			$transactionGoal_options = Array('empty' => 'No Goals');
+			$transactionGoal_options = Array();
 		}
 		else
 		{
@@ -93,7 +89,7 @@
 		<span style="font-size: 20px; font-weight: 300;">Account finances</span>
 	</div>
 	<div id="finance_form_container">
-		
+		Note: These values are only for your refrence. There is no automatic money added to a goal.
 		<div class="financeinput left">
 			<label for="change_currentlySaved">Currently Saved</label><br>
 			<?php echo form_input($currentlySaved); ?>
@@ -112,17 +108,14 @@
 				<?php echo form_button($submit_finance); ?>
 			</div>
 		</div>
-		<div class="financeinput left">
-			<label for="change_transactiontype">Transaction Type</label><br>
-			<?php echo form_dropdown($transactionType, $transactionType_options); ?>
-		</div>
 
+		Add money to a goal:
 		<div class="financeinput left">
 			<label for="change_transactiongoal">Transaction Goal</label><br>
 			<?php echo form_dropdown($transactionGoal,  $transactionGoal_options); ?>
 		</div>
 		<div class="financeinput left">
-			<label for="change_monthlyIncome">Monthly Income</label><br>
+			<label for="change_transactionAmount">Amount To Put Into Goal</label><br>
 			<?php echo form_input($transactionAmount); ?>
 		</div>
 		<div id="finance_form_container">

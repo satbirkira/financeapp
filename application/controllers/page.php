@@ -163,7 +163,21 @@ class Page extends CI_Controller{
 				$success_msg = "Account has been updated.";
 				
 			}
+
+		}
+		else if(isset($_POST["submit_add_finance"]))
+		{
+			$theGoalID = $this->input->post('transactionGoal');
+			$amountChange = $this->input->post('transactionAmount');
 			
+			$this->form_validation->set_rules('transactionAmount', 'Transaction Amount', 'trim|required|max_length[10]|numeric');
+			
+			if ($this->form_validation->run() == true)
+			{
+				//if we are adding to goal
+					$this->user_model->updateUserAccountAddToGoal($this->session->userdata('suis_user_id'), $theGoalID, $amountChange);
+				
+			}
 			
 		}
 		
@@ -207,7 +221,7 @@ class Page extends CI_Controller{
 			
 			if ($this->form_validation->run() == true)
 			{
-				$accountDetails['userAccountUpdated'] = true;
+				
 				$this->user_model->updateUserAccount($this->session->userdata('suis_user_id'), $accountDetails);
 				$success_msg = "Account has been updated.";
 			}

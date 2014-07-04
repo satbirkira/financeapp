@@ -239,26 +239,16 @@ class User_model extends CI_Model {
 		$this->db->where('user.userID = goal.userID');
 		$query = $this->db->get();
 		return $query->result_array();
-		
-		
-		/*//this loop will only run once, just extracts the row
-		foreach($rows as $row)
-		{
-			$goals_array['userID'] = $row->userID;
-			$goals_array['goalID'] = $row->goalID;
-			$goals_array['goalName'] =  $row->goalName;
-			$goals_array['startDate'] = $row->startDate;
-			$goals_array['targetDate'] = $row->targetDate;
-			
-			$goals_array['totalCost'] = $row->totalCost;
-			$goals_array['monthlyDepot'] = $row->monthlyDepot;
-			
-			$goals_array['interestRate'] = $row->interestRate;
-			$goals_array['currentlySaved'] = $row->currentlySaved;
-			$goals_array['goalStatus'] = $row->goalStatus;
-			return $goals_array;
-		}*/
     }
+	
+	
+	function updateUserAccountAddToGoal($uid, $theGoalID, $amountChange)
+	{
+		//do math on the savings
+		$this->db->from('user');
+		$this->db->where('userId',$uid);
+		//add a history to that goal
+	}
 
 }
 ?>
