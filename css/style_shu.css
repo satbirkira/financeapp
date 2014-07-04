@@ -1,10 +1,6 @@
 @charset "utf-8";
 /* CSS Document by Shu Zhang*/
 body {
-	background-image: url('../images/Goal.jpg'); 
-	background-position:center; 
-	background-repeat:repeat-x;
-	background-attachment:fixed;
 	background-color: #ffffff;
 	text-align: center;	
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;

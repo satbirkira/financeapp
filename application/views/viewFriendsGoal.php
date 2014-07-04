@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>View Goals</title>    
+	<title>Your Friends' Saving Goals</title>    
     <script src="../../js/jquery-ui-1.10.4.custom/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="../../js/jquery-ui-1.10.4.custom/jquery-ui-1.10.4.custom.js" type="text/javascript"></script>
     <link href="../../css/ui-lightness/jquery-ui-1.10.4.custom.css" type="text/css" rel="stylesheet"/>
@@ -28,14 +28,6 @@
 				resizable: false,
 				modal: true,
 				width: 400, 
-				height: 150
-			});
-			
-			$('.dialog2').dialog({
-				autoOpen: false,
-				resizable: false,
-				modal: true,
-				width: 500, 
 				height: 150
 			});
 			
@@ -136,40 +128,6 @@
 	}
 	
 	
-	function invite(o){
-		var rep = /[A-Za-z_]/g;
-		var id = o.id.replace(rep,'');
-		$('#result2_'+id).html('');
-		$('#dialog2_'+id).dialog("open");
-		
-	}
-	
-	function inviteFriend(o){
-		var rep = /[A-Za-z_]/g;
-		var id = o.id.replace(rep,'');
-		var uid = document.getElementsByName("friends")[0].value;
-		var gid = document.getElementById('goalId_'+id).value;
-		var uname = document.getElementsByName("friends")[0].text;	
-		var siteurl = '<?php echo site_url('index.php/goalManagement'); ?>';
-		siteurl = siteurl+'/addCollaborator';
-		
-		$.getJSON(siteurl+'?gid='+gid+'&uid='+uid, function(data) {
-			var result = $('#result2_'+id);
-			result.html(data.msg);
-			if(data.ok == true){
-				result.css('color','#3C3');
-				//update Goal Info
-				var old = $('#goalcell_'+id+' .goalinfo:nth-child(5)').html();
-				$('#goalcell_'+id+' .goalinfo:nth-child(5)').html(old+';'+uname+';');
-				
-				
-			}else{
-				result.css('color','#900');
-			}	
-					
-		});
-	}
-	
 	</script>    
     <style type="text/css">
 		#accordion {margin: 5px}
@@ -209,15 +167,12 @@
                 <div id="goallist">
                 
                     <div class="pagetitle">
-                    Your saving goals
+                    Collaborate on these goals
                     </div>
                     <?php
                      if(count($goals)== 1){
                     ?>
-                      <div> You haven't setup any goal yet. </div>
-                      <div style="font-size:16px; color:#666; width: 50%; margin-left:auto; margin-right:auto;">
-                        <a href="<?php echo site_url('index.php/goalmanagement'); ?>/addGoal">Add A Saving Goal</a>       
-                      </div>
+                      <div> Your friend haven't published any goal yet. </div>                      
                     <?php 
                      }else{
                     ?>                   
@@ -229,10 +184,8 @@
                               $k = $i +1;
                         ?>
                           <div class="goaltitle" id="goal_<?php echo $k ;?>">
-                            <div><a href="#">Goal:  <?php echo $goals[$i]['goalName']; ?></a>  
-                                 <div id="inviteF_<?php echo $k ;?>" style="width: 25px; float:right; font-size:12px;" class="addD" onClick="invite(this);"><img src="../../images/add.jpg" width="33" height="33" title="Invite friends to collaborate"/></div>
+                            <div><a href="#">Goal:  <?php echo $goals[$i]['goalName']; ?></a>   from <?php echo $goals[$i]['friendName']; ?>                                               
                                  <div id="addD_<?php echo $k ;?>" style="width: 25px; float:right; font-size:12px;" class="addD" onClick="openDialog(this);"><img src="../../images/add2.jpg" title="Add Deposit"/></div>
-                                 <div id="rmG_<?php echo $k ;?>" style="width: 25px; float:right; font-size:12px;" class="rmG" onClick="removeGoal(this);"><img src="../../images/delete.jpg" title="Remove Goal"/></div>
                                  <span style="width: 20px; float:right; font-size:16px;">%</span>  
                                  <span id="progVal_<?php echo $k; ?>" style="width: 30px; float:right; font-size:16px;">
                                  <?php 
@@ -262,17 +215,6 @@
                                 <label for="target">Target Date:</label>
                                 <div class="info"><?php echo $goals[$i]['targetDate']; ?></div>
                             </div>  
-                            <div class="goalinfo">
-                                <label for="target">Collaborators:</label>
-                                <div class="info"><?php if ($members[$i] != '') {
-									
-									  for ($j=0;$j<count($members[$i]);$j++){
-										 echo $members[$i][$j]['userName'].' ';
-								  	  } 
-									}else{
-										echo 'None';
-									}?></div>
-                            </div> 
                             <div class="goalprogress" style="margin-top: 5px;">
                                <?php 
                                     if ($deposits[$i] != ''){
@@ -323,39 +265,13 @@
              <!-- Goal View Div ends here -->   
              <?php   
   			 for($i = 1 ; $i <= count($goals);$i++){ ?>
-             <div id="dialog_<?php echo $i; ?>" class="dialog" title="Add deposit">
+             <div id="dialog_<?php echo $i; ?>" class="dialog" title="Add deposit" style="400px;">
                  <div style="float:left;"><label for="total" >Saved($):</label></div>
                  <div style="float:left; margin-left:5px;"><input type="text" id="save_<?php echo $i; ?>" /></div>
                    <input id="btn_dg_<?php echo $i; ?>" type="button" onClick="deposit(this);" value="Submit" class="btn" />
                   <span id="result_<?php echo $i; ?>"></span>
              </div>
 			 <?php } ?>
-             
-             
-             <?php   
-  			 for($i = 1 ; $i <= count($goals);$i++){ ?>
-             <div id="dialog2_<?php echo $i; ?>" class="dialog2" title="Invite Your Friend">
-                 <?php if (count($friends) <=1){
-				 ?>
-                 <div> You don't have any friends. :( </div> 
-                 <?php					 
-				 }else{
-				 ?>
-                 <div style="float:left;"><label for="total" >Send Invitation To:</label></div>
-                 <div style="float:left; margin-left:1px;">
-                    <select name="friends">
-                      <?php for ($f = 0; $f<count($friends); $f++){
-					  ?>
-                      <option value="<?php echo $friends[$f]['friendId']; ?>"><?php echo $friends[$f]['friendName']; ?></option>                      
-                      <?php } ?>
-                    </select>
-                 </div>
-                 <input id="btn_dgf_<?php echo $i; ?>" type="button" onClick="inviteFriend(this);" value="Submit" class="btn" />
-                 <span id="result2_<?php echo $i; ?>"></span>
-             </div>
-			 <?php 
-				 }
-			} ?>
 			 
             </div>
      <!-- End of the container Div -->
