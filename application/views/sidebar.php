@@ -1,7 +1,5 @@
-<div id="sidebar">
-<?php
-
-	echo "Welcome: ". $suis_first_name . " ". $suis_last_name  . "[<a href='../login/logout'>Logout</a>]" ;
-	
-?>
+<div id="template_sidebar">
+	<div class="template_sidebar_menu_item">
+		SideBar Menu
+	</div>
 </div>

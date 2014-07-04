@@ -18,7 +18,7 @@ class UpdateAccount extends CI_Controller {
 		//if already updated skip this page
 		if($this->user_model->userAccountUpdated($this->session->userdata('suis_user_id')) == true)
 		{
-			redirect('page/demo_inprog');
+			redirect('page/dashboard');
 		}
 		
 		if(isset($_POST["submit_updateacc"]))
@@ -40,7 +40,7 @@ class UpdateAccount extends CI_Controller {
 				if($result == true)
 				{
 					//redirect to dash
-					redirect('page/demo_inprog');
+					redirect('page/dashboard');
 				}
 				
 			}

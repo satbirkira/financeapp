@@ -39,8 +39,7 @@ class Login extends CI_Controller {
 				else
 				{
 					//redirect to dash
-					//redirect('/page/dashboard');
-					redirect('/page/demo_inprog');
+					redirect('/page/dashboard');
 				}
 			}
 		}
@@ -66,8 +65,7 @@ class Login extends CI_Controller {
 					else
 					{
 						//redirect to dash
-						//redirect('/page/dashboard');
-						redirect('/page/demo_inprog');
+						redirect('/page/dashboard');
 					}
 				}
 				else
