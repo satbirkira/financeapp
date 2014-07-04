@@ -14,7 +14,7 @@
 	<?php $this->load->view('topbar', $content_data); ?>
 	<div id="content_container">
 		<?php $this->load->view($content, $content_data); ?>
-		<!--<?php $this->load->view('sidebar', $content_data); ?>-->
+		<!--<?php //$this->load->view('sidebar', $content_data); ?>-->
 	</div>
 
 </div>

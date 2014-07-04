@@ -448,6 +448,12 @@ div#template_topbar {
 	border-bottom: 1px solid #efefec;
 }
 
+@media all and (max-width: 495px) {
+	div#template_topbar {
+		height: 60px;
+	}
+}
+
 div#template_logo {
 	float: left;
 	height: 40px;
@@ -548,13 +554,12 @@ div.settinginput input {
 	outline: none;
 	border: none;
 	padding: 5px 7px;
-	height: 20px;
 	font-size: 16px;
 	font-weight: 300;
 	line-height: 16px;
 	background-color: white;
 	border: 1px solid #cccccc;
-	width: 97%;
+	width: 100%;
 	margin-bottom: 15px;
 }
 
@@ -589,12 +594,12 @@ div.updateacc_button.red {
 	background-color: #dd767e;
 }
 
-@media all and (max-width: 640px) {
+@media all and (max-width: 768px) {
 	div.settinginput.left, div.settinginput.right {
 		float: left;
 		margin-right: 0%;
 		margin-left: 0%;	
-		width: 98%;
+		width: 99%;
 	}
 
 	div.setting_check {
@@ -699,7 +704,7 @@ div.dash_big_display.yellow div.description {
 	background-color: #F2B50F;
 }
 
-@media all and (max-width: 640px) {
+@media all and (max-width: 768px) {
 	
 	div.dash_big_display {
 		float: left;
