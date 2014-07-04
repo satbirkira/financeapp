@@ -80,6 +80,40 @@ class Goal_Model extends CI_Model {
 		
 		return $data;	
 	}
+	
+	function get_collaborate_goals($uid)
+	{
+		$data = "";
+		$sql = "SELECT *
+				FROM goal g,goalmember m
+				WHERE m.userId = ?
+				  and g.goalID = m.goalId
+  				  and g.goalStatus = 0 
+				  and g.userID != ?
+				ORDER BY g.goalID desc ";
+									
+		$query = $this->db->query($sql,array($uid,$uid));
+		
+		$i = 0;
+		foreach($query->result_array() as $row){
+			
+			 $data[$i]['goalId'] = $row['goalID'];
+     	     $data[$i]['goalName'] = $row['goalName'];
+			 $data[$i]['startDate'] = $row['startDate'];
+			 $data[$i]['targetDate'] = $row['targetDate'];
+			 $data[$i]['totalCost'] = $row['totalCost'];
+			 $data[$i]['monthlyDepot'] = $row['monthlyDepot'];
+			 $data[$i]['interestRate'] = $row['interestRate'];
+			 $data[$i]['currentlySaved'] = $row['currentlySaved'];			
+ 			 $data[$i]['goalStatus'] = $row['goalStatus'];			
+			 
+			 $i++;
+		}
+		
+		
+		return $data;	
+		
+	}
 
 	function remove_goal($gid)
     {
@@ -94,9 +128,10 @@ class Goal_Model extends CI_Model {
 
     }
 	
-	function update_goal($gid,$amount,$status)
+	function update_goal($gid,$amount,$status,$monthly)
     {
 		$data = array(
+						'monthlyDepot' => $monthly,
 						'currentlySaved' => $amount,
 						'goalStatus' => $status
 				);				

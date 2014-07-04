@@ -23,19 +23,21 @@ class GoalManagement extends CI_Controller{
 			$this->form_validation->set_rules('targetDate', 'Target Date', 'trim|required');
 			$this->form_validation->set_rules('monthlyDepot', 'Estimated Monthly Deposit', 'trim|required|max_length[15]|numeric');
 			$this->form_validation->set_rules('interestRate', 'Annual Interest Rate', 'trim|numeric');
-			
+			$startD = $this->input->post('startDate');
+			$targetD = $this->input->post('targetDate');
 			$uid = $this->session->userdata('suis_user_id');
-			$uid = '11';
+			//$uid = '11';
+			//$uid = '2';
 			$goal = array(
 									'goalName'=> $this->input->post('goalTitle'),	
 									'userId'=> $uid,																
 									'totalCost'=> $this->input->post('total'),											
-									'startDate'=> $this->input->post('startDate'),
-									'targetDate'=>$this->input->post('targetDate'),
+									'startDate'=> $startD,
+									'targetDate'=>$targetD,
 									'monthlyDepot'=>$this->input->post('monthlyDepot'),		
-									'interestRate'=>$this->input->post('interestRate'),
 									'currentlySaved'=>0,
-									'goalStatus'=>0
+									'goalStatus'=>0,
+									'goalType'=>$this->input->post('isPublic')
 									
 			);
 
@@ -79,25 +81,43 @@ class GoalManagement extends CI_Controller{
 	function viewGoal(){
 		$goals = array();
 		$deposits = array();
+		$members = array();
+		$cogoals = array();
+		$codeposits = array();
+		$comembers = array();
 		$uid = $this->session->userdata('suis_user_id');
-		$uid = 11;
+		//$uid = 11;
+		//$uid = 2;
+	
 		$goals = $this->goal_model->get_all_goals($uid);
+		$cogoals = $this->goal_model->get_collaborate_goals($uid);
 		$friends = $this->friend_model->get_all_friends($uid);
-		if(count($goals)>1){
+		if(count($goals)>0 && $goals != ''){
 			for ($i = 0; $i < count($goals); $i++){
 				$deposits[$i] = $this->deposit_model->get_deposit_history($goals[$i]['goalId']);
 				$members[$i] = $this->goal_model->get_goal_members($goals[$i]['goalId']);
+			}
+		}
+		if(count($cogoals)>0 && $cogoals != ''){
+			for ($i = 0; $i < count($cogoals); $i++){
+				$codeposits[$i] = $this->deposit_model->get_deposit_history($cogoals[$i]['goalId']);
+				$comembers[$i] = $this->goal_model->get_goal_members($cogoals[$i]['goalId']);
 			}
 		}
 
 		$data['goals'] = $goals;	
 		$data['deposits'] = $deposits;	
 		$data['friends'] = $friends;
-		$data['members'] = $members;	
+		$data['members'] = $members;
+		
+		$data['cogoals'] = $cogoals;
+		$data['codeposits'] = $codeposits;	
+		$data['comembers'] = $comembers;
+	
 		$this->load->view('viewGoal',$data);	
 	}
 /*------------------------------------------------*/
-	function viewFriendsGoal(){ //view the public goals
+	/*function viewFriendsGoal(){ //view the public goals
 		$goals = array();
 		$uid = $this->session->userdata('suis_user_id');
 		$uid = 1;		
@@ -111,7 +131,7 @@ class GoalManagement extends CI_Controller{
 		$data['goals'] = $goals;	
 		$data['deposits'] = $deposits;	
 		$this->load->view('viewFriendsGoal',$data);
-	}
+	}*/
 /*------------------------------------------------*/
 	function addCollaborator(){
 	    $gid = $_REQUEST['gid'];
@@ -122,7 +142,7 @@ class GoalManagement extends CI_Controller{
 		if($this->goal_model->add_goal_member($gid,$uid)){ 		    	
 			$response = array(
 				'ok' => true,
-				'msg' => "Update succeed."				
+				'msg' => "Update succeed."							
 				);
 		}else{
 			$response = array(

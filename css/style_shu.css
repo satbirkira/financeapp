@@ -101,7 +101,7 @@ body {
 
 /* end of registration page */
 /* view goal page */
-#goallist {	
+.goallist {	
 	width: 70%;	
 	padding-top: 50px;
 	overflow: auto;

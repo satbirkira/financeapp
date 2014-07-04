@@ -47,12 +47,25 @@ class DepositManagement extends CI_Controller{
 			}else{
 				$status = 0;
 			}
-		    $this->goal_model->update_goal($gid,$amount,$status);
+			//calculate the estimated monthly deposit
+
+			$start = $detail[0]['startDate'];
+			$end = $detail[0]['targetDate'];
+
+			$start = strtotime($start);
+			$target = strtotime($end);
+			$diff = $target - $start;			
+			$one_month=60*60*24*30;			
+			$numofmonth = floor($diff/$one_month);
+			$monthly = ($detail[0]['totalCost'] - $amount)/$numofmonth;			
+			$monthly = round($monthly,2);
+		    $this->goal_model->update_goal($gid,$amount,$status,$monthly);
 			
 			$response = array(
 				'ok' => true,
 				'msg' => "Update succeed.",
-				'precent' => round($amount/$detail[0]['totalCost'],2)*100
+				'precent' => round($amount/$detail[0]['totalCost'],2)*100,
+				'monthly' => $monthly
 				);
 		}else{
 			$response = array(

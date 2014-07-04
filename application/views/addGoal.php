@@ -19,6 +19,21 @@
 			return siteurl;	
 		}
 		
+		function setMonthlyDeposit(){
+			var v = $('#total').val();
+			var sd = $('#startDate').val();
+			var td = $('#targetDate').val();
+			if (v !='' & sd !='' && td !=''){
+				var start = new Date(sd.substr(0,4), sd.substr(4,2)-1, sd.substr(6,2));
+				var target = new Date(td.substr(0,4), td.substr(4,2)-1, td.substr(6,2));
+				var one_month=1000*60*60*24*30;
+				var numofmonth = Math.ceil((target.getTime()-start.getTime())/(one_month));
+				var monthly = Math.round(($('#total').val()*1/numofmonth)*100)/100;
+				//alert(monthly);
+				$('#monthlyDepot').val(monthly);
+			}	
+			
+		}
 		
 		$(document).ready(function(){
 			$('.submit-button').button();
@@ -30,7 +45,7 @@
 				constrainInput: true,
 				minDate: "0",
 				maxDate: "+10y",
-				appendText: '(yyyymmdd)'
+				dateFormat: "yyyymmdd"
 
 			});
 			
@@ -41,10 +56,21 @@
 				constrainInput: true,
 				minDate: "0",
 				maxDate: "+10y",
-				appendText: '(yyyymmdd)'
+				dateFormat: "yyyymmdd"
 
 			});
 			
+			$('#startDate').keyup(function(e) {
+                setMonthlyDeposit();
+            });
+			
+			$('#targetDate').keyup(function(e) {
+                setMonthlyDeposit();
+            });
+			
+			$('#total').keyup(function(e) {
+                setMonthlyDeposit();
+            });
 			
 		});
 	
@@ -139,15 +165,16 @@
                                 <?php echo form_input($monthlyDepot,set_value('monthlyDepot')); ?>
                            		<div id="validateMonthlyDepot" class="errormsg"><?php echo form_error('monthlyDepot'); ?></div>
                             </div>
-                        </div>
-
-                        <div class="personalinfo">
-                            <div class="glabel"><label for="interestRate">Annual Interest Rate(%):</label></div>
-                            <div class="ginput">                           	
-                           	    <?php echo form_input($interestRate,set_value('interestRate')); ?>
-                                <div id="validateInterestRate" class="errormsg"><?php echo form_error('interestRate'); ?></div>                		    </div>                                      
-                        </div>
-
+                        </div>                       
+                        
+                       <div class="personalinfo">
+                            <div class="glabel"><label for="isPublic">Publish Option:</label></div>
+                            <div class="ginput" style="float:left; margin-top: 8px;">                           	
+                           	    <input type="radio" name="isPublic" value="0" checked="checked"/>Public
+		                        <input type="radio" name="isPublic" value="1"  />Private
+                            </div>
+                        </div>                        
+                        
                         <div class="personalinfo">
                             <input type="submit" id="btnAdd" name="btnAdd" value="Submit" class="submit-button" />
                             <input type="reset" id="btnReset" name="btnReset" value="Reset" class="submit-button" />

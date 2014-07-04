@@ -15,8 +15,8 @@
 		}
 		
 		$(document).ready(function(e) {
-			$('#accordion').wrap('<div style="height: 300px"></div>');
-			$('#accordion').accordion({
+			$('.accordion').wrap('<div style="height: 300px"></div>');
+			$('.accordion').accordion({
 				fillSpace: true,
 				autoHeight: true
 			});
@@ -55,14 +55,36 @@
 				value: val
 			});
 		}
+		
+		c = $('.coprogressDiv').length;
+		for (var i = 1; i<=c; i++){
+			var id = '#coprogressDiv_';
+			var pv = '#coprogVal_';
+			id = id+i;
+			pv = pv+i;
+			var val = $(pv).text();
+			val = val * 1;
+			$(id).progressbar({
+				value: val
+			});
+		}
+		
 	}
 	
-	function openDialog(o){
+	function openDialog(type,o){
 		var rep = /[A-Za-z_]/g;
 		var id = o.id.replace(rep,'');
-		$('#result_'+id).html('');
-		document.getElementById('save_'+id).value = '';
-		$('#dialog_'+id).dialog("open");
+		
+		if(type =='own'){
+			$('#result_'+id).html('');
+			document.getElementById('save_'+id).value = '';
+			$('#dialog_'+id).dialog("open");
+		}else{
+			$('#resultc_'+id).html('');
+			document.getElementById('savec_'+id).value = '';
+			$('#dialogc_'+id).dialog("open");
+
+		}
 
 	}
 	
@@ -94,45 +116,90 @@
 		
 	}
 	
-	function deposit(o){
+	function deposit(type,o){
 		var rep = /[A-Za-z_]/g;
 		var id = o.id.replace(rep,'');
-		var amount = $('#save_'+id).val();
-		var gid = $('#goalId_'+id).val();
-		var siteurl = '<?php echo site_url('index.php/depositManagement'); ?>';
-		siteurl = siteurl+'/addDeposit';
-		var d = new Date();
-		var today = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
-		
-		$.getJSON(siteurl+'?gid='+gid+'&amount='+amount, function(data) {
-			var result = $('#result_'+id);
-			result.html(data.msg);
-			if(data.ok == true){
-				result.css('color','#3C3');
-				//update Goal Info
-				$('#progVal_'+id).html(data.precent);
-				$('#progressDiv_'+id).progressbar({
-					value: data.precent
-				});
-				//update goal progress table
-				if ($('#progress_'+id +' tr').length == 1){
-					$('#progress_'+id).empty();
-					$('#progress_'+id).append("<tr><th></th><th>"+today+"</th></tr><tr><td>Deposit</td><td>"+amount+"</td></tr>");
+		if (type == 'own'){
+			var amount = $('#save_'+id).val();
+			var gid = $('#goalId_'+id).val();
+			var siteurl = '<?php echo site_url('index.php/depositManagement'); ?>';
+			siteurl = siteurl+'/addDeposit';
+			var d = new Date();
+			var today = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+			
+			$.getJSON(siteurl+'?gid='+gid+'&amount='+amount, function(data) {
+				var result = $('#result_'+id);
+				result.html(data.msg);
+				if(data.ok == true){
+					result.css('color','#3C3');
+					//update Goal Info
+					$('#progVal_'+id).html(data.precent);
+					$('#progressDiv_'+id).progressbar({
+						value: data.precent
+					});
+					//update monthly deposit
+					$('#goalcell_'+id+' .goalinfo:nth-child(3) .info').html('$'+data.monthly);
+					//update goal progress table
+					if ($('#progress_'+id +' tr').length == 1){
+						$('#progress_'+id).empty();
+						$('#progress_'+id).append("<tr><th></th><th>"+today+"</th></tr><tr><td>Deposit</td><td>"+amount+"</td></tr>");
+						
+					}else{
+						var lastele = $('#progress_'+id+ ' tr:nth-child(1)');
+						lastele.append("<th>"+today+"</th>");
+						
+						lastele = $('#progress_'+id+ ' tr:nth-child(2)');
+						lastele.append("<td>"+amount+"</td>");
+	
+					}
 					
 				}else{
-					var lastele = $('#progress_'+id+ ' tr:nth-child(1)');
-					lastele.append("<th>"+today+"</th>");
+					result.css('color','#900');
+				}	
+						
+			});
+		}else{//collaborate on goals
+			var amount = $('#savec_'+id).val();
+			var gid = $('#cogoalId_'+id).val();
+			var siteurl = '<?php echo site_url('index.php/depositManagement'); ?>';
+			siteurl = siteurl+'/addDeposit';
+			var d = new Date();
+			var today = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+			
+			$.getJSON(siteurl+'?gid='+gid+'&amount='+amount, function(data) {
+				var result = $('#resultc_'+id);
+				result.html(data.msg);
+				if(data.ok == true){
+					result.css('color','#3C3');
+					//update Goal Info
+					$('#coprogVal_'+id).html(data.precent);
+					$('#coprogressDiv_'+id).progressbar({
+						value: data.precent
+					});
+					//update monthly deposit
+					$('#cogoalcell_'+id+' .goalinfo:nth-child(3) .info').html('$'+data.monthly);
+					//update goal progress table
+					if ($('#coprogress_'+id +' tr').length == 1){
+						$('#coprogress_'+id).empty();
+						$('#coprogress_'+id).append("<tr><th></th><th>"+today+"</th></tr><tr><td>Deposit</td><td>"+amount+"</td></tr>");
+						
+					}else{
+						var lastele = $('#coprogress_'+id+ ' tr:nth-child(1)');
+						lastele.append("<th>"+today+"</th>");
+						
+						lastele = $('#coprogress_'+id+ ' tr:nth-child(2)');
+						lastele.append("<td>"+amount+"</td>");
+	
+					}
 					
-					lastele = $('#progress_'+id+ ' tr:nth-child(2)');
-					lastele.append("<td>"+amount+"</td>");
-
-				}
-				
-			}else{
-				result.css('color','#900');
-			}	
-					
-		});
+				}else{
+					result.css('color','#900');
+				}	
+						
+			});
+		
+		}
+		
 	}
 	
 	
@@ -148,8 +215,10 @@
 		var rep = /[A-Za-z_]/g;
 		var id = o.id.replace(rep,'');
 		var uid = document.getElementsByName("friends")[0].value;
-		var gid = document.getElementById('goalId_'+id).value;
-		var uname = document.getElementsByName("friends")[0].text;	
+		var gid = document.getElementById('goalId_'+id).value;	
+		var sel = document.getElementsByName("friends")[0].selectedIndex;
+		var selopt = document.getElementsByName("friends")[0].options;
+		var uname = selopt[sel].text;
 		var siteurl = '<?php echo site_url('index.php/goalManagement'); ?>';
 		siteurl = siteurl+'/addCollaborator';
 		
@@ -159,8 +228,12 @@
 			if(data.ok == true){
 				result.css('color','#3C3');
 				//update Goal Info
-				var old = $('#goalcell_'+id+' .goalinfo:nth-child(5)').html();
-				$('#goalcell_'+id+' .goalinfo:nth-child(5)').html(old+';'+uname+';');
+				var old = $('#goalcell_'+id+' .goalinfo:nth-child(6) .info').html();
+				if (old != 'None'){
+  				  $('#goalcell_'+id+' .goalinfo:nth-child(6) .info').html(old+' '+uname);
+				}else{
+				  $('#goalcell_'+id+' .goalinfo:nth-child(6) .info').html(uname);
+				}
 				
 				
 			}else{
@@ -172,7 +245,7 @@
 	
 	</script>    
     <style type="text/css">
-		#accordion {margin: 5px}
+		.accordion {margin: 5px}
 		.goaltitle {
      	     margin-left: auto; margin-right: auto; text-align: left; font-size: 20px;;
              color: #F93; background-size: contain; margin-top: 0;
@@ -206,13 +279,13 @@
              <!-- Start the container Div -->
              <div id="container"> 
                 <!-- goallist div starts here -->
-                <div id="goallist">
+                <div id="goallist" class="goallist">
                 
                     <div class="pagetitle">
                     Your saving goals
                     </div>
                     <?php
-                     if(count($goals)== 1){
+                     if(count($goals) == 0 || $goals == ''){
                     ?>
                       <div> You haven't setup any goal yet. </div>
                       <div style="font-size:16px; color:#666; width: 50%; margin-left:auto; margin-right:auto;">
@@ -222,7 +295,7 @@
                      }else{
                     ?>                   
                     
-                        <div id="accordion">
+                        <div id="accordion_1" class="accordion">
                         <?php 
                           $k = 0;
                           for($i = 0;$i<count($goals);$i++){
@@ -231,7 +304,7 @@
                           <div class="goaltitle" id="goal_<?php echo $k ;?>">
                             <div><a href="#">Goal:  <?php echo $goals[$i]['goalName']; ?></a>  
                                  <div id="inviteF_<?php echo $k ;?>" style="width: 25px; float:right; font-size:12px;" class="addD" onClick="invite(this);"><img src="../../images/add.jpg" width="33" height="33" title="Invite friends to collaborate"/></div>
-                                 <div id="addD_<?php echo $k ;?>" style="width: 25px; float:right; font-size:12px;" class="addD" onClick="openDialog(this);"><img src="../../images/add2.jpg" title="Add Deposit"/></div>
+                                 <div id="addD_<?php echo $k ;?>" style="width: 25px; float:right; font-size:12px;" class="addD" onClick="openDialog('own',this);"><img src="../../images/add2.jpg" title="Add Deposit"/></div>
                                  <div id="rmG_<?php echo $k ;?>" style="width: 25px; float:right; font-size:12px;" class="rmG" onClick="removeGoal(this);"><img src="../../images/delete.jpg" title="Remove Goal"/></div>
                                  <span style="width: 20px; float:right; font-size:16px;">%</span>  
                                  <span id="progVal_<?php echo $k; ?>" style="width: 30px; float:right; font-size:16px;">
@@ -321,12 +394,127 @@
                    
              </div> 
              <!-- Goal View Div ends here -->   
+             
+            <!-- goal collaborated view -->
+            <div id="goallist_2" class="goallist">
+                
+                    <div class="pagetitle">
+                    You're collaborating on these saving goals
+                    </div>
+                    <?php
+                     if(count($cogoals)== 0 || $cogoals == ''){
+                    ?>
+                      <div> You haven't join any goal yet. </div>                      
+                    <?php 
+                     }else{
+                    ?>                   
+                    
+                        <div id="accordion_2" class="accordion">
+                        <?php 
+                          $k = 0;
+                          for($i = 0;$i<count($cogoals);$i++){
+                              $k = $i +1;
+                        ?>
+                          <div class="goaltitle" id="cogoal_<?php echo $k ;?>">
+                            <div><a href="#">Goal:  <?php echo $cogoals[$i]['goalName']; ?></a>  
+                                 <div id="coaddD_<?php echo $k ;?>" style="width: 25px; float:right; font-size:12px;" class="addD" onClick="openDialog('co',this);"><img src="../../images/add2.jpg" title="Add Deposit"/></div>
+                                 <span style="width: 20px; float:right; font-size:16px;">%</span>  
+                                 <span id="coprogVal_<?php echo $k; ?>" style="width: 30px; float:right; font-size:16px;">
+                                 <?php 
+                                 $percent = round($cogoals[$i]['currentlySaved']/$cogoals[$i]['totalCost'],2)*100;
+                                 echo $percent; ?>
+                                 </span>                             
+                                 <div id="coprogressDiv_<?php echo $k; ?>" class="coprogressDiv" style="width: 300px; float:right; margin-right: 5px;">                       	    
+                                 </div>
+                            </div>                                         
+                          </div>
+                          
+                          <div class="dcell" id="cogoalcell_<?php echo $k ;?>">        
+                            <input type="hidden" id="cogoalId_<?php echo $i+1; ?>" value="<?php echo $cogoals[$i]['goalId']; ?>" />                                    
+                            <div class="goalinfo">
+                                <label for="goalTotal">Goal total:</label>
+                                <div class="info">$<?php echo $cogoals[$i]['totalCost']; ?></div>
+                            </div>                     
+                            <div class="goalinfo">
+                                <label for="monthly">Estimated Monthly Deposit:</label>
+                                <div class="info">$<?php echo $cogoals[$i]['monthlyDepot']; ?></div>
+                            </div>  
+                            <div class="goalinfo">
+                                <label for="start">Start Date:</label>
+                                <div class="info"><?php echo $cogoals[$i]['startDate']; ?></div>
+                            </div>  
+                            <div class="goalinfo">
+                                <label for="target">Target Date:</label>
+                                <div class="info"><?php echo $cogoals[$i]['targetDate']; ?></div>
+                            </div>  
+                            <div class="goalinfo">
+                                <label for="target">Collaborators:</label>
+                                <div class="info"><?php if ($comembers[$i] != '') {
+									
+									  for ($j=0;$j<count($comembers[$i]);$j++){
+										 echo $comembers[$i][$j]['userName'].' ';
+								  	  } 
+									}else{
+										echo 'None';
+									}?></div>
+                            </div> 
+                            <div class="goalprogress" style="margin-top: 5px;">
+                               <?php 
+                                    if ($codeposits[$i] != ''){
+                                        ?>
+
+                                <table id="coprogress_<?php echo $i+1; ?>">
+                                  <tr>
+                                    <th></th>
+                                    <?php 
+                                          for($j = 0;$j<count($codeposits[$i]);$j++){
+                                    ?>
+                                    <th class="thDate"><?php echo $codeposits[$i][$j]['depositDate']; ?></th>
+                                    <?php } ?>
+                                  </tr>
+                                  <tr>
+                                    <td>Deposit</td>
+                                     <?php
+                                          for($j = 0;$j<count($codeposits[$i]);$j++){
+                                    ?>
+                                    <td class="tdAmount"><?php echo $codeposits[$i][$j]['amount']; ?></td>
+                                    <?php } ?>
+                                  </tr>                              
+                                </table>
+                                    <?php 
+                                        }else{ 
+                                        ?>
+                                  <table id="coprogress_<?php echo $i+1; ?>">
+                                    <tr>
+                                    <th>Haven't started yet.</th>
+                                    </tr>
+                                  </table>
+    
+                                    
+                                    <?php } ?>
+                            </div>  
+                           
+                          </div>                     
+                           
+                          <!-- One Goal --> 
+                          <?php } ?> 
+                           
+                           
+                        </div>	
+                    
+                    <!-- Accordion Div ends here --> 
+                  <?php } ?>  
+                   
+             </div> 
+             <!-- Goal View Div ends here -->    
+             
+             
              <?php   
   			 for($i = 1 ; $i <= count($goals);$i++){ ?>
              <div id="dialog_<?php echo $i; ?>" class="dialog" title="Add deposit">
                  <div style="float:left;"><label for="total" >Saved($):</label></div>
                  <div style="float:left; margin-left:5px;"><input type="text" id="save_<?php echo $i; ?>" /></div>
-                   <input id="btn_dg_<?php echo $i; ?>" type="button" onClick="deposit(this);" value="Submit" class="btn" />
+                   <input id="btn_dg_<?php echo $i; ?>" type="button" onClick="deposit('own',this);" value="Submit" class="btn" />
                   <span id="result_<?php echo $i; ?>"></span>
              </div>
 			 <?php } ?>
@@ -356,7 +544,20 @@
 			 <?php 
 				 }
 			} ?>
-			 
+			
+            <!--Dialog for adding deposit to collaborating goal -->
+            
+            <?php   
+  			 for($i = 1 ; $i <= count($cogoals);$i++){ ?>
+             <div id="dialogc_<?php echo $i; ?>" class="dialog" title="Add deposit">
+                 <div style="float:left;"><label for="total" >Saved($):</label></div>
+                 <div style="float:left; margin-left:5px;"><input type="text" id="savec_<?php echo $i; ?>" /></div>
+                   <input id="btn_dgc_<?php echo $i; ?>" type="button" onClick="deposit('c',this);" value="Submit" class="btn" />
+                  <span id="resultc_<?php echo $i; ?>"></span>
+             </div>
+			 <?php } ?>           
+           
+            
             </div>
      <!-- End of the container Div -->
 </body>
