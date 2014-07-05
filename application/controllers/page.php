@@ -28,7 +28,7 @@ class Page extends CI_Controller{
 		$page_data['content'] = 'dashboard';
 		$page_data['content_data'] = array();
 		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
-
+		$page_data['content_data']["user_settings"] = $this->user_model->getUserSettingsArray($this->session->userdata('suis_user_id'));
 		$page_data['content_data']["goals_array"] = $this->user_model->getUserGoalArray2($this->session->userdata('suis_user_id'));
 		
 		//dynamically create view

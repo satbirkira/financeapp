@@ -93,6 +93,9 @@ class User_model extends CI_Model {
 		$this->session->set_userdata('suis_user_email',$arrUser['userEmail']);
 		$this->session->set_userdata('suis_last_name',$arrUser['userLastName']);
 		$this->session->set_userdata('suis_first_name',$arrUser['userFirstName']);
+		
+		
+		
 	}
 	
 	function logout()
@@ -253,12 +256,11 @@ class User_model extends CI_Model {
 				) AS TEMP
 				WHERE goal.goalID = TEMP.goalID AND
 					  user.userID = ? AND
-					  user.userID = goal.userID AND
+					  user.userID = goal.userID 
 					  ";
-		
-	return Array();		
-		//$query = $this->db->query($sql, $uid);
-		//return $query->result_array();
+			
+		$query = $this->db->query($sql, $uid);
+		return $query->result_array();
 	}
 
 	

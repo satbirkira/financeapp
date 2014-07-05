@@ -41,49 +41,29 @@
 	</div>
 
 <?if(true):?>
-	<div id="setting_title" style="margin: 30px 0px 15px 0px;">
-		<span style="font-size: 30px; font-weight: 300;">My goals</span>
-	</div>
-	<div id="dash_metrics">
+	
 	<?php 
-	var_export($goals_array); 
-	foreach ($goals_array as $row)
+	
+	if($user_settings['userDisplayGoalsOnDash'] == true)
 	{
-		
-		echo "<div class='dash_prog_display'>";
-			echo "<div class='goal_title' style='float:left;'>$row[goalName]</div>";
-			echo "<div class='goal_percent' style='float:right;text-align: right;'>". ((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost']."%</div>";
-			echo "<div class='goal_bar_outer'>";
-			echo "<div class='goal_bar_inner' style='width: 50%'></div>";
-			echo "</div>";
-
+		echo "<div id='setting_title' style='margin: 30px 0px 15px 0px;'>";
+		echo "	<span style='font-size: 30px; font-weight: 300;'>My goals</span>";
 		echo "</div>";
+		echo "<div id='dash_metrics'>";
+		foreach ($goals_array as $row)
+		{
+			$percent_complete = ((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost'];
+			echo "<div class='dash_prog_display'>";
+				echo "<div class='goal_title' style='float:left;'>$row[goalName]</div>";
+				echo "<div class='goal_percent' style='float:right;text-align: right;'>$percent_complete%</div>";
+				echo "<div class='goal_bar_outer'>";
+				echo "<div class='goal_bar_inner' style='width: $percent_complete%'></div>";
+				echo "</div>";
+
+			echo "</div>";
+		}
 	}
-		
-	
-	
 	?>
-		<div class="dash_prog_display">
-			<div class="goal_title" style="float:left;">Goal #1 Title</div>
-			<div class="goal_percent" style="float:right;text-align: right;">50%</div>
-			<div class="goal_bar_outer">
-				<div class="goal_bar_inner" style="width: 50%"></div>
-			</div>
-		</div>
-		<div class="dash_prog_display">
-			<div class="goal_title" style="float:left;">Goal #2 Title</div>
-			<div class="goal_percent" style="float:right;text-align: right;">30%</div>
-			<div class="goal_bar_outer">
-				<div class="goal_bar_inner" style="width: 30%"></div>
-			</div>
-		</div>
-		<div class="dash_prog_display">
-			<div class="goal_title" style="float:left;">Goal #3 Title</div>
-			<div class="goal_percent" style="float:right;text-align: right;">63%</div>
-			<div class="goal_bar_outer">
-				<div class="goal_bar_inner" style="width: 63%"></div>
-			</div>
-		</div>
 		<div style="clear: both"></div>
 	</div>
 <?endif?>
