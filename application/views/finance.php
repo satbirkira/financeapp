@@ -83,6 +83,7 @@
     			'type' => 'submit',
     			'content' => 'Add'
 			);
+		
 			echo form_open(base_url().'page/changefinance', $form);
 	?>
 	<div id="finance_title" style="margin: 25px 0px 15px 0px;">
@@ -128,4 +129,47 @@
 	</div>
 
 	<?php echo form_close(); ?>
+	
+
+		<table>
+		<tr>
+			<td> 
+				Goal Name
+			</td>
+			<td> 
+				Date of Transaction
+			</td>
+			<td> 
+				Changed Amount
+			</td>
+		</tr>
+		<?php
+
+		foreach ($transactions_array as $row)
+		{
+			echo "<tr>";
+				echo "<td>";
+					echo $row['goalName'];
+				echo "</td>";
+				echo "<td>";
+					echo $row['eventDate'];
+				echo "</td>";
+				echo "<td>";
+					if((int)$row['amountChanged'] > 0)
+					{
+						echo "+".$row['amountChanged'];
+					}
+					else
+					{
+						echo $row['amountChanged'];
+					}
+				echo "</td>";
+			echo "</tr>";
+		}
+		
+		?>
+		</table>
+	
+	
+	
 </div>

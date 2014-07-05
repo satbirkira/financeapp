@@ -5,7 +5,8 @@ class Page extends CI_Controller{
 	function __construct()
     {
         parent::__construct();
-		$this->load->model('user_model');		
+		$this->load->model('user_model');
+		$this->load->model('goal_model');		
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');		
 	}
@@ -28,6 +29,8 @@ class Page extends CI_Controller{
 		$page_data['content_data'] = array();
 		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
 
+		$page_data['content_data']["goals_array"] = $this->user_model->getUserGoalArray($this->session->userdata('suis_user_id'));
+		$page_data['content_data']["transactions_array"] = $this->user_model->getUserTransactionArray($this->session->userdata('suis_user_id'));
 		
 		//dynamically create view
 		$page_data['content_data']["variable1"] = "A variable you want to use in the dash view";
@@ -87,6 +90,11 @@ class Page extends CI_Controller{
 		$page_data['content_data']["user_settings"] = $this->user_model->getUserSettingsArray($this->session->userdata('suis_user_id'));
 		$page_data['content_data']["general_error"] = $general_error;
 		$page_data['content_data']["success_msg"] = $success_msg;
+		
+		//generate transaction table
+		$page_data['content_data']["transactions_array"] = $this->user_model->getUserTransactionArray($this->session->userdata('suis_user_id'));
+		
+		
 		$this->load->view('page', $page_data);
 	}
 	
@@ -167,15 +175,26 @@ class Page extends CI_Controller{
 		}
 		else if(isset($_POST["submit_add_finance"]))
 		{
-			$theGoalID = $this->input->post('transactionGoal');
-			$amountChange = $this->input->post('transactionAmount');
-			
+
 			$this->form_validation->set_rules('transactionAmount', 'Transaction Amount', 'trim|required|max_length[10]|numeric');
+			
+			$transactionArray['goalID'] = $this->input->post('transactionGoal');
+			$transactionArray['eventDate'] = date("Ymd");
+			$transactionArray['amountChanged'] =  $this->input->post('transactionAmount');
+			
 			
 			if ($this->form_validation->run() == true)
 			{
-				//if we are adding to goal
-					$this->user_model->updateUserAccountAddToGoal($this->session->userdata('suis_user_id'), $theGoalID, $amountChange);
+				$result = $this->user_model->updateUserAccountAddToGoal($transactionArray);
+				
+				if($result)
+				{
+					$success_msg = "Added transaction.";
+				}
+				else
+				{
+					$general_error = "Could not add transaction.";
+				}
 				
 			}
 			

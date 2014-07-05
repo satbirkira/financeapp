@@ -242,13 +242,26 @@ class User_model extends CI_Model {
     }
 	
 	
-	function updateUserAccountAddToGoal($uid, $theGoalID, $amountChange)
+	function updateUserAccountAddToGoal($transactionArray)
 	{
-		//do math on the savings
-		$this->db->from('user');
-		$this->db->where('userId',$uid);
-		//add a history to that goal
+		$result = $this->db->insert('history', $transactionArray);
+		//$this->set_session_info($userId, $arrUserDetails); uncomment since we don't login right away
+		return $result;
 	}
+	
+	function getUserTransactionArray($uid)
+    {
+		$this->db->select('goal.goalID, goalName, eventDate, amountChanged');
+		$this->db->from('user');
+		$this->db->from('goal');
+		$this->db->from('history');
+		$this->db->where('user.userID',$uid);
+		$this->db->where('user.userID = goal.userID');
+		$this->db->where('goal.goalID = history.goalID');
+		$query = $this->db->get();
+		return $query->result_array();
+    }
+	
 
 }
 ?>

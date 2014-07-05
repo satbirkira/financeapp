@@ -45,6 +45,25 @@
 		<span style="font-size: 30px; font-weight: 300;">My goals</span>
 	</div>
 	<div id="dash_metrics">
+	<?php 
+	var_export($goals_array); 
+	var_export($transactions_array);
+	foreach ($goals_array as $row)
+	{
+		
+		echo "<div class='dash_prog_display'>";
+			echo "<div class='goal_title' style='float:left;'>$row[goalName]</div>";
+			echo "<div class='goal_percent' style='float:right;text-align: right;'>50%</div>";
+			echo "<div class='goal_bar_outer'>";
+			echo "<div class='goal_bar_inner' style='width: 50%'></div>";
+			echo "</div>";
+
+		echo "</div>";
+	}
+		
+	
+	
+	?>
 		<div class="dash_prog_display">
 			<div class="goal_title" style="float:left;">Goal #1 Title</div>
 			<div class="goal_percent" style="float:right;text-align: right;">50%</div>
