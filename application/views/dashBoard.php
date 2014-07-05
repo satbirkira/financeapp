@@ -16,17 +16,33 @@
 			</div>
 			<div class="description">Expenditure</div>
 		</div>
-
+		<?php
+		$goals_completed = 0;
+		$goals_outstanding = 0;
+		foreach ($goals_array as $row)
+		{
+			$percent_complete = min(100, (((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost'])*100);
+			if($percent_complete == 100)
+			{
+				$goals_completed += 1;
+			}
+			else
+			{
+				$goals_outstanding += 1;
+			}
+		}
+			
+		?>	
 		<div class="dash_big_display red">
 			<div class="amount">
-				<span class="currency_sym">#</span><span class="dash_value">21</span>
+				<span class="currency_sym">#</span><span class="dash_value"><?php echo $goals_outstanding;  ?></span>
 			</div>
 			<div class="description">Outstanding Goals</div>
 		</div>
 
 		<div class="dash_big_display green">
 			<div class="amount">
-				<span class="currency_sym">#</span><span class="dash_value">3</span>
+				<span class="currency_sym">#</span><span class="dash_value"><?php echo $goals_completed;  ?></span>
 			</div>
 			<div class="description">Goals Completed</div>
 		</div>
