@@ -3,22 +3,11 @@
 </div>
 <div id="template_content_container">
 	<div id="dash_metrics">
-		<div class="dash_big_display blue">
-			<div class="amount">
-				<span class="currency_sym">$</span><span class="dash_value">2000</span>
-			</div>
-			<div class="description">Budget</div>
-		</div>
-
-		<div class="dash_big_display blue">
-			<div class="amount">
-				<span class="currency_sym">$</span><span class="dash_value">200</span>
-			</div>
-			<div class="description">Expenditure</div>
-		</div>
 		<?php
 		$goals_completed = 0;
 		$goals_outstanding = 0;
+		$sendThisMonthOnGoals = 0;
+		$thisMonthsIncome = $user_settings['userMonthlyIncome'];
 		foreach ($goals_array as $row)
 		{
 			$percent_complete = min(100, (((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost'])*100);
@@ -29,10 +18,27 @@
 			else
 			{
 				$goals_outstanding += 1;
+				$sendThisMonthOnGoals += $row['monthlyDepot'];
 			}
+			
+			
 		}
 			
 		?>	
+		<div class="dash_big_display blue">
+			<div class="amount">
+				<span class="currency_sym">$</span><span class="dash_value"><?php echo $thisMonthsIncome;  ?></span>
+			</div>
+			<div class="description">This Month's Income</div>
+		</div>
+
+		<div class="dash_big_display blue">
+			<div class="amount">
+				<span class="currency_sym">$</span><span class="dash_value"><?php echo $sendThisMonthOnGoals;  ?></span>
+			</div>
+			<div class="description">Save To Goals This Month</div>
+		</div>
+
 		<div class="dash_big_display red">
 			<div class="amount">
 				<span class="currency_sym">#</span><span class="dash_value"><?php echo $goals_outstanding;  ?></span>
