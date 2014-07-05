@@ -11,49 +11,32 @@ class FriendManagement extends CI_Controller{
 /*------------------------------------------------*/
 	function addFriend()
 	{	
-		$error = '';
-		if(isset($_POST["btnAdd"]))
-		{
-			// Validate the values.
-			$uid = $this->session->userdata('suis_user_id');
-			//$uid = '11';
-			//$uid = '2';
-			$fname = trim($this->input->post('username'));
-			$firstname = trim($this->input->post('username'));
-			$lastname = trim($this->input->post('lastname'));
-			$farr = array();
-			$farr['fname'] = $fname;
-			$farr['firstname'] = $firstname;
-			$farr['lastname'] = $lastname;
-			
-			$friend = $this->friend_model->check_friend($uid,$farr);
-			
-			if ($friend != 'exist'){
-  			  $arr = array(
-								'userId'=> $uid,
-								'friendId'=>$friend[0]['userId'],																
-								'friendDeleted'=>0									
-			  );
-
-			  $result = $this->friend_model->add_friend($arr);
-			  
-			  if ($result){									
-				  redirect('index.php/friendManagement/viewFriend');					
-			  }else{
-			  
-			  }
-			  
-			}
-		}
-		
-		$data['main_content'] = 'addFriend';
+		//$data['main_content'] = 'addFriend';
 		$this->load->view('addFriend');
 	}
 	
 
 /*------------------------------------------------*/
 	function deleteFriend()
-	{
+	{	
+		$fid = $_REQUEST['fid'];
+		$uid = $this->session->userdata('suis_user_id');
+		//$uid = '11';
+		$response = array();
+				
+		if($this->friend_model->remove_friend($uid,$fid)){
+			$response = array(
+				'ok' => true,
+				'msg' => "Delete succeed."
+		    );	
+		}else{
+			$response = array(
+				'ok' => false,
+				'msg' => "Delete failed."
+		    );	
+		}
+		
+		echo json_encode($response);
 		
 	}
 	
@@ -69,7 +52,64 @@ class FriendManagement extends CI_Controller{
 	}
 	
 /*------------------------------------------------*/	
+	function searchFriend(){
+		$fname = $_REQUEST['fname'];
+		$firstname = $_REQUEST['firstname'];
+		$lastname = $_REQUEST['lastname'];
+		$farr = array();
+		$response = array();
 
+		$farr['fname'] = $fname;
+		$farr['firstname'] = $firstname;
+		$farr['lastname'] = $lastname;
+		
+		$friend = $this->friend_model->search_friend($farr);
+		if ($friend != 'no user'){
+			$response = array(
+				'ok' => true,
+				'msg' => "found",
+				'friends' =>$friend
+		    );	
+		}else{
+			$response = array(
+				'ok' => false,
+				'msg' => "can't find the user.",
+				'friends' => ''
+		    );	
+		}
+		
+		echo json_encode($response);
+
+		
+	}
+	
+	function addOneFriend(){
+		$uid = $this->session->userdata('suis_user_id');
+		//$uid = '11';
+		//$uid = '2';	
+		$arr = array(
+						'userId'=> $uid,
+						'friendId'=>$_REQUEST['fid'],																
+						'friendDeleted'=>0									
+		);
+
+		$result = $this->friend_model->add_friend($arr);
+		
+		if ($result){
+			$response = array(
+				'ok' => true,
+				'msg' => "added"
+		    );	
+		}else{
+			$response = array(
+				'ok' => false,
+				'msg' => "failed"
+		    );	
+		}
+		
+		echo json_encode($response);
+		
+	}
 }
 
 

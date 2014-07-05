@@ -16,7 +16,7 @@ class Friend_Model extends CI_Model {
 	function get_all_friends($uid)
 	{
 		$data = "";
-		$sql = "SELECT fl.userId as userId, fl.friendId as friendId, u2.userName as friendName
+		$sql = "SELECT fl.userId as userId, fl.friendId as friendId, u2.userName as friendName, u2.userProfileImage as userImage
 				FROM friendlist fl, user u, user u2
 				WHERE u.userID = ?
 				  and u.userID = fl.userId
@@ -30,7 +30,8 @@ class Friend_Model extends CI_Model {
 			
 			 $data[$i]['userId'] = $row['userId'];
      	     $data[$i]['friendId'] = $row['friendId'];
-			 $data[$i]['friendName'] = $row['friendName'];		 		
+			 $data[$i]['friendName'] = $row['friendName'];
+			 $data[$i]['friendImg'] = $row['userImage'];		 		
 			 
 			 $i++;
 		}
@@ -53,7 +54,133 @@ class Friend_Model extends CI_Model {
 
     }
 	
+	function check_friend_o($uid,$arr){
+		$data = "";
+		if ($arr['fname'] != ''){
+  		  $sql = "SELECT u.userName as friendUserName, u.userFirstName as friendFirstName, u.userLastName as friendLastName
+				  FROM friendlist fl, user u
+				  WHERE fl.friendDeleted = 0
+				  and fl.userId = ?
+				  and fl.friendId = u.userID
+				  and u.userName = ?";	
+				  			
+		  $query = $this->db->query($sql,array($uid,$arr['fname']));
+		
+		  if ($query->num_rows()>0) { //the friend has been added already
+			$data = 'exist';
+			
+		  }else{ //find user information
+		     $sql = "SELECT *
+				     FROM user
+					WHERE userName like '%?%'";	
+				  			
+		     $query = $this->db->query($sql,$arr['fname']);
+			 if ($query->num_rows()>0){
+  		       $i = 0;
+	           foreach($query->result_array() as $row){
+			
+			     $data[$i]['userId'] = $row['userID'];
+     	         $data[$i]['userFirstName'] = $row['userFirstName'];
+			     $data[$i]['userLastName'] = $row['userLastName'];		 		
+			 	 $data[$i]['error'] = '';
+			     $i++;
+		       }
+			 }else{
+				 $data[0]['error'] = 'user doesn\'t exist.';
+			 }
+			
+		  }
+		  
+		}else{// find friends using firstname and lastname
+			if ($arr['lastname'] != '' && $arr['firstname'] != ''){
+				  $sql = "SELECT u.userName as friendUserName, u.userFirstName as friendFirstName, u.userLastName as friendLastName
+				          FROM friendlist fl, user u
+				 		  WHERE fl.friendDeleted = 0
+				 		  and fl.userId = ?
+				  		  and fl.friendId = u.userID
+				  		  and u.userFirstName = ?
+						  and u.userLastName = ?";	
+				  			
+				  $query = $this->db->query($sql,array($uid,$arr['firstname'],$arr['lastname']));
+				
+				  if ($query->num_rows()>0) { //the friend has been added already
+					$data = 'exist';
+				  }else{
+					 $sql =  "SELECT *
+				     		  FROM user
+		  					  WHERE Lower(userFirstName) = Lower(?) 
+							  and Lower(userLastName) = Lower(?)";	
+				  			
+					 $query = $this->db->query($sql,array($arr['firstname'],$arr['lastname']));
+					 if ($query->num_rows()>0){
+					   $i = 0;
+					   foreach($query->result_array() as $row){
+					
+						 $data[$i]['userId'] = $row['userID'];
+						 $data[$i]['userFirstName'] = $row['userFirstName'];
+						 $data[$i]['userLastName'] = $row['userLastName'];		 		
+						 $data[$i]['error'] = '';
+						 $i++;
+					   }
+					 }else{
+						 $data[0]['error'] = 'user doesn\'t exist.';
+					 }
+					  
+					  
+				  }
+				
+			}
+			
+		}
+		
+		return $data;	
+		
+	}
 	
+	
+	function search_friend($arr){
+		$uid = $this->session->userdata('suis_user_id');
+		//$uid = 2;
+									 
+		$sql = "(SELECT u.*,'added' as status
+				 FROM user u, friendlist fl
+				 WHERE u.userName like '%".$arr['fname']."%'
+				 and u.userFirstName like '%".$arr['firstname']."%'
+				 and u.userLastName like '%".$arr['lastname']."%'
+				 and fl.userId = ?
+				 and fl.friendId = u.userID )
+
+				 union(
+				 SELECT u.*,'not added' as status
+				 FROM user u
+				 WHERE u.userName like '%".$arr['fname']."%'
+				 and u.userFirstName like '%".$arr['firstname']."%'
+				 and u.userLastName like '%".$arr['lastname']."%'
+				 and u.userID not in (select friendId
+					                  from friendlist
+									where userId = ?) )";
+		  			
+		 $query = $this->db->query($sql,array($uid,$uid));
+		 
+		 if ($query->num_rows()>0){
+		   $i = 0;
+		   foreach($query->result_array() as $row){
+		
+			 $data[$i]['userId'] = $row['userID'];			 
+			 $data[$i]['userName'] = $row['userName'];			 
+			 $data[$i]['userFirstName'] = $row['userFirstName'];
+			 $data[$i]['userLastName'] = $row['userLastName'];
+			 $data[$i]['userImage'] = $row['userProfileImage'];	
+			 $data[$i]['friendStatus'] = $row['status']; 		
+			 $i++;
+		   }
+		 }else{
+			 $data='no user';
+		 }
+			
+		return $data;	
+		
+	}
 
 }
 ?>

@@ -6,6 +6,7 @@
 	<title>Add Friend</title>    
     <script src="../../js/jquery-ui-1.10.4.custom/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="../../js/jquery-ui-1.10.4.custom/jquery-ui-1.10.4.custom.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../js/jquery.tmpl.js"></script>
     <link href="../../css/ui-lightness/jquery-ui-1.10.4.custom.css" type="text/css" rel="stylesheet"/>
     <link href="../../css/style_shu.css" type="text/css" rel="stylesheet"/>
     <script type="text/javascript">
@@ -15,13 +16,80 @@
 		}
 
 		$(document).ready(function(){
-			$('.submit-button').button();
+			$('.submit-button').button();			
+			
+			$('#btnSearch').click(function(e) {
+				$('#result').empty();
+
+                var username = $('#username').val();
+                var firstname = $('#firstname').val();
+                var lastname = $('#lastname').val();
+				var siteurl = '<?php echo site_url('index.php/FriendManagement'); ?>';
+				siteurl = siteurl+'/searchFriend';
+				
+				$.getJSON(siteurl+'?fname='+username+'&firstname='+firstname+'&lastname='+lastname, function(data) {
+					if (data.ok == true){						
+						var num = data.friends.length;
+						//alert(num);
+						for (var i = 0; i<num; i++){
+							var elems = $('#friendTmpl').tmpl(data.friends[i]);
+							var j =i+1;
+							var newrow = "<div id=\"row"+j+"\" class=\"drow\"></div>";
+							$('#result').append(newrow);
+							elems.slice(0).appendTo("#row"+j);
+							if(data.friends[i].friendStatus == 'added'){
+								//alert('added');
+								$('#row'+j+' .add-button').attr("disabled", "disabled");
+								$('#row'+j+' .add-button').attr("value","Added");
+							}
+						}
+						$('.add-button').button();
+						
+						$('.add-button').click(function(e) {
+							var btn = $(this);
+							var fid = $(this).prev().val();
+							//alert(fid);			
+							var siteurl = '<?php echo site_url('index.php/FriendManagement'); ?>';
+							siteurl = siteurl+'/addOneFriend';
+							
+							$.getJSON(siteurl+'?fid='+fid, function(data) {
+								if (data.ok == true){						
+									btn.attr("disabled", "disabled");
+									btn.attr("value","Added");
+								}else{						
+									alert(data.msg);
+								}
+								
+							});
+							
+							
+						});
+						
+					}else{						
+						var newrow = "<div>"+data.msg+"</div>";
+						$('#result').append(newrow);
+					}
+							
+				});
+            });
+			
 			
 			
 			
 		});
 	
 	</script>    
+    <script id="friendTmpl" type="text/x-jquery-tmpl">	
+	  <div style="float:left; margin-right:5px; width:100px" id="frienddiv">   	                     
+		  <div style="width:80px">
+			 <img src="../../uploads/profile/${userImage}" width="100px" height="100px" />
+		  </div>
+		  <div>${userName}</div>
+		  <div><input type="hidden" name="userId" value="${userId}" class="userIdhid" />  
+		       <input type="button" name="btnAdd" value="Add" class="add-button" />
+		  </div>
+      </div>    
+	</script>
 </head>
 <body>
              <!-- Start the container Div -->
@@ -82,7 +150,7 @@
                        </div>                   
                         
                        <div class="personalinfo">
-                            <input type="submit" id="btnAdd" name="btnAdd" value="Submit" class="submit-button" />
+                            <input type="button" id="btnSearch" name="btnSearch" value="Search" class="submit-button" />
                        </div>
 
                    
@@ -91,6 +159,9 @@
                 ?>
                    
                  <!-- Form Div ends here -->  
+                 <div id="result"> 
+                    
+                 </div>
              </div> 
              <!-- Registration Div ends here -->     
             </div>
