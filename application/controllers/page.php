@@ -29,8 +29,7 @@ class Page extends CI_Controller{
 		$page_data['content_data'] = array();
 		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
 
-		$page_data['content_data']["goals_array"] = $this->user_model->getUserGoalArray($this->session->userdata('suis_user_id'));
-		$page_data['content_data']["transactions_array"] = $this->user_model->getUserTransactionArray($this->session->userdata('suis_user_id'));
+		$page_data['content_data']["goals_array"] = $this->user_model->getUserGoalArray2($this->session->userdata('suis_user_id'));
 		
 		//dynamically create view
 		$page_data['content_data']["variable1"] = "A variable you want to use in the dash view";

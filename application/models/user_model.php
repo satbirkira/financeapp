@@ -242,6 +242,27 @@ class User_model extends CI_Model {
     }
 	
 	
+	
+	function getUserGoalArray2($uid)
+	{
+		$sql = "SELECT *
+				FROM user, goal, 
+				(SELECT goalID, SUM(amountChanged) AS amountChangedHistoryLogs
+					FROM history
+					GROUP by goalID
+				) AS TEMP
+				WHERE goal.goalID = TEMP.goalID AND
+					  user.userID = ? AND
+					  user.userID = goal.userID AND
+					  ";
+		
+	return Array();		
+		//$query = $this->db->query($sql, $uid);
+		//return $query->result_array();
+	}
+
+	
+	
 	function updateUserAccountAddToGoal($transactionArray)
 	{
 		$result = $this->db->insert('history', $transactionArray);

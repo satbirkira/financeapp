@@ -47,13 +47,12 @@
 	<div id="dash_metrics">
 	<?php 
 	var_export($goals_array); 
-	var_export($transactions_array);
 	foreach ($goals_array as $row)
 	{
 		
 		echo "<div class='dash_prog_display'>";
 			echo "<div class='goal_title' style='float:left;'>$row[goalName]</div>";
-			echo "<div class='goal_percent' style='float:right;text-align: right;'>50%</div>";
+			echo "<div class='goal_percent' style='float:right;text-align: right;'>". ((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost']."%</div>";
 			echo "<div class='goal_bar_outer'>";
 			echo "<div class='goal_bar_inner' style='width: 50%'></div>";
 			echo "</div>";
