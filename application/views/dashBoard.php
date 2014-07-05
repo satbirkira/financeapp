@@ -36,7 +36,7 @@
 			<div class="amount">
 				<span class="currency_sym">$</span><span class="dash_value"><?php echo $sendThisMonthOnGoals;  ?></span>
 			</div>
-			<div class="description">Save To Goals This Month</div>
+			<div class="description">Need To Save This Month</div>
 		</div>
 
 		<div class="dash_big_display red">
