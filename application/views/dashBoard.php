@@ -52,7 +52,7 @@
 		echo "<div id='dash_metrics'>";
 		foreach ($goals_array as $row)
 		{
-			$percent_complete = ((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost'];
+			$percent_complete = min(100, (((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost'])*100);
 			echo "<div class='dash_prog_display'>";
 				echo "<div class='goal_title' style='float:left;'>$row[goalName]</div>";
 				echo "<div class='goal_percent' style='float:right;text-align: right;'>$percent_complete%</div>";
