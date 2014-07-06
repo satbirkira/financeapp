@@ -60,33 +60,7 @@
 		);
 	if (!$link) die("Could not connect: ". mysqli_error($link));
 	if (!mysqli_select_db($link, $database_name)) die("Could not access database: ". mysqli_error($link));
-	
-	
-	
-	
-	/*
-	
-		Create account table
-	    [NO LONGER NEEDED, INFORMATION MOVED TO USER TABLE]
-	*/
-	
-	/*
-	echo "Creating Account..</br>";
-	$query = file_get_contents("table_account.sql");
-	
-	if(!mysqli_multi_query($link, $query)) die("Could not create table: " . mysqli_error($link));
-	
-	//need to close connection and restart after mysqli_multi_query is required
-	mysqli_close($link);
-	$link = mysqli_connect(
-			$location, 
-			$username,
-			$pass
-		);
-	if (!$link) die("Could not connect: ". mysqli_error($link));
-	if (!mysqli_select_db($link, $database_name)) die("Could not access database: ". mysqli_error($link));
-	
-	*/
+
 	
 	
 	/*
@@ -189,7 +163,7 @@
 	*/
 	
 	
-	echo "Inserting Example User..</br>";
+	echo "Inserting Example User.. satbirkira 123456</br>";
 	$query = "
 		insert into user (
 			userName, 
@@ -208,6 +182,29 @@
 			'satbir.kira@gmail.com',
 			'Satbir',
 			'Saini',
+			NULL
+		)";
+	if(!mysqli_query($link, $query)) die("Could not insert example: " . mysqli_error($link));
+	
+	echo "Inserting Example User.. jimjones 123456</br>";
+	$query = "
+		insert into user (
+			userName, 
+			userPassword, 
+			userCreatedOn, 
+			userEmail, 
+			userFirstName, 
+			userLastName, 
+			userProfileImage
+		) 
+		
+		values (
+			'jimjones',
+			'".md5('123456')."',
+			'2012-11-23',
+			'jimjones@gmail.com',
+			'Jim',
+			'Jones',
 			NULL
 		)";
 	if(!mysqli_query($link, $query)) die("Could not insert example: " . mysqli_error($link));
