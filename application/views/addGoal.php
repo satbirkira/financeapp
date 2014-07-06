@@ -130,7 +130,7 @@
 				    echo form_open('page/addGoal');
 					   ?>
                       <div class="personalinfo">                                                       
-                        <div class="glabel"><label for="goalTitle">What is your saving goal?</label></div>                        
+                        <div class="glabel"><label for="goalTitle">Name of the goal</label></div>                        
                         <div class="ginput">	                        
                        		<?php echo form_input($goalTitle,set_value('goalTitle')); ?>  
                             <div id="validateGoalTitle" class="errormsg"><?php echo form_error('goalTitle'); ?></div>             				
