@@ -32,6 +32,13 @@
 <body>
              <!-- Start the container Div -->
              <div id="container"> 
+			 
+			 <a href="http://localhost/page/viewGoal">View Goal</a>
+			 <a href="http://localhost/page/addGoal">Add Goal</a>
+			 <a href="http://localhost/page/viewFriends">View Friends</a>
+			 <a href="http://localhost/page/addFriend">Add Friend</a>
+			 <a href="http://localhost/page/viewFriendsGoal">View Friend's Goals</a>
+			 
                 <!-- Registration Div starts here -->
                 <div id="registration" style="width:60%">
                 
