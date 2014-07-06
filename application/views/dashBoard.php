@@ -12,7 +12,9 @@
 		
 		foreach ($goals_array as $row)
 		{
-			$percent_complete = min(100, (((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost'])*100);
+			//old way where currentlySaved was actually what you initially had saved
+			//$percent_complete = min(100, (((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost'])*100);
+			$percent_complete = min(100, (((int)$row['currentlySaved'])/(int)$row['totalCost'])*100);
 			if($percent_complete == 100)
 			{
 				$goals_completed += 1;
@@ -85,7 +87,9 @@
 		}
 		foreach ($goals_array as $row)
 		{
-			$percent_complete = min(100, (((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost'])*100);
+			//old way where currentlySaved was actually what you initially had saved
+			//$percent_complete = min(100, (((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost'])*100);
+			$percent_complete = min(100, (((int)$row['currentlySaved'])/(int)$row['totalCost'])*100);
 			echo "<div class='dash_prog_display'>";
 				echo "<div class='goal_title' style='float:left;'>$row[goalName]</div>";
 				echo "<div class='goal_percent' style='float:right;text-align: right;'>$percent_complete%</div>";
