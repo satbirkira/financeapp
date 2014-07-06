@@ -158,6 +158,29 @@
 			);
 		if (!$link) die("Could not connect: ". mysqli_error($link));
 		if (!mysqli_select_db($link, $database_name)) die("Could not access database: ". mysqli_error($link));
+		
+		
+	/*
+	
+		Creating Friendslist table
+	
+	
+	*/
+		echo "Creating Friendslist Table..</br>";
+		$query = file_get_contents("table_friendlist.sql");
+		
+		if(!mysqli_multi_query($link, $query)) die("Could not create table: " . mysqli_error($link));
+		
+		//need to close connection and restart after mysqli_multi_query is required
+		mysqli_close($link);
+		$link = mysqli_connect(
+				$location, 
+				$username,
+				$pass
+			);
+		if (!$link) die("Could not connect: ". mysqli_error($link));
+		if (!mysqli_select_db($link, $database_name)) die("Could not access database: ". mysqli_error($link));
+		
 	
 	/*
 	
@@ -271,12 +294,12 @@
 		echo "==</br>";
 	}
 	
-	/*
+	
 	echo "-------------------------------</br>";
-	echo "Displaying Account Table</br>";
+	echo "Displaying Goal Member Table</br>";
 	echo "-------------------------------</br>";
 	
-	$query = "select * from account";
+	$query = "select * from goalmember";
 	$result = mysqli_query($link, $query);
 	if(!$result) die("Could not select accounts: " . mysqli_error($link));
 
@@ -290,7 +313,26 @@
 		}
 		echo "==</br>";
 	}
-	*/
+	
+	echo "-------------------------------</br>";
+	echo "Displaying Friendlist Table</br>";
+	echo "-------------------------------</br>";
+	
+	$query = "select * from friendlist";
+	$result = mysqli_query($link, $query);
+	if(!$result) die("Could not select accounts: " . mysqli_error($link));
+
+	$i = 0;
+	while ($record = mysqli_fetch_assoc ($result))
+    {
+		echo "Account Number $i by : ". $record['userID']. "</br>";
+		foreach ($record as $column => $data)
+		{
+			echo "$column : $data</br>";
+		}
+		echo "==</br>";
+	}
+	
 	
 	
 	echo "-------------------------------</br>";
