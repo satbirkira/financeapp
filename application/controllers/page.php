@@ -422,7 +422,10 @@ class Page extends CI_Controller{
 	{	
 		$this->confirmLogin();
 
-		$this->load->view('addFriend');
+		$page_data['content'] = 'addFriend';
+		$page_data['content_data'] = Array();
+		//dynamically create view
+		$this->load->view('page', $page_data);
 	}
 	
 	function viewFriends(){
