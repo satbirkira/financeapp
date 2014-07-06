@@ -23,7 +23,7 @@
 				$sendThisMonthOnGoals += $row['monthlyDepot'];
 			}
 			
-			if($row['numberOfCollaborators'])
+			if($row['numberOfCollaborators'] < 1)
 			{
 				$numberCollaborativeGoals += 1;
 			}
