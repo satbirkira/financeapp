@@ -15,7 +15,7 @@ class GoalManagement extends CI_Controller{
 /*------------------------------------------------*/
 	function deleteGoal()
 	{
-		$gid = $_REQUEST['gid'];
+		$gid = $_GET['gid'];
 		$response = array();
 				
 		if($this->goal_model->remove_goal($gid)){
@@ -29,8 +29,9 @@ class GoalManagement extends CI_Controller{
 				'msg' => "Delete failed."
 		    );	
 		}
-		
-		echo json_encode($response);
+		$this->output->set_content_type('application/json')
+                 ->set_output(json_encode($response));
+		//echo json_encode($response);
 	}
 	
 /*------------------------------------------------*/
@@ -39,8 +40,8 @@ class GoalManagement extends CI_Controller{
 	
 /*------------------------------------------------*/
 	function addCollaborator(){
-	    $gid = $_REQUEST['gid'];
-		$uid = $_REQUEST['uid'];
+	    $gid = $_GET['gid'];
+		$uid = $_GET['uid'];
 
 		$response = array();
 		
@@ -56,7 +57,9 @@ class GoalManagement extends CI_Controller{
 				);		
 		}
 		
-		echo json_encode($response);
+		$this->output->set_content_type('application/json')
+                 ->set_output(json_encode($response));
+		//echo json_encode($response);
 	}
 }
 

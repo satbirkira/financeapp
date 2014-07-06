@@ -240,6 +240,7 @@ class User_model extends CI_Model {
 		$this->db->from('goal');
 		$this->db->where('user.userID',$uid);
 		$this->db->where('user.userID = goal.userID');
+		$this->db->where('goal.goalStatus != true');
 		$query = $this->db->get();
 		return $query->result_array();
     }
@@ -261,7 +262,8 @@ class User_model extends CI_Model {
 				WHERE goal.goalID = TEMP.goalID AND
 					  user.userID = ? AND
 					  goal.goalID = TEMP2.goalID AND
-					  user.userID = goal.userID 
+					  user.userID = goal.userID AND
+					  goal.goalStatus != true
 					  ";
 			
 		$query = $this->db->query($sql, $uid);
@@ -286,6 +288,7 @@ class User_model extends CI_Model {
 		$this->db->where('user.userID',$uid);
 		$this->db->where('user.userID = goal.userID');
 		$this->db->where('goal.goalID = history.goalID');
+		$this->db->where('goal.goalStatus != true');
 		$query = $this->db->get();
 		return $query->result_array();
     }

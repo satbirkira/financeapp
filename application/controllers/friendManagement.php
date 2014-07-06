@@ -14,7 +14,7 @@ class FriendManagement extends CI_Controller{
 /*------------------------------------------------*/
 	function deleteFriend()
 	{	
-		$fid = $_REQUEST['fid'];
+		$fid = $_GET['fid'];
 		$uid = $this->session->userdata('suis_user_id');
 		//$uid = '11';
 		$response = array();
@@ -31,7 +31,9 @@ class FriendManagement extends CI_Controller{
 		    );	
 		}
 		
-		echo json_encode($response);
+		$this->output->set_content_type('application/json')
+                 ->set_output(json_encode($response));
+		//echo json_encode($response);
 		
 	}
 	
@@ -40,9 +42,9 @@ class FriendManagement extends CI_Controller{
 	
 /*------------------------------------------------*/	
 	function searchFriend(){
-		$fname = $_REQUEST['fname'];
-		$firstname = $_REQUEST['firstname'];
-		$lastname = $_REQUEST['lastname'];
+		$fname = $_GET['fname'];
+		$firstname = $_GET['firstname'];
+		$lastname = $_GET['lastname'];
 		$farr = array();
 		$response = array();
 
@@ -65,7 +67,10 @@ class FriendManagement extends CI_Controller{
 		    );	
 		}
 		
-		echo json_encode($response);
+		
+		$this->output->set_content_type('application/json')
+                 ->set_output(json_encode($response));
+		//echo json_encode($response);
 
 		
 	}
@@ -76,7 +81,7 @@ class FriendManagement extends CI_Controller{
 		//$uid = '2';	
 		$arr = array(
 						'userId'=> $uid,
-						'friendId'=>$_REQUEST['fid'],																
+						'friendId'=>$_GET['fid'],																
 						'friendDeleted'=>0									
 		);
 
@@ -94,7 +99,9 @@ class FriendManagement extends CI_Controller{
 		    );	
 		}
 		
-		echo json_encode($response);
+		$this->output->set_content_type('application/json')
+                 ->set_output(json_encode($response));
+		//echo json_encode($response);
 		
 	}
 }

@@ -12,8 +12,8 @@ class DepositManagement extends CI_Controller{
 /*------------------------------------------------*/	
 	function addDeposit()
 	{	
-		$gid = $_REQUEST['gid'];
-		$amount = $_REQUEST['amount'];
+		$gid = $_GET['gid'];
+		$amount = $_GET['amount'];
 		$amount = trim($amount);
 		$amount = preg_replace("/[\s]+/", "", $amount);					
 	
@@ -75,7 +75,10 @@ class DepositManagement extends CI_Controller{
 			
 		}
 		
-		echo json_encode($response);
+		
+		$this->output->set_content_type('application/json')
+                 ->set_output(json_encode($response));
+		//echo json_encode($response);
 		
 
 	}
