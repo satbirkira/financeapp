@@ -186,6 +186,48 @@
 		)";
 	if(!mysqli_query($link, $query)) die("Could not insert example: " . mysqli_error($link));
 	
+	/*
+	
+		Insert example goal
+	
+	*/
+
+	echo "Inserting Example Goal for satbirkira..</br>";
+	$query = "
+		insert into goal (
+			userID, 
+			goalName, 
+			startDate, 
+			targetDate, 
+			totalCost, 
+			monthlyDepot,
+			interestRate, 
+			currentlySaved, 
+			goalStatus,
+			goalType
+		) 
+		
+		values (
+			'". mysqli_insert_id($link) ."',
+			'Buying A Toyota Tercel',
+			'2012-11-23',
+			'2015-11-23',
+			'5000',
+			'5',
+			'0',
+			'0',
+			false,
+			false
+		)";
+	if(!mysqli_query($link, $query)) die("Could not insert example: " . mysqli_error($link));
+	
+	
+	/*
+	
+		Insert example user
+	
+	*/
+	
 	echo "Inserting Example User.. jimjones 123456</br>";
 	$query = "
 		insert into user (
@@ -215,7 +257,8 @@
 	
 	*/
 
-	echo "Inserting Example Goal..</br>";
+	
+	echo "Inserting Example Goal for jimjones..</br>";
 	$query = "
 		insert into goal (
 			userID, 
@@ -226,18 +269,20 @@
 			monthlyDepot,
 			interestRate, 
 			currentlySaved, 
-			goalStatus
+			goalStatus,
+			goalType
 		) 
 		
 		values (
 			'". mysqli_insert_id($link) ."',
-			'Buying A Toyota Tercel',
+			'Camping Trip',
 			'2012-11-23',
-			'2015-11-23',
-			'5000',
+			'2015-12-23',
+			'200',
 			'5',
 			'0',
 			'0',
+			false,
 			false
 		)";
 	if(!mysqli_query($link, $query)) die("Could not insert example: " . mysqli_error($link));
