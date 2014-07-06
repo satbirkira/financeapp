@@ -240,6 +240,7 @@ class Page extends CI_Controller{
 		$this->load->model('friend_model');	
 		
 		$goals = array();
+		$deposits = array();
 		$uid = $this->session->userdata('suis_user_id');
 		$goals = $this->goal_model->get_all_public_goals($uid);
 		if(count($goals)>1){
