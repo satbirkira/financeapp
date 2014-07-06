@@ -90,7 +90,7 @@
 		<span style="font-size: 20px; font-weight: 300;">Account finances</span>
 	</div>
 	<div id="finance_form_container">
-		Note: These values are only for your refrence. There is no automatic money added to a goal.
+		Note: These values are only for your refrence. Finance Buddy does not automatic put money into goals.
 		<div class="financeinput left">
 			<label for="change_currentlySaved">Currently Saved</label><br>
 			<?php echo form_input($currentlySaved); ?>
