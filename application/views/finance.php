@@ -109,7 +109,7 @@
 				<?php echo form_button($submit_finance); ?>
 			</div>
 		</div>
-
+		<!--
 		Add money to a goal:
 		<div class="financeinput left">
 			<label for="change_transactiongoal">Transaction Goal</label><br>
@@ -126,10 +126,11 @@
 		</div>
 		
 		<div style="clear:both"></div>
+		-->
 	</div>
 
 	<?php echo form_close(); ?>
-	
+	<!--
 
 		<table>
 		<tr>
@@ -172,6 +173,6 @@
 		?>
 		</table>
 	
-	
+	-->
 	
 </div>
