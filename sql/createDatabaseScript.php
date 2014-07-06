@@ -140,6 +140,27 @@
 	
 	/*
 	
+		Creating Goal Member Table
+	
+	*/
+	
+		echo "Creating Goal Member Table..</br>";
+		$query = file_get_contents("table_goalmember.sql");
+		
+		if(!mysqli_multi_query($link, $query)) die("Could not create table: " . mysqli_error($link));
+		
+		//need to close connection and restart after mysqli_multi_query is required
+		mysqli_close($link);
+		$link = mysqli_connect(
+				$location, 
+				$username,
+				$pass
+			);
+		if (!$link) die("Could not connect: ". mysqli_error($link));
+		if (!mysqli_select_db($link, $database_name)) die("Could not access database: ". mysqli_error($link));
+	
+	/*
+	
 		Insert example user
 	
 	*/

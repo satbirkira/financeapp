@@ -152,7 +152,9 @@
 					echo $row['goalName'];
 				echo "</td>";
 				echo "<td>";
-					echo $row['eventDate'];
+					$trans_date = date("F d", STRTOTIME($row['eventDate']));
+					$trans_year = date("Y", STRTOTIME($row['eventDate']));
+					echo $trans_date. ", " .$trans_year;
 				echo "</td>";
 				echo "<td>";
 					if((int)$row['amountChanged'] > 0)

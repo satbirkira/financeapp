@@ -245,17 +245,22 @@ class User_model extends CI_Model {
     }
 	
 	
-	
+	//gets much more info, used for dashboard
 	function getUserGoalArray2($uid)
 	{
 		$sql = "SELECT *
 				FROM user, goal, 
-				(SELECT goalID, SUM(amountChanged) AS amountChangedHistoryLogs
-					FROM history
+				(SELECT goal.goalID, COALESCE(SUM(history.amountChanged), 0) AS amountChangedHistoryLogs
+					FROM goal left join history on history.goalID = goal.goalID
 					GROUP by goalID
-				) AS TEMP
+				) AS TEMP,
+				(SELECT goal.goalID, COALESCE(COUNT(*), 0) AS numberOfCollaborators
+					FROM goal left join goalmember on goal.goalID = goalmember.goalID
+					GROUP by goalID
+				) AS TEMP2
 				WHERE goal.goalID = TEMP.goalID AND
 					  user.userID = ? AND
+					  goal.goalID = TEMP2.goalID AND
 					  user.userID = goal.userID 
 					  ";
 			

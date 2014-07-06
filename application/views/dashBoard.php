@@ -8,6 +8,8 @@
 		$goals_outstanding = 0;
 		$sendThisMonthOnGoals = 0;
 		$thisMonthsIncome = $user_settings['userMonthlyIncome'];
+		$numberCollaborativeGoals = 0;
+		
 		foreach ($goals_array as $row)
 		{
 			$percent_complete = min(100, (((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost'])*100);
@@ -19,6 +21,11 @@
 			{
 				$goals_outstanding += 1;
 				$sendThisMonthOnGoals += $row['monthlyDepot'];
+			}
+			
+			if($row['numberOfCollaborators'])
+			{
+				$numberCollaborativeGoals += 1;
 			}
 			
 			
@@ -55,7 +62,7 @@
 
 		<div class="dash_big_display yellow last">
 			<div class="amount">
-				<span class="currency_sym">#</span><span class="dash_value">3</span>
+				<span class="currency_sym">#</span><span class="dash_value"><?php echo $numberCollaborativeGoals ?></span>
 			</div>
 			<div class="description">Collaborative Goals</div>
 		</div>
@@ -72,6 +79,10 @@
 		echo "	<span style='font-size: 30px; font-weight: 300;'>My goals</span>";
 		echo "</div>";
 		echo "<div id='dash_metrics'>";
+		if(empty($goals_array))
+		{
+			echo "Use the goals page to get started";
+		}
 		foreach ($goals_array as $row)
 		{
 			$percent_complete = min(100, (((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost'])*100);
