@@ -24,7 +24,8 @@
                 var username = $('#username').val();
                 var firstname = $('#firstname').val();
                 var lastname = $('#lastname').val();
-				var siteurl = '<?php echo site_url('index.php/FriendManagement'); ?>';
+				var siteurl = '<?php //echo site_url('index.php/FriendManagement'); 
+				                     echo site_url('FriendManagement'); ?>';
 				siteurl = siteurl+'/searchFriend';
 				
 				$.getJSON(siteurl+'?fname='+username+'&firstname='+firstname+'&lastname='+lastname, function(data) {
@@ -49,7 +50,8 @@
 							var btn = $(this);
 							var fid = $(this).prev().val();
 							//alert(fid);			
-							var siteurl = '<?php echo site_url('index.php/FriendManagement'); ?>';
+							var siteurl = '<?php //echo site_url('index.php/FriendManagement'); 
+												 echo site_url('FriendManagement'); ?>';
 							siteurl = siteurl+'/addOneFriend';
 							
 							$.getJSON(siteurl+'?fid='+fid, function(data) {
@@ -122,8 +124,8 @@
                                 );                   
                  
                                 
-					echo form_open('index.php/FriendManagement/addFriend');
-				   
+					//echo form_open('index.php/page/addFriend');
+				   echo form_open('page/addFriend');
 					   ?> 
                        <div class="personalinfo">
                          <div class="glabel"><label for="username">Username:</label></div>                                      

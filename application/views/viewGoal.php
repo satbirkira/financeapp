@@ -96,7 +96,8 @@
 			var rep = /[A-Za-z_]/g;
 			var id = o.id.replace(rep,'');
 			var gid = $('#goalId_'+id).val();
-			var siteurl = '<?php echo site_url('index.php/goalManagement'); ?>';
+			var siteurl = '<?php //echo site_url('index.php/goalManagement');
+			                     echo site_url('goalManagement'); ?>';
 			siteurl = siteurl+'/deleteGoal';
 			
 			$.getJSON(siteurl+'?gid='+gid, function(data) {
@@ -122,8 +123,10 @@
 		if (type == 'own'){
 			var amount = $('#save_'+id).val();
 			var gid = $('#goalId_'+id).val();
-			var siteurl = '<?php echo site_url('index.php/depositManagement'); ?>';
+			var siteurl = '<?php //echo site_url('index.php/depositManagement'); 
+								 echo site_url('depositManagement'); ?>';
 			siteurl = siteurl+'/addDeposit';
+			//alert(siteurl);
 			var d = new Date();
 			var today = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
 			
@@ -161,7 +164,8 @@
 		}else{//collaborate on goals
 			var amount = $('#savec_'+id).val();
 			var gid = $('#cogoalId_'+id).val();
-			var siteurl = '<?php echo site_url('index.php/depositManagement'); ?>';
+			var siteurl = '<?php //echo site_url('index.php/depositManagement'); 
+								 echo site_url('depositManagement'); ?>';
 			siteurl = siteurl+'/addDeposit';
 			var d = new Date();
 			var today = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
@@ -219,7 +223,8 @@
 		var sel = document.getElementsByName("friends")[0].selectedIndex;
 		var selopt = document.getElementsByName("friends")[0].options;
 		var uname = selopt[sel].text;
-		var siteurl = '<?php echo site_url('index.php/goalManagement'); ?>';
+		var siteurl = '<?php //echo site_url('index.php/goalManagement'); 
+							echo site_url('goalManagement'); ?>';
 		siteurl = siteurl+'/addCollaborator';
 		
 		$.getJSON(siteurl+'?gid='+gid+'&uid='+uid, function(data) {
@@ -289,7 +294,8 @@
                     ?>
                       <div> You haven't setup any goal yet. </div>
                       <div style="font-size:16px; color:#666; width: 50%; margin-left:auto; margin-right:auto;">
-                        <a href="<?php echo site_url('index.php/goalmanagement'); ?>/addGoal">Add A Saving Goal</a>       
+                        <a href="<?php //echo site_url('index.php/page'); 
+									    echo site_url('page');?>/addGoal">Add A Saving Goal</a>       
                       </div>
                     <?php 
                      }else{

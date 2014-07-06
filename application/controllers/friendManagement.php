@@ -9,11 +9,6 @@ class FriendManagement extends CI_Controller{
 		$this->load->library('form_validation');		
     }
 /*------------------------------------------------*/
-	function addFriend()
-	{	
-		//$data['main_content'] = 'addFriend';
-		$this->load->view('addFriend');
-	}
 	
 
 /*------------------------------------------------*/
@@ -41,15 +36,7 @@ class FriendManagement extends CI_Controller{
 	}
 	
 /*------------------------------------------------*/
-	function viewFriends(){
-		$goals = array();
-		$deposits = array();
-		$uid = $this->session->userdata('suis_user_id');
-		//$uid = 11;
-		$friends = $this->friend_model->get_all_friends($uid);
-		$data['friends'] = $friends;	
-		$this->load->view('viewFriend',$data);	
-	}
+	
 	
 /*------------------------------------------------*/	
 	function searchFriend(){

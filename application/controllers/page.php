@@ -124,7 +124,7 @@ class Page extends CI_Controller{
 			$this->user_model->logout();
 			redirect('login');
 		}
-	
+		
 	}
 	
 	
@@ -133,7 +133,139 @@ class Page extends CI_Controller{
 		Goal Functions
 	
 	*/
+		function addGoal()
+	{	
+		$this->confirmLogin();
+
+		$this->load->model('goal_model');	
+		$this->load->model('deposit_model');
+		$this->load->model('friend_model');	
+		// If registration button is clicked.
+		if(isset($_POST["btnAdd"]))
+		{
+			// Validate the values.
+			$this->form_validation->set_rules('goalTitle', 'What is your saving goal?', 'trim|required|max_length[45]');
+			$this->form_validation->set_rules('total', 'Goal Total', 'trim|required|max_length[15]|numeric');
+			$this->form_validation->set_rules('startDate', 'Start Date', 'trim|required');
+			$this->form_validation->set_rules('targetDate', 'Target Date', 'trim|required');
+			$this->form_validation->set_rules('monthlyDepot', 'Estimated Monthly Deposit', 'trim|required|max_length[15]|numeric');
+			$this->form_validation->set_rules('interestRate', 'Annual Interest Rate', 'trim|numeric');
+			$startD = $this->input->post('startDate');
+			$targetD = $this->input->post('targetDate');
+			$uid = $this->session->userdata('suis_user_id');
+			$goal = array(
+									'goalName'=> $this->input->post('goalTitle'),	
+									'userId'=> $uid,																
+									'totalCost'=> $this->input->post('total'),											
+									'startDate'=> $startD,
+									'targetDate'=>$targetD,
+									'monthlyDepot'=>$this->input->post('monthlyDepot'),		
+									'currentlySaved'=>0,
+									'goalStatus'=>0,
+									'goalType'=>$this->input->post('isPublic')
+									
+			);
+
+			$result = $this->goal_model->create_new_goal($goal);
+			if ($this->form_validation->run() == true && $result)
+				{									
+					//redirect('index.php/page/viewGoal');
+					redirect('page/viewGoal');
+				}
+		}
+		
+		$page_data = Array();
+		$page_data['content'] = 'addGoal';
+		$page_data['content_data'] = '';
+		
+		//dynamically create view
+		$this->load->view('page', $page_data);
+		
+
+		
+	}
+
+/*------------------------------------------------*/
+	function viewGoal(){
+		$this->confirmLogin();
+		$this->load->model('goal_model');	
+		$this->load->model('deposit_model');
+		$this->load->model('friend_model');	
+		
+		$goals = array();
+		$deposits = array();
+		$members = array();
+		$cogoals = array();
+		$codeposits = array();
+		$comembers = array();
+		$uid = $this->session->userdata('suis_user_id');
 	
+		$goals = $this->goal_model->get_all_goals($uid);
+		$cogoals = $this->goal_model->get_collaborate_goals($uid);
+		$friends = $this->friend_model->get_all_friends($uid);
+		if(count($goals)>0 && $goals != ''){
+			for ($i = 0; $i < count($goals); $i++){
+				$deposits[$i] = $this->deposit_model->get_deposit_history($goals[$i]['goalId']);
+				$members[$i] = $this->goal_model->get_goal_members($goals[$i]['goalId']);
+			}
+		}
+		if(count($cogoals)>0 && $cogoals != ''){
+			for ($i = 0; $i < count($cogoals); $i++){
+				$codeposits[$i] = $this->deposit_model->get_deposit_history($cogoals[$i]['goalId']);
+				$comembers[$i] = $this->goal_model->get_goal_members($cogoals[$i]['goalId']);
+			}
+		}
+
+		$data['goals'] = $goals;	
+		$data['deposits'] = $deposits;	
+		$data['friends'] = $friends;
+		$data['members'] = $members;
+		
+		$data['cogoals'] = $cogoals;
+		$data['codeposits'] = $codeposits;	
+		$data['comembers'] = $comembers;
+	
+		$page_data = Array();
+		$page_data['content'] = 'viewGoal';
+		$page_data['content_data'] = $data;
+		$this->load->view('page', $page_data);
+
+	}
+/*------------------------------------------------*/
+	function viewFriendsGoal(){ //view the public goals
+		$this->confirmLogin();
+
+		$this->load->model('goal_model');	
+		$this->load->model('deposit_model');
+		$this->load->model('friend_model');	
+		
+		$goals = array();
+		$uid = $this->session->userdata('suis_user_id');
+		$goals = $this->goal_model->get_all_public_goals($uid);
+		if(count($goals)>1){
+			for ($i = 0; $i < count($goals); $i++){
+				$deposits[$i] = $this->deposit_model->get_deposit_history($goals[$i]['goalId']);
+			}
+		}
+		
+		$data['goals'] = $goals;	
+		$data['deposits'] = $deposits;	
+		
+		$page_data = Array();
+		$page_data['content'] = 'viewFriendsGoal';
+		$page_data['content_data'] = $data;
+		
+		//dynamically create view
+		$this->load->view('page', $page_data);
+		
+		
+	}
+	
+
+	
+
+/*------------------------------------------------*/
+		
 	
 	/*
 	
@@ -286,7 +418,32 @@ class Page extends CI_Controller{
 		Social Functions
 	
 	*/
+	function addFriend()
+	{	
+		$this->confirmLogin();
 
+		$this->load->view('addFriend');
+	}
+	
+	function viewFriends(){
+		$this->confirmLogin();
+
+		$this->load->model('friend_model');		
+
+		$goals = array();
+		$deposits = array();
+		$uid = $this->session->userdata('suis_user_id');
+		$friends = $this->friend_model->get_all_friends($uid);
+		$data['friends'] = $friends;	
+		
+		$page_data = Array();
+		$page_data['content'] = 'viewFriend';
+		$page_data['content_data'] = $data;
+		
+		//dynamically create view
+		$this->load->view('page', $page_data);
+		
+	}
 	
 }
 ?>

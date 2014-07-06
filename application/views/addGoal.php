@@ -15,7 +15,8 @@
 		}
 		
 		function getSiteUrl(){
-			var siteurl = '<?php echo site_url('index.php/GoalManagement'); ?>';
+			var siteurl = '<?php //echo site_url('index.php/page'); 
+								echo site_url('page'); ?>';
 			return siteurl;	
 		}
 		
@@ -45,7 +46,7 @@
 				constrainInput: true,
 				minDate: "0",
 				maxDate: "+10y",
-				dateFormat: "yyyymmdd"
+				dateFormat: "yymmdd"
 
 			});
 			
@@ -56,7 +57,7 @@
 				constrainInput: true,
 				minDate: "0",
 				maxDate: "+10y",
-				dateFormat: "yyyymmdd"
+				dateFormat: "yymmdd"
 
 			});
 			
@@ -125,8 +126,8 @@
                                 );
                  
                                 
-					echo form_open('index.php/GoalManagement/addGoal');
-				   
+					//echo form_open('index.php/page/addGoal');
+				    echo form_open('page/addGoal');
 					   ?>
                       <div class="personalinfo">                                                       
                         <div class="glabel"><label for="goalTitle">What is your saving goal?</label></div>                        

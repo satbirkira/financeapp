@@ -13,7 +13,8 @@
 			var rep = /[A-Za-z_]/g;
 			var id = o.id.replace(rep,'');
 			var fid = $('#userId_'+id).val();
-			var siteurl = '<?php echo site_url('index.php/friendManagement'); ?>';
+			var siteurl = '<?php //echo site_url('index.php/friendManagement'); 
+							echo site_url('friendManagement');?>';
 			siteurl = siteurl+'/deleteFriend';
 			$.getJSON(siteurl+'?fid='+fid, function(data) {
 				if (data.ok == true){
@@ -36,7 +37,8 @@
                 
                 	<div class="regititle">
                        <div style="width:50%;margin-left:auto;margin-right:auto;">Friend List</div>
-                      <div style="width:150px; float:right; font-size:16px; color:#666"><a href="<?php echo site_url('index.php/friendManagement/addFriend'); ?>" >Add More Friends</a>       </div>
+                      <div style="width:150px; float:right; font-size:16px; color:#666"><a href="<?php //echo site_url('index.php/page/addFriend'); 
+					  																				echo site_url('page/addFriend');?>" >Add More Friends</a>       </div>
                 	</div>	
                     <?php if (count($friends)>0 && $friends !=''){ 
 							for ($i = 0; $i<count($friends); $i++){
