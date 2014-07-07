@@ -255,13 +255,13 @@ class User_model extends CI_Model {
 					FROM goal left join history on history.goalID = goal.goalID
 					GROUP by goalID
 				) AS TEMP,
-				(SELECT goal.goalID, COALESCE(COUNT(*), 0) AS numberOfCollaborators
+				(SELECT goal.userID, COALESCE(COUNT(*), 0) AS numberOfCollaborators
 					FROM goal left join goalmember on goal.goalID = goalmember.goalID
-					GROUP by goalID
+					GROUP by userID
 				) AS TEMP2
 				WHERE goal.goalID = TEMP.goalID AND
 					  user.userID = ? AND
-					  goal.goalID = TEMP2.goalID AND
+					  user.userID = TEMP2.userID AND
 					  user.userID = goal.userID AND
 					  goal.goalStatus != true
 					  ";
