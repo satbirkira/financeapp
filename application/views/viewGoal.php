@@ -537,7 +537,7 @@
              <?php   
   			 for($i = 1 ; $i <= count($goals);$i++){ ?>
              <div id="dialog2_<?php echo $i; ?>" class="dialog2" title="Invite Your Friend">
-                 <?php if (count($friends) <=1){
+                 <?php if (count($friends) < 1){
 				 ?>
                  <div> You don't have any friends. :( </div> 
                  <?php					 

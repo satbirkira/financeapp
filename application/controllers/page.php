@@ -32,7 +32,6 @@ class Page extends CI_Controller{
 		$page_data['content_data']["goals_array"] = $this->user_model->getUserGoalArray2($this->session->userdata('suis_user_id'));
 		
 		//dynamically create view
-		$page_data['content_data']["variable1"] = "A variable you want to use in the dash view";
 		$this->load->view('page', $page_data);
 	}
 	
@@ -44,9 +43,6 @@ class Page extends CI_Controller{
 		$page_data['content'] = 'goal';
 		$page_data['content_data'] = array();
 		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
-		
-
-		$page_data['content_data']["variable1"] = "A variable you want to use in the goal view";
 		$this->load->view('page', $page_data);
 	}
 	
@@ -57,9 +53,6 @@ class Page extends CI_Controller{
 		$page_data['content'] = 'social';
 		$page_data['content_data'] = array();
 		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
-		
-
-		$page_data['content_data']["variable1"] = "A variable you want to use in the social view";
 		$this->load->view('page', $page_data);
 	}
 	
@@ -72,7 +65,6 @@ class Page extends CI_Controller{
 		$page_data['content_data'] = $this->addUserSessionData($page_data['content_data']);
 		
 		$page_data['content_data']["user_settings"] = $this->user_model->getUserSettingsArray($this->session->userdata('suis_user_id'));
-		$page_data['content_data']["variable1"] = "A variable you want to use in the setting view";
 		$page_data['content_data']["general_error"] = $general_error;
 		$page_data['content_data']["success_msg"] = $success_msg;
 		$this->load->view('page', $page_data);
@@ -228,6 +220,7 @@ class Page extends CI_Controller{
 		$page_data = Array();
 		$page_data['content'] = 'viewGoal';
 		$page_data['content_data'] = $data;
+
 		$this->load->view('page', $page_data);
 
 	}
