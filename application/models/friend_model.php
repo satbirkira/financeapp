@@ -164,9 +164,9 @@ class Friend_Model extends CI_Model {
 									 
 		$sql = "(SELECT u.*,'added' as status
 				 FROM user u, friendlist fl
-				 WHERE u.userName like '%".$arr['fname']."%'
-				 and u.userFirstName like '%".$arr['firstname']."%'
-				 and u.userLastName like '%".$arr['lastname']."%'
+				 WHERE (u.userName like '%".$arr['fname']."%'
+				    or u.userFirstName like '%".$arr['firstname']."%'
+				    or u.userLastName like '%".$arr['lastname']."%')
 				 and fl.userId = ?
 				 and fl.friendId = u.userID 
 				 and fl.friendDeleted = 0)
@@ -174,9 +174,9 @@ class Friend_Model extends CI_Model {
 				 union(
 				 SELECT u.*,'not added' as status
 				 FROM user u
-				 WHERE u.userName like '%".$arr['fname']."%'
-				 and u.userFirstName like '%".$arr['firstname']."%'
-				 and u.userLastName like '%".$arr['lastname']."%'
+				 WHERE (u.userName like '%".$arr['fname']."%'
+				    or u.userFirstName like '%".$arr['firstname']."%'
+				    or u.userLastName like '%".$arr['lastname']."%')
 				 and u.userID not in (select friendId
 					                  from friendlist
 									where userId = ? and friendDeleted = 0) )";
