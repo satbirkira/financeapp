@@ -9,7 +9,27 @@ class Friend_Model extends CI_Model {
 
 	function add_friend($arr)
     {
-		$result = $this->db->insert('friendlist',$arr);
+		//look for the friend in friend list
+		
+  		  $sql = "SELECT *
+				  FROM friendlist fl
+				  WHERE fl.userId = ?
+				  and fl.friendId =?";	
+				  			
+		  $query = $this->db->query($sql,array($arr['userId'],$arr['friendId']));
+		
+		  if ($query->num_rows()>0) { //the friend has been added already
+			$data = array(
+						'friendDeleted' => 0
+				);				
+			$this->db->where('userId',$arr['userId']);
+			$this->db->where('friendId', $arr['friendId']);
+			$this->db->update('friendlist',$data);
+			$result = $this->db->affected_rows();
+		  }else{
+		
+   		     $result = $this->db->insert('friendlist',$arr);
+		  }
 		return $result;
     }	
 	
@@ -148,7 +168,8 @@ class Friend_Model extends CI_Model {
 				 and u.userFirstName like '%".$arr['firstname']."%'
 				 and u.userLastName like '%".$arr['lastname']."%'
 				 and fl.userId = ?
-				 and fl.friendId = u.userID )
+				 and fl.friendId = u.userID 
+				 and fl.friendDeleted = 0)
 
 				 union(
 				 SELECT u.*,'not added' as status
@@ -158,7 +179,7 @@ class Friend_Model extends CI_Model {
 				 and u.userLastName like '%".$arr['lastname']."%'
 				 and u.userID not in (select friendId
 					                  from friendlist
-									where userId = ?) )";
+									where userId = ? and friendDeleted = 0) )";
 		  			
 		 $query = $this->db->query($sql,array($uid,$uid));
 		 

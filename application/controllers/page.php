@@ -145,7 +145,7 @@ class Page extends CI_Controller{
 		{
 			// Validate the values.
 			$this->form_validation->set_rules('goalTitle', 'What is your saving goal?', 'trim|required|max_length[45]');
-			$this->form_validation->set_rules('total', 'Goal Total', 'trim|required|max_length[15]|numeric');
+			$this->form_validation->set_rules('total', 'Goal Total', 'trim|required|max_length[15]|numeric|greater_than[0]');
 			$this->form_validation->set_rules('startDate', 'Start Date', 'trim|required');
 			$this->form_validation->set_rules('targetDate', 'Target Date', 'trim|required');
 			$this->form_validation->set_rules('monthlyDepot', 'Estimated Monthly Deposit', 'trim|required|max_length[15]|numeric');
