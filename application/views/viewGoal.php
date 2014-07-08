@@ -233,11 +233,13 @@
 			if(data.ok == true){
 				result.css('color','#3C3');
 				//update Goal Info
+				if(data.exist == false){
 				var old = $('#goalcell_'+id+' .goalinfo:nth-child(6) .info').html();
 				if (old != 'None'){
   				  $('#goalcell_'+id+' .goalinfo:nth-child(6) .info').html(old+' '+uname);
 				}else{
 				  $('#goalcell_'+id+' .goalinfo:nth-child(6) .info').html(uname);
+					}
 				}
 				
 				

@@ -230,20 +230,25 @@ class Page extends CI_Controller{
 
 		$this->load->model('goal_model');	
 		$this->load->model('deposit_model');
-		$this->load->model('friend_model');	
 		
 		$goals = array();
+		$members = array();
 		$deposits = array();
+
 		$uid = $this->session->userdata('suis_user_id');
 		$goals = $this->goal_model->get_all_public_goals($uid);
-		if(count($goals)>1){
+		if(count($goals)>0 && $goals != ''){
 			for ($i = 0; $i < count($goals); $i++){
 				$deposits[$i] = $this->deposit_model->get_deposit_history($goals[$i]['goalId']);
+				$members[$i] = $this->goal_model->get_goal_members($goals[$i]['goalId']);
+
 			}
 		}
 		
 		$data['goals'] = $goals;	
 		$data['deposits'] = $deposits;	
+		$data['members'] = $members;	
+		//$this->load->view('viewFriendsGoal',$data);
 		
 		$page_data = Array();
 		$page_data['content'] = 'viewFriendsGoal';
@@ -253,10 +258,7 @@ class Page extends CI_Controller{
 		$this->load->view('page', $page_data);
 		
 		
-	}
-	
-
-	
+	}	
 
 /*------------------------------------------------*/
 		

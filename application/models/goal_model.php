@@ -204,11 +204,25 @@ class Goal_Model extends CI_Model {
 	}
 	
 	function add_goal_member($gid,$uid){
-		$arr = array(
-		  'goalId' => $gid,
-		  'userId' => $uid
-		);
-		$result = $this->db->insert('goalmember',$arr);
+		//check if the member has already been added
+		$sql = "SELECT *
+				  FROM goalmember
+				  WHERE  goalId = ?
+				  and userId =?";	
+				  			
+		$query = $this->db->query($sql,array($gid,$uid));
+		
+		if ($query->num_rows()>0) { //the friend has been added already
+			$result = 'exist';
+				
+		}else{
+		  $arr = array(
+		    'goalId' => $gid,
+		    'userId' => $uid
+		   );
+		  $this->db->insert('goalmember',$arr);
+		  $result = 'not exist';
+		}
 		return $result;		
 	}
 

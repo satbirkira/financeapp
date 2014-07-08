@@ -44,17 +44,28 @@ class GoalManagement extends CI_Controller{
 		$uid = $_GET['uid'];
 
 		$response = array();
+		$result = $this->goal_model->add_goal_member($gid,$uid);
 		
-		if($this->goal_model->add_goal_member($gid,$uid)){ 		    	
+		if($result){ 
+		   if($result == 'exist'){		    	
 			$response = array(
 				'ok' => true,
-				'msg' => "Update succeed."							
+				'msg' => "Update succeed.",
+				'exist' => 	true						
 				);
+		   }else if($result == 'not exist'){
+			   $response = array(
+			  	'ok' => true,
+				'msg' => "Update succeed.",
+				'exist' =>false							
+				);
+		   }
 		}else{
 			$response = array(
 				'ok' => false,
-				'msg' => "Update failed."
-				);		
+				'msg' => "Update failed.",
+				'exist' =>false	
+				);	
 		}
 		
 		$this->output->set_content_type('application/json')

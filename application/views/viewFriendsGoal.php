@@ -58,33 +58,6 @@
 
 	}
 	
-	function removeGoal(o){
-		var c = confirm("Are you sure you want to remove this goal?");
-		if (c != true) {
-			return;
-		} else {			
-			var rep = /[A-Za-z_]/g;
-			var id = o.id.replace(rep,'');
-			var gid = $('#goalId_'+id).val();
-			var siteurl = '<?php echo site_url('index.php/goalManagement'); ?>';
-			siteurl = siteurl+'/deleteGoal';
-			
-			$.getJSON(siteurl+'?gid='+gid, function(data) {
-				if (data.ok == true){
-					//alert('removing goal success.');
-					$('#goal_'+id).remove();
-					$('#goalcell_'+id).remove();
-					
-				}else{
-					alert(data.msg);
-				}
-						
-			});
-			
-		}
-		
-		
-	}
 	
 	function deposit(o){
 		var rep = /[A-Za-z_]/g;
@@ -106,6 +79,9 @@
 				$('#progressDiv_'+id).progressbar({
 					value: data.precent
 				});
+				//update monthly deposit
+				$('#goalcell_'+id+' .goalinfo:nth-child(3) .info').html('$'+data.monthly);
+
 				//update goal progress table
 				if ($('#progress_'+id +' tr').length == 1){
 					$('#progress_'+id).empty();
@@ -119,6 +95,25 @@
 					lastele.append("<td>"+amount+"</td>");
 
 				}
+				//update collaborator lists
+				var currentUserId = '<?php echo '2' ; //echo $this->session->userdata('suis_user_id');?>';
+				var currentUser = '<?php echo 'brown' ; //echo $this->session->userdata('suis_user_name');?>';
+				siteurl = '<?php echo site_url('index.php/goalManagement'); ?>';
+				siteurl = siteurl+'/addCollaborator';
+				
+				$.getJSON(siteurl+'?gid='+gid+'&uid='+currentUserId, function(data) {
+					if(data.ok == true && data.exist == false){
+						//update Goal Info
+						var old = $('#goalcell_'+id+' .goalinfo:nth-child(6) .info').html();
+						if (old != 'None'){
+						  $('#goalcell_'+id+' .goalinfo:nth-child(6) .info').html(old+' '+currentUser);
+						}else{
+						  $('#goalcell_'+id+' .goalinfo:nth-child(6) .info').html(currentUser);
+						}						
+						
+					}	
+							
+				});
 				
 			}else{
 				result.css('color','#900');
@@ -163,22 +158,14 @@
 <body>
              <!-- Start the container Div -->
              <div id="container"> 
-			 
-			 <a href="http://localhost/page/viewGoal">View Goal</a>
-			 <a href="http://localhost/page/addGoal">Add Goal</a>
-			 <a href="http://localhost/page/viewFriends">View Friends</a>
-			 <a href="http://localhost/page/addFriend">Add Friend</a>
-			 <a href="http://localhost/page/viewFriendsGoal">View Friend's Goals</a>
-			 
-			 
                 <!-- goallist div starts here -->
-                <div id="goallist">
+                <div id="goallist" class="goallist">
                 
                     <div class="pagetitle">
-                    Collaborate on these goals
+                    You may collaborate on these goals
                     </div>
                     <?php
-                     if(count($goals)== 1){
+                     if(count($goals)== 1 && $goals == ''){
                     ?>
                       <div> Your friend haven't published any goal yet. </div>                      
                     <?php 
@@ -192,7 +179,7 @@
                               $k = $i +1;
                         ?>
                           <div class="goaltitle" id="goal_<?php echo $k ;?>">
-                            <div><a href="#">Goal:  <?php echo $goals[$i]['goalName']; ?></a>   from <?php echo $goals[$i]['friendName']; ?>                                               
+                            <div><?php echo $goals[$i]['friendName']; ?> 's Goal: <a href="#"> <?php echo $goals[$i]['goalName']; ?></a>                                            
                                  <div id="addD_<?php echo $k ;?>" style="width: 25px; float:right; font-size:12px;" class="addD" onClick="openDialog(this);"><img src="../../images/add2.jpg" title="Add Deposit"/></div>
                                  <span style="width: 20px; float:right; font-size:16px;">%</span>  
                                  <span id="progVal_<?php echo $k; ?>" style="width: 30px; float:right; font-size:16px;">
@@ -223,6 +210,17 @@
                                 <label for="target">Target Date:</label>
                                 <div class="info"><?php echo $goals[$i]['targetDate']; ?></div>
                             </div>  
+                            <div class="goalinfo">
+                                <label for="target">Collaborators:</label>
+                                <div class="info"><?php if ($members[$i] != '') {
+									
+									  for ($j=0;$j<count($members[$i]);$j++){
+										 echo $members[$i][$j]['userName'].' ';
+								  	  } 
+									}else{
+										echo 'None';
+									}?></div>
+                            </div>
                             <div class="goalprogress" style="margin-top: 5px;">
                                <?php 
                                     if ($deposits[$i] != ''){

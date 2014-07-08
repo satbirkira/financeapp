@@ -10,6 +10,10 @@
     <link href="../../css/style_shu.css" type="text/css" rel="stylesheet"/>
     <script type="text/javascript">
 		function unfriend(o){
+			var c = confirm("Are you sure you want to unfriend him/her?");
+			if (c != true) {
+				return;
+			} else {
 			var rep = /[A-Za-z_]/g;
 			var id = o.id.replace(rep,'');
 			var fid = $('#userId_'+id).val();
