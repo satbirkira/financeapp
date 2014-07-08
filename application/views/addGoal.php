@@ -73,6 +73,14 @@
                 setMonthlyDeposit();
             });
 			
+			$('#startDate').change(function(e) {
+                setMonthlyDeposit();
+            });
+			
+			$('#startDate').change(function(e) {
+                setMonthlyDeposit();
+            });
+			
 		});
 	
 	</script>    
