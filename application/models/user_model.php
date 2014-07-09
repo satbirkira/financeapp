@@ -251,17 +251,28 @@ class User_model extends CI_Model {
 	{
 		$sql = "SELECT *
 				FROM user, goal, 
-				(SELECT goal.goalID, COALESCE(SUM(history.amountChanged), 0) AS amountChangedHistoryLogs
-					FROM goal left join history on history.goalID = goal.goalID
-					GROUP by goalID
+				(SELECT goal.goalID, COALESCE( SUM( temp3.amountChanged ) , 0 ) AS amountChangedHistoryLogsThisMonth
+				FROM goal
+				LEFT JOIN (SELECT * 
+					FROM history
+					WHERE MONTH( eventDate ) = MONTH( CURDATE( ) ) 
+					AND YEAR( eventDate ) = YEAR( CURDATE( ) )
+					) AS temp3 
+				ON temp3.goalID = goal.goalID
+				GROUP BY goalID
 				) AS TEMP,
-				(SELECT goal.userID, COALESCE(COUNT(*), 0) AS numberOfCollaborators
+				(SELECT goal.goalID, COALESCE(COUNT(goalmember.goalID), 0) AS numberOfCollaboratorsForYourGoals
 					FROM goal left join goalmember on goal.goalID = goalmember.goalID
+					GROUP by goalID
+				) AS TEMP2,
+				(SELECT user.userID, COALESCE(COUNT(goalmember.goalID), 0) AS numberOfGoalsYourCollbingOn
+					FROM user left join goalmember on user.userID = goalmember.userID
 					GROUP by userID
-				) AS TEMP2
+				) AS TEMP4
 				WHERE goal.goalID = TEMP.goalID AND
 					  user.userID = ? AND
-					  user.userID = TEMP2.userID AND
+					  user.userID = TEMP4.userID AND
+					  goal.goalID = TEMP2.goalID AND
 					  user.userID = goal.userID AND
 					  goal.goalStatus != true
 					  ";

@@ -8,12 +8,18 @@
 		$goals_outstanding = 0;
 		$sendThisMonthOnGoals = 0;
 		$thisMonthsIncome = $user_settings['userMonthlyIncome'];
-		$numberCollaborativeGoals = 0;
+		$amountTotalSavedThisMonth = 0;
+		
+		$numberOfCollaboratorsForYourGoals = 0;
+		$numberOfGoalsYourCollbingOn = 0;
 		
 		foreach ($goals_array as $row)
 		{
 			//old way where currentlySaved was actually what you initially had saved
 			//$percent_complete = min(100, (((int)$row['amountChangedHistoryLogs']+(int)$row['currentlySaved'])/(int)$row['totalCost'])*100);
+			
+			$amountTotalSavedThisMonth += $row['amountChangedHistoryLogsThisMonth'];
+			
 			$percent_complete = min(100, (((int)$row['currentlySaved'])/(int)$row['totalCost'])*100);
 			if($percent_complete == 100)
 			{
@@ -25,9 +31,14 @@
 				$sendThisMonthOnGoals += $row['monthlyDepot'];
 			}
 			
-			if($row['numberOfCollaborators'] > 0)
+			if($row['numberOfCollaboratorsForYourGoals'] > 0)
 			{
-				$numberCollaborativeGoals += 1;
+				$numberOfCollaboratorsForYourGoals += 1;
+			}
+			
+			if($row['numberOfGoalsYourCollbingOn'] > 0)
+			{
+				$numberOfGoalsYourCollbingOn += 1;
 			}
 			
 			
@@ -36,9 +47,9 @@
 		?>	
 		<div class="dash_big_display blue">
 			<div class="amount">
-				<span class="currency_sym">$</span><span class="dash_value"><?php echo $thisMonthsIncome;  ?></span>
+				<span class="currency_sym">$</span><span class="dash_value"><?php echo $amountTotalSavedThisMonth;  ?></span>
 			</div>
-			<div class="description">This Month's Income</div>
+			<div class="description">Saved Away This Month</div>
 		</div>
 
 		<div class="dash_big_display blue">
@@ -52,19 +63,19 @@
 			<div class="amount">
 				<span class="currency_sym">#</span><span class="dash_value"><?php echo $goals_outstanding;  ?></span>
 			</div>
-			<div class="description">Outstanding Goals</div>
+			<div class="description">Your Outstanding Goals</div>
 		</div>
 
 		<div class="dash_big_display green">
 			<div class="amount">
 				<span class="currency_sym">#</span><span class="dash_value"><?php echo $goals_completed;  ?></span>
 			</div>
-			<div class="description">Goals Completed</div>
+			<div class="description">Your Goals Completed</div>
 		</div>
 
 		<div class="dash_big_display yellow last">
 			<div class="amount">
-				<span class="currency_sym">#</span><span class="dash_value"><?php echo $numberCollaborativeGoals ?></span>
+				<span class="currency_sym">#</span><span class="dash_value"><?php echo (int)($numberOfCollaboratorsForYourGoals+$numberOfGoalsYourCollbingOn) ?></span>
 			</div>
 			<div class="description">Collaborative Goals</div>
 		</div>
