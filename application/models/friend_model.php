@@ -167,6 +167,7 @@ class Friend_Model extends CI_Model {
 				 WHERE (u.userName like '%".$arr['fname']."%'
 				    or u.userFirstName like '%".$arr['firstname']."%'
 				    or u.userLastName like '%".$arr['lastname']."%')
+				 and u.userID != ?
 				 and fl.userId = ?
 				 and fl.friendId = u.userID 
 				 and fl.friendDeleted = 0)
@@ -179,9 +180,10 @@ class Friend_Model extends CI_Model {
 				    or u.userLastName like '%".$arr['lastname']."%')
 				 and u.userID not in (select friendId
 					                  from friendlist
-									where userId = ? and friendDeleted = 0) )";
+									where userId = ? and friendDeleted = 0)
+				 and u.userID != ?)";
 		  			
-		 $query = $this->db->query($sql,array($uid,$uid));
+		 $query = $this->db->query($sql,array($uid,$uid,$uid,$uid));
 		 
 		 if ($query->num_rows()>0){
 		   $i = 0;
