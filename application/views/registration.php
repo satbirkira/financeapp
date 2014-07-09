@@ -9,6 +9,22 @@
 </head>
 <body>
 
+<script>
+
+	function submitLogin()
+	{
+		//first encrypt password
+		document.getElementById("real_password").value = CryptoJS.MD5(document.getElementById("password").value);
+		document.getElementById("real_conf_password").value = CryptoJS.MD5(document.getElementById("conf_password").value);
+		
+		document.getElementById("password").value = "";
+		document.getElementById("conf_password").value = "";
+		//submit
+		document.getElementById("submit_sigup").submit();
+	}
+
+</script>
+
 <div id="reg_container">
 	<div id="reg_topbar">
 		<span class="reg_topbar_link" style="float:left"><a href="<?=base_url()?>login">Back to FinanceBuddy</a></span>
@@ -83,7 +99,8 @@
 	    			'id' => 'submit_sigup',
 	    			'value' => 'Register',
 	    			'type' => 'submit',
-	    			'content' => 'Register'
+	    			'content' => 'Register',
+					'onClick' => 'submitLogin()'
 				);
 			
 				echo form_open(base_url().'registration', $form);
@@ -107,9 +124,11 @@
 		</div>
 		<div class="reginput">
 			<?php echo form_input($password); ?>
+			<input type="hidden" id="real_password" name="real_password" value= "" />
 		</div>
 		<div class="reginput">
 			<?php echo form_input($conf_password); ?>
+			<input type="hidden" id="real_conf_password" name="real_conf_password" value= "" />
 		</div>
 		<div style="clear: both"></div>
 		<div class="errors">

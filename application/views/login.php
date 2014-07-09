@@ -9,6 +9,19 @@
 </head>
 <body>
 
+<script>
+
+	function submitLogin()
+	{
+		//first encrypt password
+		document.getElementById("real_password").value = CryptoJS.MD5(document.getElementById("password").value);
+		document.getElementById("password").value = "";
+		//submit
+		document.getElementById("signin").submit();
+	}
+
+</script>
+
 <div id="login_container">
 	<div id="login_logo_container">
 	</div>
@@ -27,7 +40,7 @@
 	              'id'          => 'username',
 				  'type'		=> 'text',
 	              'value'       => set_value('username', ''),
-	              'maxlength'   => '11',
+	              'maxlength'   => '45',
 	              'size'        => '75'
 	            );
 			$password = array(
@@ -35,7 +48,7 @@
 	              'id'          => 'password',
 				  'type'		=> 'password',
 	              'value'       => '',
-	              'maxlength'   => '11',
+	              'maxlength'   => '100',
 	              'size'        => '75'
 	            );
 			$submit = array(
@@ -43,7 +56,8 @@
 	    			'id' => 'submit_sigin',
 	    			'value' => 'Submit',
 	    			'type' => 'submit',
-	    			'content' => 'Submit'
+	    			'content' => 'Submit',
+					'onClick' => 'submitLogin()'
 				);
 			
 				echo form_open(base_url().'login/login', $form);
@@ -55,6 +69,7 @@
 		<div class="signupinput">
 			<label for="password">Password:</label>
 			<?php echo form_input($password); ?>
+			<input type="hidden" id="real_password" name="real_password" value= "" />
 		</div>
 		<div class="errors">
 			<?php if (isset($authentication_error)) {

@@ -1,3 +1,20 @@
+
+<script>
+
+	function submitLogin()
+	{
+		//first encrypt password
+		document.getElementById("real_password").value = CryptoJS.MD5(document.getElementById("password").value);
+		document.getElementById("real_new_password").value = CryptoJS.MD5(document.getElementById("new_password").value);
+		
+		document.getElementById("password").value = "";
+		document.getElementById("new_password").value = "";
+		//submit
+		document.getElementById("update_pass_submit").submit();
+	}
+
+</script>
+
 <div id="template_content_title">
 	Your account settings.
 </div>
@@ -137,7 +154,8 @@
     			'id' => 'update_pass_submit',
     			'value' => 'Update Password',
     			'type' => 'submit',
-    			'content' => 'Update Password'
+    			'content' => 'Update Password',
+				'onClick' => 'submitLogin()'
 			);
 		
 			echo form_open(base_url().'page/changeSetting', $form);
@@ -206,11 +224,13 @@
 		<div class="settinginput left">
 			<label for="old_pass">Old Password</label><br>
 			<?php echo form_input($old_password); ?>
+			<input type="hidden" id="real_password" name="real_password" value= "" />
 		</div>
 		<div style="clear: both"></div>
 		<div class="settinginput left">
 			<label for="new_pass">New Password</label><br>
 			<?php echo form_input($new_password); ?>
+			<input type="hidden" id="real_new_password" name="real_new_password" value= "" />
 		</div>
 	</div>
 	<div id="setting_form_container">

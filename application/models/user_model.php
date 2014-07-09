@@ -109,7 +109,8 @@ class User_model extends CI_Model {
 	function registerUser($arrUserDetails)
 	{
 		//hash the password
-		$arrUserDetails['userPassword'] = $this->hash_password( $arrUserDetails['userPassword'] );
+		//We md5 to server so this is no longer needed
+		//$arrUserDetails['userPassword'] = $this->hash_password( $arrUserDetails['userPassword'] );
 		$result = $this->db->insert('user', $arrUserDetails);
 		$userId = $this->db->insert_id();
 		//$this->set_session_info($userId, $arrUserDetails); uncomment since we don't login right away

@@ -375,18 +375,18 @@ class Page extends CI_Controller{
 		else if (isset($_POST["update_pass_submit"]))
 		{
 
-			$this->form_validation->set_rules('password', 'Old Password', 'trim|required|max_length[100]|min_length[6]');
-			$this->form_validation->set_rules('new_password', 'New Password', 'trim|required|max_length[100]|min_length[6]');
+			$this->form_validation->set_rules('real_password', 'Old Password', 'trim|required|max_length[100]|min_length[6]');
+			$this->form_validation->set_rules('real_new_password', 'New Password', 'trim|required|max_length[100]|min_length[6]');
 			
-			$password = $this->input->post('password');
-			$new_password = $this->input->post('new_password');
+			$password = $this->input->post('real_password');
+			$new_password = $this->input->post('real_new_password');
 			
 			if ($this->form_validation->run() == true)
 			{
 			
-				if($this->session->userdata('suis_user_pass') == $this->user_model->hash_password($password))
+				if($this->session->userdata('suis_user_pass') == $password)
 				{
-					$accountDetails['userPassword'] = $this->user_model->hash_password($new_password);
+					$accountDetails['userPassword'] = $new_password;
 					$this->user_model->updateUserAccount($this->session->userdata('suis_user_id'), $accountDetails);
 					//user will auto be logged out now
 				}

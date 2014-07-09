@@ -47,14 +47,14 @@ class Login extends CI_Controller {
 		{
 			
 			$this->form_validation->set_rules('username', 'Username', 'trim|required|max_length[45]|min_length[3]');
-			$this->form_validation->set_rules('password', 'Password', 'trim|required|max_length[15]|min_length[6]');
+			$this->form_validation->set_rules('real_password', 'Password', 'trim|required|max_length[100]|min_length[6]');
 			
 			$username =  $this->input->post('username');
-			$password =  $this->input->post('password');
+			$password =  $this->input->post('real_password');
 			
 			if ($this->form_validation->run() == true)
 			{
-				if($this->user_model->attempt_login($username, $this->user_model->hash_password($password)))
+				if($this->user_model->attempt_login($username, $password))
 				{
 					//if user has not updated account, redirect to that page
 					if($this->user_model->userAccountUpdated($this->session->userdata('suis_user_id')) == false)
