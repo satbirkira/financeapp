@@ -364,14 +364,13 @@ class Page extends CI_Controller{
 			$imageUploaded = false;
 			if(isset($_FILES['profilePicture']) && $_FILES['profilePicture']['size'] > 0)
 			{
-				$config['upload_path'] = './uploads/profile/';
+				$config['upload_path'] =  $_SERVER['DOCUMENT_ROOT'].'/uploads/profile';
 				$config['allowed_types'] = 'gif|jpg|png';
-				$config['max_size'] = '100';
-				$config['max_width']  = '100';
-				$config['max_height']  = '100';
+				$config['max_size'] = '2048';
+				$config['encrypt_name'] = true;
+				$this->upload->initialize($config);
 				$this->load->library('upload', $config);
 				$imageUploaded = true;
-				var_dump(is_dir($config['upload_path']));
 			}
 			
 			
@@ -397,9 +396,24 @@ class Page extends CI_Controller{
 						$image_data = $this->upload->data();
 						$accountDetails['userProfileImage'] = $image_data['file_name'];
 						
-						//upload data
+						//update data
 						$this->user_model->updateUserAccount($this->session->userdata('suis_user_id'), $accountDetails);
 						$success_msg = "Account has been updated.";
+						
+						//resize image
+						$image_config['image_library'] = 'gd2';
+						$image_config['source_image'] = $image_data['full_path'];
+						$image_config['new_image'] = $image_config['source_image'];
+						$image_config['maintain_ratio'] = FALSE;
+						$image_config['width'] = 100;
+						$image_config['height'] = 100;
+						$image_config['overwrite'] = TRUE;
+						$this->load->library('image_lib',$image_config); 
+						
+						if ( !$this->image_lib->resize())
+						{
+							$success_msg = $success_msg. " But image could not be resized.";
+						}
 					}
 					else
 					{
@@ -408,7 +422,7 @@ class Page extends CI_Controller{
 				}
 				else
 				{
-					//updata data
+					//update data
 					$this->user_model->updateUserAccount($this->session->userdata('suis_user_id'), $accountDetails);
 					$success_msg = "Account has been updated.";
 				}
