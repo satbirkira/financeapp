@@ -228,6 +228,9 @@ class User_model extends CI_Model {
 				$settings_array['userAccountUpdated'] = $row->userAccountUpdated;
 				$settings_array['userBeSearchable'] = $row->userBeSearchable;
 				$settings_array['userDisplayGoalsOnDash'] = $row->userDisplayGoalsOnDash;
+				
+				$settings_array['userProfileImage'] = $row->userProfileImage;
+				
 				return $settings_array;
 			}
     }

@@ -158,7 +158,7 @@
 				'onClick' => 'submitLogin()'
 			);
 		
-			echo form_open(base_url().'page/changeSetting', $form);
+			echo form_open_multipart(base_url().'page/changeSetting', $form);
 	?>
 	<div id="setting_title" style="margin: 25px 0px 15px 0px;">
 		<span style="font-size: 20px; font-weight: 300;">Account Settings</span>
@@ -204,6 +204,16 @@
 				<?php echo form_input($seeGoalsOnDash); ?>
 			</div>
 		</div>
+		
+		<div>
+			<img src="../../uploads/profile/<?php echo $user_settings['userProfileImage']; ?>" width="100px" height="100px"  />
+		</div>
+		
+		<div>
+			<input type="file" name="profilePicture" size="20" />
+		</div>
+		
+		
 		<div style="clear:both"></div>
 	</div>
 	<div id="setting_form_container">
@@ -239,6 +249,9 @@
 		</div>
 		<div style="clear:both"></div>
 	</div>
+
+	
+	
 	<?php echo form_close(); ?>
 	<div style="clear:both"></div>
 </div>

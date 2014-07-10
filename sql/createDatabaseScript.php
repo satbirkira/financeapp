@@ -182,7 +182,7 @@
 			'satbir.kira@gmail.com',
 			'Satbir',
 			'Saini',
-			NULL
+			'd.jpg'
 		)";
 	if(!mysqli_query($link, $query)) die("Could not insert example: " . mysqli_error($link));
 	
@@ -247,7 +247,7 @@
 			'jimjones@gmail.com',
 			'Jim',
 			'Jones',
-			NULL
+			'd.jpg'
 		)";
 	if(!mysqli_query($link, $query)) die("Could not insert example: " . mysqli_error($link));
 

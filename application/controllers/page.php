@@ -9,6 +9,8 @@ class Page extends CI_Controller{
 		$this->load->model('goal_model');		
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');		
+		$this->load->library('upload');
+
 	}
 	
 	public function index()
@@ -354,6 +356,25 @@ class Page extends CI_Controller{
 			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[45]');
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[45]');
 			
+			/*
+			
+				Add image upload stuff
+			
+			*/
+			$imageUploaded = false;
+			if(isset($_FILES['profilePicture']) && $_FILES['profilePicture']['size'] > 0)
+			{
+				$config['upload_path'] = './uploads/profile/';
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['max_size'] = '100';
+				$config['max_width']  = '100';
+				$config['max_height']  = '100';
+				$this->load->library('upload', $config);
+				$imageUploaded = true;
+				var_dump(is_dir($config['upload_path']));
+			}
+			
+			
 			
 			$accountDetails['userName'] = $this->input->post('username');
 			$accountDetails['userFirstName'] = $this->input->post('firstname');
@@ -368,8 +389,29 @@ class Page extends CI_Controller{
 			if ($this->form_validation->run() == true)
 			{
 				
-				$this->user_model->updateUserAccount($this->session->userdata('suis_user_id'), $accountDetails);
-				$success_msg = "Account has been updated.";
+				//upload image
+				if($imageUploaded == true)
+				{
+					if ($this->upload->do_upload("profilePicture"))
+					{
+						$image_data = $this->upload->data();
+						$accountDetails['userProfileImage'] = $image_data['file_name'];
+						
+						//upload data
+						$this->user_model->updateUserAccount($this->session->userdata('suis_user_id'), $accountDetails);
+						$success_msg = "Account has been updated.";
+					}
+					else
+					{
+						$general_error = 'Could not upload image: '. $this->upload->display_errors();
+					}
+				}
+				else
+				{
+					//updata data
+					$this->user_model->updateUserAccount($this->session->userdata('suis_user_id'), $accountDetails);
+					$success_msg = "Account has been updated.";
+				}
 			}
 		}
 		else if (isset($_POST["update_pass_submit"]))
