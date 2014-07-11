@@ -348,11 +348,27 @@
                             </div>  
                             <div class="goalinfo">
                                 <label for="start">Start Date:</label>
-                                <div class="info"><?php echo $goals[$i]['startDate']; ?></div>
+                                <div class="info">
+								<?php 
+									$goals_start_day = date("F d", STRTOTIME($goals[$i]['startDate']));
+									$goals_start_year = date("Y", STRTOTIME($goals[$i]['startDate']));
+									echo $goals_start_day . ", ". $goals_start_year;
+									
+								?>
+								
+								</div>
                             </div>  
                             <div class="goalinfo">
                                 <label for="target">Target Date:</label>
-                                <div class="info"><?php echo $goals[$i]['targetDate']; ?></div>
+                                <div class="info">
+								<?php 
+									$goals_target_day = date("F d", STRTOTIME($goals[$i]['targetDate']));
+									$goals_target_year = date("Y", STRTOTIME($goals[$i]['targetDate']));
+									echo $goals_target_day . ", ". $goals_target_year;
+								
+								?>
+								
+								</div>
                             </div>  
                             <div class="goalinfo">
                                 <label for="target">Collaborators:</label>
@@ -375,7 +391,17 @@
                                     <?php 
                                           for($j = 0;$j<count($deposits[$i]);$j++){
                                     ?>
-                                    <th class="thDate"><?php echo $deposits[$i][$j]['depositDate']; ?></th>
+                                    <th class="thDate">
+									<?php 
+									
+									$deposits_day = date("F d", STRTOTIME($deposits[$i][$j]['depositDate']));
+									$deposits_year = date("Y", STRTOTIME($deposits[$i][$j]['depositDate']));
+									echo $deposits_day . ", ". $deposits_year;
+									
+									
+									?>
+									
+									</th>
                                     <?php } ?>
                                   </tr>
                                   <tr>
@@ -460,11 +486,28 @@
                             </div>  
                             <div class="goalinfo">
                                 <label for="start">Start Date:</label>
-                                <div class="info"><?php echo $cogoals[$i]['startDate']; ?></div>
+                                <div class="info">
+								<?php 
+								
+									$goals_colab_start_day = date("F d", STRTOTIME($goals[$i]['startDate']));
+									$goals_colab_start_year = date("Y", STRTOTIME($goals[$i]['startDate']));
+									echo $goals_colab_start_day . ", ". $goals_colab_start_year;
+								
+								
+								?>
+								</div>
                             </div>  
                             <div class="goalinfo">
                                 <label for="target">Target Date:</label>
-                                <div class="info"><?php echo $cogoals[$i]['targetDate']; ?></div>
+                                <div class="info">
+								<?php 
+								
+									$goals_colab_target_day = date("F d", STRTOTIME($goals[$i]['targetDate']));
+									$goals_colab_target_year = date("Y", STRTOTIME($goals[$i]['targetDate']));
+									echo $goals_colab_target_day . ", ". $goals_colab_target_year;
+								
+								?>
+								</div>
                             </div>  
                             <div class="goalinfo">
                                 <label for="target">Collaborators:</label>
@@ -488,7 +531,18 @@
                                     <?php 
                                           for($j = 0;$j<count($codeposits[$i]);$j++){
                                     ?>
-                                    <th class="thDate"><?php echo $codeposits[$i][$j]['depositDate']; ?></th>
+                                    <th class="thDate">
+									
+									<?php 
+									
+										$deposits_colab_day = date("F d", STRTOTIME($codeposits[$i][$j]['depositDate']));
+										$deposits_colab_year = date("Y", STRTOTIME($deposits[$i][$j]['depositDate']));
+										echo $deposits_colab_day . ", ". $deposits_colab_year;
+									
+									
+									?>
+									
+									</th>
                                     <?php } ?>
                                   </tr>
                                   <tr>
