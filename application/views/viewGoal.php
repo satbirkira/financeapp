@@ -536,7 +536,7 @@
 									<?php 
 									
 										$deposits_colab_day = date("F d", STRTOTIME($codeposits[$i][$j]['depositDate']));
-										$deposits_colab_year = date("Y", STRTOTIME($deposits[$i][$j]['depositDate']));
+										$deposits_colab_year = date("Y", STRTOTIME($codeposits[$i][$j]['depositDate']));
 										echo $deposits_colab_day . ", ". $deposits_colab_year;
 									
 									
