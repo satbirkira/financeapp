@@ -14,20 +14,21 @@
 			if (c != true) {
 				return;
 			} else {
-			var rep = /[A-Za-z_]/g;
-			var id = o.id.replace(rep,'');
-			var fid = $('#userId_'+id).val();
-			var siteurl = '<?php //echo site_url('index.php/friendManagement'); 
-							echo site_url('friendManagement');?>';
-			siteurl = siteurl+'/deleteFriend';
-			$.getJSON(siteurl+'?fid='+fid, function(data) {
-				if (data.ok == true){
-					$('#friend_'+id).remove();					
-				}else{
-					alert(data.msg);
-				}
-						
-			});
+				var rep = /[A-Za-z_]/g;
+				var id = o.id.replace(rep,'');
+				var fid = $('#userId_'+id).val();
+				var siteurl = '<?php //echo site_url('index.php/friendManagement'); 
+								echo site_url('friendManagement');?>';
+				siteurl = siteurl+'/deleteFriend';
+				$.getJSON(siteurl+'?fid='+fid, function(data) {
+					if (data.ok == true){
+						$('#friend_'+id).remove();					
+					}else{
+						alert(data.msg);
+					}
+							
+				});
+			}
 		}
 		
 		
@@ -37,11 +38,15 @@
              <!-- Start the container Div -->
              <div id="container"> 
 			 
-			 <a href="http://localhost/page/viewGoal">View Goal</a>
-			 <a href="http://localhost/page/addGoal">Add Goal</a>
-			 <a href="http://localhost/page/viewFriends">View Friends</a>
-			 <a href="http://localhost/page/addFriend">Add Friend</a>
-			 <a href="http://localhost/page/viewFriendsGoal">View Friend's Goals</a>
+			 <div class="goals_top_menu">
+			 	<div class="goals_top_menu_container">
+				 <a href="http://localhost/page/viewGoal">View Goal</a>
+				 <a href="http://localhost/page/addGoal">Add Goal</a>
+				 <a href="http://localhost/page/viewFriends" class="selected">View Friends</a>
+				 <a href="http://localhost/page/addFriend">Add Friend</a>
+				 <a href="http://localhost/page/viewFriendsGoal">View Friend's Goals</a>
+				</div>
+			 </div>
 			 
                 <!-- Registration Div starts here -->
                 <div id="registration" style="width:60%">

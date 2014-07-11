@@ -286,12 +286,15 @@
              <!-- Start the container Div -->
              <div id="container"> 
 			 
-			 <a href="http://localhost/page/viewGoal">View Goal</a>
-			 <a href="http://localhost/page/addGoal">Add Goal</a>
-			 <a href="http://localhost/page/viewFriends">View Friends</a>
-			 <a href="http://localhost/page/addFriend">Add Friend</a>
-			 <a href="http://localhost/page/viewFriendsGoal">View Friend's Goals</a>
-			 
+			 <div class="goals_top_menu">
+			 	<div class="goals_top_menu_container">
+				 <a href="http://localhost/page/viewGoal" class="selected">View Goal</a>
+				 <a href="http://localhost/page/addGoal">Add Goal</a>
+				 <a href="http://localhost/page/viewFriends">View Friends</a>
+				 <a href="http://localhost/page/addFriend">Add Friend</a>
+				 <a href="http://localhost/page/viewFriendsGoal">View Friend's Goals</a>
+				</div>
+			 </div>
 			 
                 <!-- goallist div starts here -->
                 <div id="goallist" class="goallist">

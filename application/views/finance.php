@@ -91,19 +91,20 @@
 	</div>
 	<div id="finance_form_container">
 		Note: These values are only for your refrence. Finance Buddy does not automatic put money into goals.
-		<div class="financeinput left">
+		<br><br>
+		<div class="settinginput left">
 			<label for="change_currentlySaved">Currently Saved</label><br>
 			<?php echo form_input($currentlySaved); ?>
 		</div>
-		<div class="financeinput right">
+		<div class="settinginput right">
 			<label for="change_interestOnSavings">Interest On Savings</label><br>
 			<?php echo form_input($interestOnSavings); ?>
 		</div>
-		<div class="financeinput left">
+		<div class="settinginput left">
 			<label for="change_monthlyIncome">Monthly Income</label><br>
 			<?php echo form_input($monthlyIncome); ?>
 		</div>
-		</div>
+		<div style="clear: both"></div>
 		<div id="finance_form_container">
 			<div class="updateacc_button">
 				<?php echo form_button($submit_finance); ?>
@@ -174,5 +175,7 @@
 		</table>
 	
 	-->
+
+	<div style="clear: both;"></div>
 	
 </div>

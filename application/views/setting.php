@@ -164,6 +164,16 @@
 		<span style="font-size: 20px; font-weight: 300;">Account Settings</span>
 	</div>
 	<div id="setting_form_container">
+
+		<div class="settinginput_profilepic">
+			<div id="current_pic">
+				<img src="../../uploads/profile/<?if($user_settings['userProfileImage'] != "") { echo $user_settings['userProfileImage']; } else { echo "d.jpg"; }?>" width="100px" height="100px"  />
+			</div>
+			<div id="file_button">
+			<input type="file" name="profilePicture" size="20" />
+			</div>
+		</div>
+		<br>
 		<div class="settinginput left">
 			<label for="change_firstname">First Name</label><br>
 			<?php echo form_input($firstname); ?>
@@ -204,15 +214,6 @@
 				<?php echo form_input($seeGoalsOnDash); ?>
 			</div>
 		</div>
-		
-		<div>
-			<img src="../../uploads/profile/<?php echo $user_settings['userProfileImage']; ?>" width="100px" height="100px"  />
-		</div>
-		
-		<div>
-			<input type="file" name="profilePicture" size="20" />
-		</div>
-		
 		
 		<div style="clear:both"></div>
 	</div>
