@@ -57,7 +57,10 @@ class DepositManagement extends CI_Controller{
 			$diff = $target - $start;			
 			$one_month=60*60*24*30;			
 			$numofmonth = ceil($diff/$one_month);
-			$monthly = ($detail[0]['totalCost'] - $amount)/$numofmonth;			
+			
+			//satbir: added a change so that desposit does not affect monthlyDeposit database
+			$monthly = $detail[0]['monthlyDepot'];
+			//$monthly = ($detail[0]['totalCost'] - $amount)/$numofmonth;			
 			$monthly = round($monthly,2);
 		    $this->goal_model->update_goal($gid,$amount,$status,$monthly);
 			

@@ -132,12 +132,12 @@
                                   'class'		=> 'form_input',
                                   'maxlength'   => '100'
                                 );
-                     $monthlyDepot = array(
+                    /* $monthlyDepot = array(
                                   'name'        => 'monthlyDepot',
                                   'id'          => 'monthlyDepot',
                                   'class'		=> 'form_input',
                                   'maxlength'   => '30'
-                                );
+                                );*/
                      $interestRate = array(
                                   'name'        => 'interestRate',
                                   'id'          => 'interestRate',
@@ -179,15 +179,15 @@
                                 <div id="validateTargetDate" class="errormsg"><?php echo form_error('targetDate'); ?></div>   
                             </div>
                        </div>
-
+						<!--
                        <div class="personalinfo">
                             <div class="glabel"><label for="monthlyDepot">Estimated Monthly Deposit($):</label></div>
                             <div class="ginput">                            	
-                                <?php echo form_input($monthlyDepot,set_value('monthlyDepot')); ?>
+                                <?php //echo form_input($monthlyDepot,set_value('monthlyDepot')); ?>
                            		<div id="validateMonthlyDepot" class="errormsg"><?php echo form_error('monthlyDepot'); ?></div>
                             </div>
                         </div>                       
-                        
+                        -->
                        <div class="personalinfo">
                             <div class="glabel"><label for="isPublic">Publish Option:</label></div>
                             <div class="ginput" style="float:left; margin-top: 8px;">                           	

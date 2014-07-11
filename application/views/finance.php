@@ -90,7 +90,7 @@
 		<span style="font-size: 20px; font-weight: 300;">Account finances</span>
 	</div>
 	<div id="finance_form_container">
-		Note: These values are only for your refrence. Finance Buddy does not automatic put money into goals.
+		Note: These values are only for your reference. Finance Buddy does not automatic put money into goals.
 		<br><br>
 		<div class="settinginput left">
 			<label for="change_currentlySaved">Currently Saved</label><br>

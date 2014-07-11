@@ -167,7 +167,7 @@
 
 		<div class="settinginput_profilepic">
 			<div id="current_pic">
-				<img src="../../uploads/profile/<?if($user_settings['userProfileImage'] != "") { echo $user_settings['userProfileImage']; } else { echo "d.jpg"; }?>" width="100px" height="100px"  />
+				<img src="../../uploads/profile/<?php if($user_settings['userProfileImage'] != "") { echo $user_settings['userProfileImage']; } else { echo "d.jpg"; }?>" width="100px" height="100px"  />
 			</div>
 			<div id="file_button">
 			<input type="file" name="profilePicture" size="20" />

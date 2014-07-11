@@ -142,7 +142,7 @@ class Page extends CI_Controller{
 			$this->form_validation->set_rules('total', 'Goal Total', 'trim|required|max_length[15]|numeric|greater_than[0]');
 			$this->form_validation->set_rules('startDate', 'Start Date', 'trim|required');
 			$this->form_validation->set_rules('targetDate', 'Target Date', 'trim|required');
-			$this->form_validation->set_rules('monthlyDepot', 'Estimated Monthly Deposit', 'trim|required|max_length[15]|numeric');
+			//$this->form_validation->set_rules('monthlyDepot', 'Estimated Monthly Deposit', 'trim|required|max_length[15]|numeric');
 			$this->form_validation->set_rules('interestRate', 'Annual Interest Rate', 'trim|numeric');
 			$startD = $this->input->post('startDate');
 			$targetD = $this->input->post('targetDate');
@@ -153,13 +153,27 @@ class Page extends CI_Controller{
 									'totalCost'=> $this->input->post('total'),											
 									'startDate'=> $startD,
 									'targetDate'=>$targetD,
-									'monthlyDepot'=>$this->input->post('monthlyDepot'),		
+									//'monthlyDepot'=>$this->input->post('monthlyDepot'),		
 									'currentlySaved'=>0,
 									'goalStatus'=>0,
 									'goalType'=>$this->input->post('isPublic')
 									
 			);
-
+			$startDate = strtotime($goal['startDate']);
+			$targetDate = strtotime($goal['targetDate']);
+			$yearS = date('Y', $startDate);
+			$yearF = date('Y', $targetDate);
+			$monthS = date('m', $startDate);
+			$monthF = date('m', $targetDate);
+			$diffMonths = (($yearF - $yearS) * 12) + ($monthF - $monthS);
+			if($diffMonths == 0)
+			{
+				$goal['monthlyDepot'] = (int)$goal['totalCost'];
+			}
+			else
+			{
+				$goal['monthlyDepot'] = (int)$goal['totalCost'] / (int)$diffMonths;
+			}
 			$result = $this->goal_model->create_new_goal($goal);
 			if ($this->form_validation->run() == true && $result)
 				{									

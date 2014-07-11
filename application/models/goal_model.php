@@ -131,7 +131,7 @@ class Goal_Model extends CI_Model {
 	function update_goal($gid,$amount,$status,$monthly)
     {
 		$data = array(
-						'monthlyDepot' => $monthly,
+						//'monthlyDepot' => $monthly,
 						'currentlySaved' => $amount,
 						'goalStatus' => $status
 				);				
