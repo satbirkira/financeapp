@@ -68,6 +68,7 @@
 		siteurl = siteurl+'/addDeposit';
 		var d = new Date();
 		var today = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+		var userName = '<?php echo $this->session->userdata('suis_user_name'); ?>';
 		
 		$.getJSON(siteurl+'?gid='+gid+'&amount='+amount, function(data) {
 			var result = $('#result_'+id);
@@ -85,7 +86,7 @@
 				//update goal progress table
 				if ($('#progress_'+id +' tr').length == 1){
 					$('#progress_'+id).empty();
-					$('#progress_'+id).append("<tr><th></th><th>"+today+"</th></tr><tr><td>Deposit</td><td>"+amount+"</td></tr>");
+					$('#progress_'+id).append("<tr><th></th><th>"+today+"</th></tr><tr><td>Deposit</td><td>"+amount+"</td></tr><tr><td></td><td>"+userName+"</td></tr>");
 					
 				}else{
 					var lastele = $('#progress_'+id+ ' tr:nth-child(1)');
@@ -93,6 +94,9 @@
 					
 					lastele = $('#progress_'+id+ ' tr:nth-child(2)');
 					lastele.append("<td>"+amount+"</td>");
+					
+					lastele = $('#progress_'+id+ ' tr:nth-child(3)');
+  				    lastele.append("<td>"+userName+"</td>");
 
 				}
 				//update collaborator lists
@@ -249,6 +253,14 @@
                                           for($j = 0;$j<count($deposits[$i]);$j++){
                                     ?>
                                     <td class="tdAmount"><?php echo $deposits[$i][$j]['amount']; ?></td>
+                                    <?php } ?>
+                                  </tr> 
+                                  <tr>
+                                    <td></td>
+                                     <?php
+                                          for($j = 0;$j<count($deposits[$i]);$j++){
+                                    ?>
+                                    <td class="tdUser"><?php echo $deposits[$i][$j]['userName']; ?></td>
                                     <?php } ?>
                                   </tr>                              
                                 </table>

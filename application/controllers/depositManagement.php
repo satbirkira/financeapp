@@ -16,13 +16,15 @@ class DepositManagement extends CI_Controller{
 		$amount = $_GET['amount'];
 		$amount = trim($amount);
 		$amount = preg_replace("/[\s]+/", "", $amount);					
+		$userId = $this->session->userdata('suis_user_id');
 	
 		$response = array();
 		
 		$deposit = array(
 							'goalID'=> $gid,	
 							'eventDate'=> date("Ymd"),
-							'amountChanged'=>$amount
+							'amountChanged'=>$amount,
+							'userID' => $userId
 									
 		);		
 		

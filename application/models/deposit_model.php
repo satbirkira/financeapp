@@ -20,10 +20,11 @@ class Deposit_Model extends CI_Model {
 	function get_deposit_history($gid)
 	{
 		$data = "";
-		$sql = "SELECT *
-				FROM history
-				WHERE goalID = ?
-				ORDER BY eventDate asc ";
+		$sql = "SELECT h.*, u.userName
+				FROM history h, user u
+				WHERE h.goalID = ?
+				  and h.userID = u.userID
+				ORDER BY h.eventDate asc ";
 									
 		$query = $this->db->query($sql,$gid);
 		
@@ -34,6 +35,7 @@ class Deposit_Model extends CI_Model {
      	     $data[$i]['goalId'] = $row['goalID'];
 			 $data[$i]['depositDate'] = $row['eventDate'];
 			 $data[$i]['amount'] = $row['amountChanged'];
+			 $data[$i]['userName'] = $row['userName'];
 			 
 			 $i++;
 		}

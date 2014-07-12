@@ -120,6 +120,7 @@
 	function deposit(type,o){
 		var rep = /[A-Za-z_]/g;
 		var id = o.id.replace(rep,'');
+		var userName = '<?php echo $this->session->userdata('suis_user_name'); ?>';
 		if (type == 'own'){
 			var amount = $('#save_'+id).val();
 			var gid = $('#goalId_'+id).val();
@@ -145,7 +146,7 @@
 					//update goal progress table
 					if ($('#progress_'+id +' tr').length == 1){
 						$('#progress_'+id).empty();
-						$('#progress_'+id).append("<tr><th></th><th>"+today+"</th></tr><tr><td>Deposit</td><td>"+amount+"</td></tr>");
+						$('#progress_'+id).append("<tr><th></th><th>"+today+"</th></tr><tr><td>Deposit</td><td>"+amount+"</td></tr><tr><td></td><td>"+userName+"</td></tr>");
 						
 					}else{
 						var lastele = $('#progress_'+id+ ' tr:nth-child(1)');
@@ -153,7 +154,9 @@
 						
 						lastele = $('#progress_'+id+ ' tr:nth-child(2)');
 						lastele.append("<td>"+amount+"</td>");
-	
+						
+						lastele = $('#progress_'+id+ ' tr:nth-child(3)');
+						lastele.append("<td>"+userName+"</td>");
 					}
 					
 				}else{
@@ -185,7 +188,7 @@
 					//update goal progress table
 					if ($('#coprogress_'+id +' tr').length == 1){
 						$('#coprogress_'+id).empty();
-						$('#coprogress_'+id).append("<tr><th></th><th>"+today+"</th></tr><tr><td>Deposit</td><td>"+amount+"</td></tr>");
+						$('#coprogress_'+id).append("<tr><th></th><th>"+today+"</th></tr><tr><td>Deposit</td><td>"+amount+"</td></tr><tr><td></td><td>"+userName+"</td></tr>");
 						
 					}else{
 						var lastele = $('#coprogress_'+id+ ' tr:nth-child(1)');
@@ -193,6 +196,9 @@
 						
 						lastele = $('#coprogress_'+id+ ' tr:nth-child(2)');
 						lastele.append("<td>"+amount+"</td>");
+						
+						lastele = $('#coprogress_'+id+ ' tr:nth-child(3)');
+						lastele.append("<td>"+userName+"</td>");
 	
 					}
 					
@@ -411,6 +417,14 @@
                                     ?>
                                     <td class="tdAmount"><?php echo $deposits[$i][$j]['amount']; ?></td>
                                     <?php } ?>
+                                  </tr>  
+                                  <tr>
+                                    <td></td>
+                                     <?php
+                                          for($j = 0;$j<count($deposits[$i]);$j++){
+                                    ?>
+                                    <td class="tdUser"><?php echo $deposits[$i][$j]['userName']; ?></td>
+                                    <?php } ?>
                                   </tr>                              
                                 </table>
                                     <?php 
@@ -551,6 +565,14 @@
                                           for($j = 0;$j<count($codeposits[$i]);$j++){
                                     ?>
                                     <td class="tdAmount"><?php echo $codeposits[$i][$j]['amount']; ?></td>
+                                    <?php } ?>
+                                  </tr> 
+								  <tr>
+                                    <td></td>
+                                     <?php
+                                          for($j = 0;$j<count($codeposits[$i]);$j++){
+                                    ?>
+                                    <td class="tdUser"><?php echo $codeposits[$i][$j]['userName']; ?></td>
                                     <?php } ?>
                                   </tr>                              
                                 </table>
