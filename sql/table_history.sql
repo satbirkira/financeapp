@@ -4,5 +4,6 @@ CREATE TABLE  `financeapp`.`history` (
   `goalID` int(10) NOT NULL,
   `eventDate` date NOT NULL,
   `amountChanged` int(10) NOT NULL DEFAULT '0',
+  `userID` int(10) NOT NULL
   PRIMARY KEY (`historyID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=gb2312 ROW_FORMAT=DYNAMIC;
