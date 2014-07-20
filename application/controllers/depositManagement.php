@@ -62,7 +62,7 @@ class DepositManagement extends CI_Controller{
 			
 			//satbir: added a change so that desposit does not affect monthlyDeposit database
 			$monthly = $detail[0]['monthlyDepot'];
-			//$monthly = ($detail[0]['totalCost'] - $amount)/$numofmonth;			
+			$monthly = ($detail[0]['totalCost'] - $amount)/$numofmonth;			
 			$monthly = round($monthly,2);
 		    $this->goal_model->update_goal($gid,$amount,$status,$monthly);
 			
