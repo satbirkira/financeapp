@@ -62,8 +62,13 @@ Functional / Non Functional Properties
 Screenshots
 -------
 
-**Registration**
+***Login***
 
+![Login](/screenshots/login.png?raw=true "Login")
+
+***Registration***
+
+![Registration](/screenshots/register.png?raw=true "Registration")
 
 ***Dashboard***
 
