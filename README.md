@@ -57,7 +57,10 @@ Functional / Non Functional Properties
 2. User Friendliness
 3. Cost Benefit
 
+Component Diagram
+-------
 
+![Component Diagram](/screenshots/diagram2.png?raw=true "Component Diagram")
 
 Screenshots
 -------
